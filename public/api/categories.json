@@ -1,0 +1,400 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Food",
+      "slug": "Food",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/food.svg",
+        "original": "/assets/images/coupon-category/food.svg"
+      },
+      "icon": "/assets/images/coupon-category/food.svg"
+    },
+    {
+      "id": 2,
+      "name": "Clothing",
+      "slug": "Clothing",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/clothing.svg",
+        "original": "/assets/images/coupon-category/clothing.svg"
+      },
+      "icon": "/assets/images/coupon-category/clothing.svg"
+    },
+    {
+      "id": 3,
+      "name": "Entertainment",
+      "slug": "Entertainment",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/entertainment.svg",
+        "original": "/assets/images/coupon-category/entertainment.svg"
+      },
+      "icon": "/assets/images/coupon-category/entertainment.svg"
+    },
+    {
+      "id": 4,
+      "name": "Mobiles",
+      "slug": "Mobiles",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/mobile.svg",
+        "original": "/assets/images/coupon-category/mobile.svg"
+      },
+      "icon": "/assets/images/coupon-category/mobile.svg"
+    },
+    {
+      "id": 5,
+      "name": "Recharges",
+      "slug": "Recharges",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/ticket-alt-solid.svg",
+        "original": "/assets/images/coupon-category/ticket-alt-solid.svg"
+      },
+      "icon": "/assets/images/coupon-category/ticket-alt-solid.svg"
+    },
+    {
+      "id": 6,
+      "name": "Electronics",
+      "slug": "Electronics",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/charging-station-solid.svg",
+        "original": "/assets/images/coupon-category/charging-station-solid.svg"
+      },
+      "icon": "/assets/images/coupon-category/charging-station-solid.svg"
+    },
+    {
+      "id": 7,
+      "name": "Gifts",
+      "slug": "Gifts",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/gifts-solid.svg",
+        "original": "/assets/images/coupon-category/gifts-solid.svg"
+      },
+      "icon": "/assets/images/coupon-category/gifts-solid.svg"
+    },
+    {
+      "id": 8,
+      "name": "Travels",
+      "slug": "Travels",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/luggage-cart-solid.svg",
+        "original": "/assets/images/coupon-category/luggage-cart-solid.svg"
+      },
+      "icon": "/assets/images/coupon-category/luggage-cart-solid.svg"
+    },
+    {
+      "id": 9,
+      "name": "eCommerce",
+      "slug": "eCommerce",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/comment-dollar-solid.svg",
+        "original": "/assets/images/coupon-category/comment-dollar-solid.svg"
+      },
+      "icon": "/assets/images/coupon-category/comment-dollar-solid.svg"
+    },
+    {
+      "id": 10,
+      "name": "Laptop",
+      "slug": "Laptop",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/laptop-solid.svg",
+        "original": "/assets/images/coupon-category/laptop-solid.svg"
+      },
+      "icon": "/assets/images/coupon-category/laptop-solid.svg"
+    },
+    {
+      "id": 11,
+      "name": "Footware",
+      "slug": "Footware",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/shoe-prints-solid.svg",
+        "original": "/assets/images/coupon-category/shoe-prints-solid.svg"
+      },
+      "icon": "/assets/images/coupon-category/shoe-prints-solid.svg"
+    },
+    {
+      "id": 12,
+      "name": "Transport",
+      "slug": "Transport",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/transport.svg",
+        "original": "/assets/images/coupon-category/transport.svg"
+      },
+      "icon": "/assets/images/coupon-category/transport.svg"
+    },
+    {
+      "id": 13,
+      "name": "Banks",
+      "slug": "Banks",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/shoe-prints-solid.svg",
+        "original": "/assets/images/coupon-category/shoe-prints-solid.svg"
+      },
+      "icon": "/assets/images/coupon-category/shoe-prints-solid.svg"
+    },
+    {
+      "id": 14,
+      "name": "Pharmacy",
+      "slug": "Pharmacy",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/prescription-solid.svg",
+        "original": "/assets/images/coupon-category/prescription-solid.svg"
+      },
+      "icon": "/assets/images/coupon-category/prescription-solid.svg"
+    },
+    {
+      "id": 15,
+      "name": "Furniture",
+      "slug": "Furniture",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/couch-solid.svg",
+        "original": "/assets/images/coupon-category/couch-solid.svg"
+      },
+      "icon": "/assets/images/coupon-category/couch-solid.svg"
+    },
+    {
+      "id": 16,
+      "name": "Hotels",
+      "slug": "Hotels",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/hotel-solid.svg",
+        "original": "/assets/images/coupon-category/hotel-solid.svg"
+      },
+      "icon": "/assets/images/coupon-category/hotel-solid.svg"
+    },
+    {
+      "id": 17,
+      "name": "Health",
+      "slug": "Health",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/ambulance-solid.svg",
+        "original": "/assets/images/coupon-category/ambulance-solid.svg"
+      },
+      "icon": "/assets/images/coupon-category/ambulance-solid.svg"
+    },
+    {
+      "id": 18,
+      "name": "Grocery",
+      "slug": "Grocery",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/shopping-basket-solid.svg",
+        "original": "/assets/images/coupon-category/shopping-basket-solid.svg"
+      },
+      "icon": "/assets/images/coupon-category/shopping-basket-solid.svg"
+    },
+    {
+      "id": 19,
+      "name": "Bags",
+      "slug": "Bags",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/Bags.svg",
+        "original": "/assets/images/coupon-category/Bags.svg"
+      },
+      "icon": "/assets/images/coupon-category/Bags.svg"
+    },
+    {
+      "id": 20,
+      "name": "Innerwear",
+      "slug": "Innerwear",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/baby-solid.svg",
+        "original": "/assets/images/coupon-category/baby-solid.svg"
+      },
+      "icon": "/assets/images/coupon-category/baby-solid.svg"
+    },
+    {
+      "id": 21,
+      "name": "IT",
+      "slug": "IT",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/it.svg",
+        "original": "/assets/images/coupon-category/it.svg"
+      },
+      "icon": "/assets/images/coupon-category/it.svg"
+    },
+    {
+      "id": 22,
+      "name": "Jewellery",
+      "slug": "Jewellery",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/gem-solid.svg",
+        "original": "/assets/images/coupon-category/gem-solid.svg"
+      },
+      "icon": "/assets/images/coupon-category/gem-solid.svg"
+    },
+    {
+      "id": 23,
+      "name": "Automobiles",
+      "slug": "Automobiles",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/tachometer-alt-solid.svg",
+        "original": "/assets/images/coupon-category/tachometer-alt-solid.svg"
+      },
+      "icon": "/assets/images/coupon-category/tachometer-alt-solid.svg"
+    },
+    {
+      "id": 24,
+      "name": "Computer",
+      "slug": "Computer",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/toolbox-solid.svg",
+        "original": "/assets/images/coupon-category/toolbox-solid.svg"
+      },
+      "icon": "/assets/images/coupon-category/toolbox-solid.svg"
+    },
+    {
+      "id": 25,
+      "name": "Books",
+      "slug": "Books",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/book-solid.svg",
+        "original": "/assets/images/coupon-category/book-solid.svg"
+      },
+      "icon": "/assets/images/coupon-category/book-solid.svg"
+    },
+    {
+      "id": 26,
+      "name": "Kids",
+      "slug": "Kids",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/child-solid.svg",
+        "original": "/assets/images/coupon-category/child-solid.svg"
+      },
+      "icon": "/assets/images/coupon-category/child-solid.svg"
+    },
+    {
+      "id": 27,
+      "name": "Property",
+      "slug": "Property",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/Property.svg",
+        "original": "/assets/images/coupon-category/Property.svg"
+      },
+      "icon": "/assets/images/coupon-category/Property.svg"
+    },
+    {
+      "id": 28,
+      "name": "Insurance",
+      "slug": "Insurance",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/insurance.svg",
+        "original": "/assets/images/coupon-category/insurance.svg"
+      },
+      "icon": "/assets/images/coupon-category/insurance.svg"
+    },
+    {
+      "id": 29,
+      "name": "Stationary",
+      "slug": "Stationary",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/stationary.svg",
+        "original": "/assets/images/coupon-category/stationary.svg"
+      },
+      "icon": "/assets/images/coupon-category/stationary.svg"
+    },
+    {
+      "id": 30,
+      "name": "Education",
+      "slug": "Education",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/education.svg",
+        "original": "/assets/images/coupon-category/education.svg"
+      },
+      "icon": "/assets/images/coupon-category/education.svg"
+    },
+    {
+      "id": 31,
+      "name": "Sports",
+      "slug": "Sports",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/Sports.svg",
+        "original": "/assets/images/coupon-category/Sports.svg"
+      },
+      "icon": "/assets/images/coupon-category/Sports.svg"
+    },
+    {
+      "id": 32,
+      "name": "Accessories",
+      "slug": "Accessories",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/accessories.svg",
+        "original": "/assets/images/coupon-category/accessories.svg"
+      },
+      "icon": "/assets/images/coupon-category/accessories.svg"
+    },
+    {
+      "id": 33,
+      "name": "Beauty",
+      "slug": "Beauty",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/beauty.svg",
+        "original": "/assets/images/coupon-category/beauty.svg"
+      },
+      "icon": "/assets/images/coupon-category/beauty.svg"
+    },
+    {
+      "id": 34,
+      "name": "Household",
+      "slug": "Household",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/household.svg",
+        "original": "/assets/images/coupon-category/household.svg"
+      },
+      "icon": "/assets/images/coupon-category/household.svg"
+    },
+    {
+      "id": 35,
+      "name": "Agro",
+      "slug": "Agro",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/agro.svg",
+        "original": "/assets/images/coupon-category/agro.svg"
+      },
+      "icon": "/assets/images/coupon-category/agro.svg"
+    },
+    {
+      "id": 36,
+      "name": "Home",
+      "slug": "Home",
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/coupon-category/home-solid.svg",
+        "original": "/assets/images/coupon-category/home-solid.svg"
+      },
+      "icon": "/assets/images/coupon-category/home-solid.svg"
+    }
+  ]
+}
