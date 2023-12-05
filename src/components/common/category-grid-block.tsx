@@ -1,14 +1,14 @@
-import dynamic from 'next/dynamic';
-import CategoryCard from '@components/cards/category-card';
-import SectionHeader from '@components/common/section-header';
-import CategoryCardLoader from '@components/ui/loaders/category-card-loader';
-import { useCategoriesQuery } from '@framework/category/get-all-categories';
-import { ROUTES } from '@utils/routes';
-import Alert from '@components/ui/alert';
-import { SwiperSlide } from 'swiper/react';
-import useWindowSize from '@utils/use-window-size';
-import { LIMITS } from '@framework/utils/limits';
-const Carousel = dynamic(() => import('@components/ui/carousel/carousel'), {
+import dynamic from "next/dynamic";
+import CategoryCard from "@components/cards/category-card";
+import SectionHeader from "@components/common/section-header";
+import CategoryCardLoader from "@components/ui/loaders/category-card-loader";
+import { useCategoriesQuery } from "@framework/category/get-all-categories";
+import { ROUTES } from "@utils/routes";
+import Alert from "@components/ui/alert";
+import { SwiperSlide } from "swiper/react";
+import useWindowSize from "@utils/use-window-size";
+import { LIMITS } from "@framework/utils/limits";
+const Carousel = dynamic(() => import("@components/ui/carousel/carousel"), {
   ssr: false,
 });
 
@@ -16,34 +16,34 @@ interface CategoriesProps {
   className?: string;
 }
 const breakpoints = {
-  '1640': {
+  "1640": {
     slidesPerView: 9,
     spaceBetween: 24,
   },
-  '1280': {
+  "1280": {
     slidesPerView: 7,
     spaceBetween: 20,
   },
-  '1024': {
+  "1024": {
     slidesPerView: 6,
     spaceBetween: 20,
   },
-  '768': {
+  "768": {
     slidesPerView: 5,
     spaceBetween: 15,
   },
-  '530': {
+  "530": {
     slidesPerView: 4,
     spaceBetween: 15,
   },
-  '0': {
+  "0": {
     slidesPerView: 3,
     spaceBetween: 15,
   },
 };
 
 const CategoryGridBlock: React.FC<CategoriesProps> = ({
-  className = 'md:pt-3 lg:pt-0 3xl:pb-2 mb-12 sm:mb-14 md:mb-16 xl:mb-24 2xl:mb-16',
+  className = "md:pt-3 lg:pt-0 3xl:pb-2 mb-12 sm:mb-14 md:mb-16 xl:mb-24 2xl:mb-16",
 }) => {
   const { width } = useWindowSize();
 
@@ -51,21 +51,25 @@ const CategoryGridBlock: React.FC<CategoriesProps> = ({
     limit: LIMITS.CATEGORIES_LIMITS,
   });
 
+  // console.log("catagory");
+  // console.log(data);
+  // console.log(isLoading);
+  // console.log(error);
   return (
     <div className={className}>
       <SectionHeader
-        sectionHeading='Get your offers'
-        sectionSubHeading='Here choose offers from different categories'
-        headingPosition='center'
+        sectionHeading="Get your offers"
+        sectionSubHeading="Here choose offers from different categories"
+        headingPosition="center"
       />
-      <div className='block 2xl:flex justify-center flex-wrap 3xl:-mx-3.5'>
+      <div className="block 2xl:flex justify-center flex-wrap 3xl:-mx-3.5">
         {error ? (
-          <Alert message={error?.message} className='mb-14 3xl:mx-3.5' />
+          <Alert message={error?.message} className="mb-14 3xl:mx-3.5" />
         ) : width! < 1536 ? (
           <Carousel
             autoplay={false}
             breakpoints={breakpoints}
-            buttonGroupClassName='-mt-5 md:-mt-4 lg:-mt-5'
+            buttonGroupClassName="-mt-5 md:-mt-4 lg:-mt-5"
           >
             {isLoading && !data
               ? Array.from({ length: 16 }).map((_, idx) => {
@@ -92,7 +96,7 @@ const CategoryGridBlock: React.FC<CategoriesProps> = ({
             return (
               <div
                 key={`category-card-${idx}`}
-                className='shrink-0 lg:px-3.5 2xl:w-[12.5%] 3xl:w-1/9 mb-12'
+                className="shrink-0 lg:px-3.5 2xl:w-[12.5%] 3xl:w-1/9 mb-12"
               >
                 <CategoryCardLoader uniqueKey={`category-card-${idx}`} />
               </div>
@@ -107,7 +111,7 @@ const CategoryGridBlock: React.FC<CategoriesProps> = ({
                 pathname: ROUTES.OFFER,
                 query: { category: category.slug },
               }}
-              className='shrink-0 2xl:px-3.5 2xl:w-[12.5%] 3xl:w-1/9 mb-12'
+              className="shrink-0 2xl:px-3.5 2xl:w-[12.5%] 3xl:w-1/9 mb-12"
             />
           ))
         )}

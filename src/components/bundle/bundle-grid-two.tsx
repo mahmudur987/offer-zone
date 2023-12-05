@@ -34,6 +34,9 @@ const BundleGrid: React.FC<Props> = ({ className = 'mb-12 pb-0.5', }) => {
   const { width } = useWindowSize();
   const { data } = useSlidesQuery({});
 
+
+
+
   return (
     <div className={cn(className)}>
       {data ? (

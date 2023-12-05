@@ -1,4 +1,4 @@
-import Image from "@components/ui/image";
+ import Image from "@components/ui/image";
 import { useTranslation } from "next-i18next";
 import { Slide } from "@framework/types";
 

@@ -29,7 +29,7 @@ const OfferSingleDetails: React.FC = () => {
   const { width } = useWindowSize();
   const { data, isLoading } = useOfferData(id as string);
   // const { merchantData } = useMerchantData(data?.MerchantID ?? '');
-
+console.log(data)
   const { addItemToCart, isInCart, isInStock, merchantID } = useCart();
 
   const [gallery, setGallery] = useState<Object[]>([]);

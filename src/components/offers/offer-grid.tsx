@@ -13,7 +13,7 @@ interface ProductGridProps {
 
 export const OfferGrid: FC<ProductGridProps> = ({ className = '' }) => {
   const { data, isLoading, error } = useOffersData();
-
+console.log(data)
   return (
     <>
       <div

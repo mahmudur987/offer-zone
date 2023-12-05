@@ -1,4 +1,41 @@
-import { QueryKey } from 'react-query';
+import { QueryKey } from "react-query";
+export type CompanyData = {
+  id: number;
+  short_name: string;
+  company_name: string;
+  description: string;
+  com_logo: string;
+  favicon_icon: string;
+  welcome_message: string;
+  about_us: string;
+  background_img: string;
+  background_alt_tag: string;
+  image1: string;
+  image1_alt_tag: string;
+  image2: string;
+  image2_alt_tag: string;
+  image3: string;
+  image3_alt_tag: string;
+  email1: string | null;
+  email2: string | null;
+  website: string | null;
+  phone1: string | null;
+  phone2: string | null;
+  mobile1: string | null;
+  mobile2: string | null;
+  address: string;
+  facebook: string | null;
+  twitter: string | null;
+  instagram: string | null;
+  youtube: string | null;
+  glg_map: string;
+  created_at: string;
+  updated_at: string;
+  api_key: string | null;
+  status: boolean;
+  created_by: string | null;
+  updated_by: string | null;
+};
 
 export type CollectionsQueryOptionsType = {
   text?: string;
