@@ -23,9 +23,10 @@ export const useCompanyData = () => {
   const { data, isLoading, error } = useQuery<CompanyData, Error>(
     ["company-data"],
     async () => {
-      const response = await axios.get(
-        "http://api.offerzonebd.com/api/company-data/"
-      );
+      const response = await http.get(API_ENDPOINTS.COMPANY_DATA);
+      // const response = await axios.get(
+      //   "http://api.offerzonebd.com/api/company-data/"
+      // );
       return response.data; // Assuming the data is directly in the response.data property
     }
   );

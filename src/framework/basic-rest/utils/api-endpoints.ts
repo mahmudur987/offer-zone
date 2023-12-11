@@ -3,10 +3,10 @@ export const API_ENDPOINTS = {
   REGISTER: "/register",
   LOGOUT: "/logout",
   FORGET_PASSWORD: "/forget-password",
-  CATEGORIES: "/categories.json",
+  CATEGORIES: "category-list",
   DIETARY: "/dietary.json",
   BRANDS: "/brands.json",
-  PRODUCTS: "/products.json",
+  PRODUCTS: "products",
   PRODUCT: "/product.json",
   RELATED_PRODUCTS: "/related_products.json",
   FLASH_SELL_PRODUCTS: "/products_flash_sell.json",
@@ -28,4 +28,5 @@ export const API_ENDPOINTS = {
   SHOPS: "/shops.json",
   WISHLIST: "/wishlist.json",
   SLIDES: "https://offerzone-deploy.firebaseio.com/sliderInfo.json",
+  COMPANY_DATA: "company-data",
 };

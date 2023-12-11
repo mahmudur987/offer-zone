@@ -27,7 +27,11 @@ const CategoryCard: React.FC<Props> = ({ item, href, className }) => {
           className={`flex shrink-0 transition-all duration-300 scale-50 group-hover:scale-75 w-full h-full transform items-center justify-center`}
         >
           <Image
-            src={image?.original ?? categoryPlaceholder}
+            src={
+              item?.image?.original
+                ? item.image.original
+                : image ?? categoryPlaceholder
+            }
             alt={name || t("text-card-thumbnail")}
             width={178}
             height={178}

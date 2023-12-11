@@ -22,7 +22,6 @@ export default function HeroBannerCard({
   const { t } = useTranslation("common");
   const { width } = useWindowSize();
   const { title, description, image } = banner;
-  console.log(banner);
 
   const selectedImage = getImage(width!, image);
   return (

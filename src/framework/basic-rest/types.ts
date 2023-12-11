@@ -37,6 +37,28 @@ export type CompanyData = {
   updated_by: string | null;
 };
 
+export type NewProduct = {
+  id: number;
+  merchant_name: string;
+  name: string;
+  code: string;
+  image: string | null;
+  price: number;
+  compare_price: number;
+  quantity: number;
+  description: string;
+  add_date: string; // Assuming the date is in string format
+  stock_status: "0" | "1"; // Assuming stock status is a string with values "0" or "1"
+  ordering: number;
+  status: boolean;
+  meta_description: string;
+  meta_keywords: string;
+  meta_title: string;
+  category: number;
+  sub_category: number;
+  merchant: string;
+};
+
 export type CollectionsQueryOptionsType = {
   text?: string;
   collection?: string;
@@ -74,16 +96,13 @@ export type Attachment = {
   original: string;
 };
 export type Category = {
-  id: number | string;
+  id: number;
+  total_products: number;
+  status: boolean;
   name: string;
-  slug: string;
-  details?: string;
-  image?: Attachment;
-  icon?: string;
-  children?: [Category];
-  products?: Product[];
-  productCount?: number;
-  [key: string]: unknown;
+  short_name: string | null;
+  image: string | null;
+  created_by: string | null;
 };
 export type Collection = {
   id: number | string;
@@ -213,28 +232,19 @@ export interface Offer {
 }
 
 export interface Merchant {
-  Address: string;
-  Balance: string;
-  BranchName: string;
-  Category: string;
-  ContactDesignation: string;
-  ContactPerson: string;
-  District: string;
-  Due: string;
-  Email: string;
-  FollowedStores: string;
-  GivenOffers: string;
-  MerchantID: string;
-  Mperson: string;
-  Name: string;
-  Paid: string;
-  Password: string;
-  Phone: string;
-  ProfileImage: string;
-  Reference: string;
-  ReqDate: string;
-  Status: string;
-  Upazila: string;
+  id: string;
+  name: string;
+  address: string;
+  website: string | null;
+  branch: string | null;
+  phone_number: string;
+  contact_designation: string | null;
+  contact_person: string | null;
+  division: string;
+  district: string;
+  upazila: string;
+  photo: string | any;
+  email: string | null;
 }
 
 export interface MemberFormValues {

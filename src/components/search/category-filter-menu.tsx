@@ -26,10 +26,11 @@ function CategoryFilterMenuItem({
     [query?.category]
   );
   const isActive =
-    checkIsActive(selectedCategories, item.slug) ||
+    checkIsActive(selectedCategories, item.name) ||
     item?.children?.some((_item: any) =>
-      checkIsActive(selectedCategories, _item.slug)
+      checkIsActive(selectedCategories, item)
     );
+
   const [isOpen, setOpen] = useState<boolean>(isActive);
   const [subItemAction, setSubItemAction] = useState<boolean>(false);
   useEffect(() => {
@@ -50,18 +51,21 @@ function CategoryFilterMenuItem({
       toggleCollapse();
     } else {
       const { category, ...restQuery } = query;
-      const currentFormState = selectedCategories.includes(slug)
-        ? selectedCategories.filter((i) => i !== slug)
-        : [...selectedCategories, slug];
+      const currentFormState = selectedCategories.includes(name)
+        ? selectedCategories.filter((i) => i !== name)
+        : [...selectedCategories, name];
+
+      const queryObj = {
+        ...restQuery,
+        ...(currentFormState.length
+          ? { category: currentFormState.join(",") }
+          : {}),
+      };
+
       router.push(
         {
           pathname,
-          query: {
-            ...restQuery,
-            ...(currentFormState.length
-              ? { category: currentFormState.join(",") }
-              : {}),
-          },
+          query: queryObj,
         },
         undefined,
         { scroll: false }
@@ -149,7 +153,7 @@ function CategoryFilterMenu({ items, className }: any) {
     <ul className={cn(className)}>
       {items?.map((item: any) => (
         <CategoryFilterMenuItem
-          key={`${item.slug}-key-${item.id}`}
+          key={`${item.name}-key-${item.id}`}
           item={item}
         />
       ))}

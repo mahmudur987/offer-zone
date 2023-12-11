@@ -6,17 +6,17 @@ export const footer = {
       lists: [
         {
           id: 1,
-          title: "link-about-us",
+          title: "About-us",
           path: "/about-us",
         },
         {
           id: 2,
-          title: "link-contact-us",
+          title: "Contact-us",
           path: "/contact-us",
         },
         {
           id: 3,
-          title: "link-about-team",
+          title: "About-team",
           path: "/about-us",
         },
       ],
@@ -27,27 +27,27 @@ export const footer = {
       lists: [
         {
           id: 1,
-          title: "link-privacy",
+          title: "Privacy",
           path: "/privacy",
         },
         {
           id: 2,
-          title: "link-terms",
+          title: "Terms",
           path: "/terms",
         },
         {
           id: 4,
-          title: "link-customer-support",
+          title: "Customer-support",
           path: "/contact-us",
         },
         {
           id: 3,
-          title: "link-return-policy",
+          title: "Return-policy",
           path: "/privacy",
         },
         {
           id: 4,
-          title: "link-site-map",
+          title: "Site-map",
           path: "/",
         },
       ],
@@ -58,22 +58,22 @@ export const footer = {
       lists: [
         {
           id: 1,
-          title: "link-announcements",
+          title: "Announcements",
           path: "/",
         },
         {
           id: 2,
-          title: "link-answer-center",
+          title: "Answer-center",
           path: "/",
         },
         {
           id: 3,
-          title: "link-discussion-boards",
+          title: "Discussion-boards",
           path: "/",
         },
         {
           id: 4,
-          title: "link-giving-works",
+          title: "Giving-works",
           path: "/",
         },
       ],

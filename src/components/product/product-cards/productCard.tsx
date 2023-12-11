@@ -1,6 +1,6 @@
 import cn from "classnames";
 import Image from "@components/ui/image";
-import { Offer } from "@framework/types";
+import { NewProduct } from "@framework/types";
 
 import { useTranslation } from "next-i18next";
 import { productPlaceholder } from "@assets/placeholders";
@@ -14,47 +14,38 @@ const AddToCartCustom = dynamic(
 );
 
 interface ProductProps {
-  product: Offer;
+  product: NewProduct;
   className?: string;
   showCounter?: boolean;
 }
-function RenderPopupOrAddToCart({ props }: { props: { data: Offer } }) {
+function RenderPopupOrAddToCart({ props }: { props: { data: NewProduct } }) {
   const { data } = props;
   return <AddToCartCustom data={data} variant="mercury" />;
 }
-const ProductCard: React.FC<ProductProps> = ({
+const NewProductCard: React.FC<ProductProps> = ({
   product,
   className,
   showCounter,
 }) => {
-  const {
-    OfferID,
-    OfferzoneDiscount,
-    Name,
-    OfferDescription,
-    // OfferStarts,
-    // OfferEnds,
-  } = product ?? {};
+  const { name, image, OfferzoneDiscount, OfferDescription, description } =
+    product ?? {};
   const { t } = useTranslation("common");
   const router = useRouter();
 
   return (
     <article
       className={cn(
-        "flex flex-col group overflow-hidden rounded-md cursor-pointer transition-all duration-300 shadow-card hover:shadow-cardHover relative h-full",
+        "  max-w-sm flex flex-col group overflow-hidden rounded-md cursor-pointer transition-all duration-300 shadow-card hover:shadow-cardHover relative h-full",
         className
       )}
-      onClick={() => router.push(`offers/${OfferID}`)}
-      title={Name}
+      onClick={() => router.push(`offers/${""}`)}
+      title={name}
     >
       <div className="relative shrink-0">
         <div className="flex overflow-hidden max-w-[230px] mx-auto transition duration-200 ease-in-out transform group-hover:scale-105 relative">
           <Image
-            src={
-              `https://www.offerzonebd.com/testapi/images/${OfferID}o1o.jpg` ??
-              productPlaceholder
-            }
-            alt={Name || "Product Image"}
+            src={image ? image : productPlaceholder}
+            alt={name || "Product Image"}
             width={230}
             height={200}
             quality={100}
@@ -76,13 +67,13 @@ const ProductCard: React.FC<ProductProps> = ({
       </div>
 
       <div className="flex flex-col px-3 md:px-4 lg:px-[18px] pb-5 lg:pb-6 lg:pt-1.5 h-full">
-        <h2 className="text-brand-dark text-13px sm:text-sm lg:text-15px leading-5 sm:leading-6 mb-1.5">
+        <h2 className="text-center text-brand-dark text-13px sm:text-sm lg:text-15px leading-5 sm:leading-6 mb-1.5">
           {name && name.length > 50 ? name.substring(0, 50) + "..." : name}
         </h2>
         <div className="mt-auto text-13px sm:text-sm">
-          {OfferDescription && OfferDescription.length > 50
-            ? OfferDescription.substring(0, 50) + "..."
-            : OfferDescription}
+          {description && description.length > 50
+            ? description.substring(0, 50) + "..."
+            : description}
         </div>
         {/* <div className='mt-auto text-13px sm:text-sm'>{unit}</div> */}
       </div>
@@ -90,4 +81,4 @@ const ProductCard: React.FC<ProductProps> = ({
   );
 };
 
-export default ProductCard;
+export default NewProductCard;

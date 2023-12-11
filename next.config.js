@@ -4,11 +4,11 @@
 /**
  * @type {import('next').NextConfig}
  */
-const { i18n } = require('./next-i18next.config');
-const runtimeCaching = require('next-pwa/cache');
-const withPWA = require('next-pwa')({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
+const { i18n } = require("./next-i18next.config");
+const runtimeCaching = require("next-pwa/cache");
+const withPWA = require("next-pwa")({
+  dest: "public",
+  disable: process.env.NODE_ENV === "development",
   runtimeCaching,
 });
 
@@ -17,16 +17,30 @@ module.exports = withPWA({
   i18n,
 
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'www.offerzonebd.com',
-        port: '',
-        pathname: '/**',
-      },
+    domains: [
+      "images.unsplash.com",
+      "cdn.pixabay.com",
+      "images.pexel.com",
+      "plus.unsplash.com",
+      "api.offerzonebd.com",
+      "www.offerzonebd.com",
     ],
+    // remotePatterns: [
+    //   {
+    //     protocol: "https",
+    //     hostname: "www.offerzonebd.com",
+    //     port: "",
+    //     pathname: "/**",
+    //   },
+    //   {
+    //     protocol: "https",
+    //     hostname: "api.offerzonebd.com",
+    //     port: "",
+    //     pathname: "/**",
+    //   },
+    // ],
   },
-  ...(process.env.NODE_ENV === 'production' && {
+  ...(process.env.NODE_ENV === "production" && {
     typescript: {
       ignoreBuildErrors: true,
     },

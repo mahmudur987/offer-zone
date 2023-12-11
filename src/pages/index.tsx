@@ -3,9 +3,8 @@ import Container from "@components/ui/container";
 import DownloadApps from "@components/common/download-apps";
 import BundleGrid from "@components/bundle/bundle-grid-two";
 import CategoryGridBlock from "@components/common/category-grid-block";
-import { homeAntiqueHeroBanner as heroBanner } from "@framework/static/banner";
+import { homeHeroBanner as heroBanner } from "@framework/static/banner";
 import { homeSixBanner as banner } from "@framework/static/banner";
-
 import Seo from "@components/seo/seo";
 import HotOffersFeed from "@components/offers/feeds/hot-offers-feed";
 import ClosingSoonFeed from "@components/offers/feeds/closing-soon";
@@ -14,7 +13,8 @@ import StoresOfTheDay from "@components/shops/feeds/stores-of-the-day";
 import dynamic from "next/dynamic";
 import BannerCard from "@components/cards/banner-card";
 import CollectionGrid from "@components/common/collection-grid";
-import NewProducts from "@components/offers/feeds/NewProducts";
+
+import ProductsGridBlock from "@components/product/products-grid-block";
 
 const HeroBannerCard = dynamic(
   () => import("@components/hero/hero-banner-card"),
@@ -47,13 +47,9 @@ export default function Home() {
 
         {/* New product for showing product */}
 
-        {/* <NewProducts /> */}
-
-        {/* Hot offer */}
+        <ProductsGridBlock sectionHeading={"All New Products"} />
 
         {/* <HotOffersFeed variant="alpine" /> */}
-
-        {/* closing offer */}
 
         {/* <ClosingSoonFeed variant="alpine" /> */}
 
@@ -64,11 +60,7 @@ export default function Home() {
           effectActive={false}
         />
 
-        {/* todays offer */}
-
         {/* <OffersOfTheDay variant="alpine" /> */}
-
-        {/* todays best store */}
 
         {/* <StoresOfTheDay /> */}
       </Container>

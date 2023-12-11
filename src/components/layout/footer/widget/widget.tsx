@@ -27,9 +27,9 @@ const Widgets: React.FC<WidgetsProps> = ({ widgets, variant = "default" }) => {
           social={social}
           className="mb-4 border-b col-span-full sm:col-span-1 md:col-span-3 sm:border-b-0 border-border-three sm:mb-0"
         />
-        {widgets?.map((widget) => (
+        {widgets?.map((widget, i) => (
           <WidgetLink
-            key={`footer-widget--key${widget.id}`}
+            key={`footer-widget--key${i}`}
             data={widget}
             className="pt-3 pb-3.5 sm:pb-0 col-span-2 md:col-span-2"
           />

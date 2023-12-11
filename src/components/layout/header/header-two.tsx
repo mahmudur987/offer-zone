@@ -45,7 +45,7 @@ const Header: React.FC = () => {
       )}
     >
       <div className="w-full h-16 transition duration-200 ease-in-out innerSticky body-font bg-brand-light lg:h-20">
-        <Search className="hidden  lg:max-w-[600px] absolute px-4 md:px-6 top-1" />
+        {/* <Search className="hidden  lg:max-w-[600px] absolute px-4 md:px-6 top-1" /> */}
 
         {/* End of Mobile search */}
         <Container className="flex items-center justify-between w-full h-full">
@@ -67,9 +67,9 @@ const Header: React.FC = () => {
           />
 
           <div className="flex shrink-0 -mx-2.5 xl:-mx-3.5">
-            <div className="xl:mx-3.5 mx-2.5 my-auto">
+            {/* <div className="xl:mx-3.5 mx-2.5 my-auto">
               <LanguageSwitcher />
-            </div>
+            </div> */}
             <JoinMenu data={site_header.joinMenu} className="hidden xl:flex" />
             <CartButton className="hidden lg:flex xl:mx-3.5 mx-2.5" />
             <div className="items-center hidden lg:flex shrink-0 xl:mx-3.5 mx-2.5">
@@ -79,7 +79,7 @@ const Header: React.FC = () => {
                 data={site_header?.authMenu}
                 isAuthorized={isAuthorized}
                 btnProps={{
-                  children: t("text-sign-in"),
+                  children: t("Sign-in"),
                   onClick: handleLogin,
                 }}
               >

@@ -9,7 +9,7 @@ const ShopsPageContent: React.FC = () => {
   const { t } = useTranslation("common");
   const { data, error, isLoading } = useShopsData();
 
-  console.log("shop", data);
+  // console.log("shop", data, isLoading);
 
   if (error) return <Alert message={error} />;
 

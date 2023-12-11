@@ -20,7 +20,7 @@ const useOffersData = () => {
   const [merchants, merchantsLoading, merchantsError] = useListVals<Merchant>(
     ref(database, "merchantInfo")
   );
-  console.log("get hot offer", "my", merchants);
+  // console.log("get hot offer", "my", merchants);
 
   useEffect(() => {
     const queryParams: { category?: string; location?: string } = router?.query;
@@ -52,7 +52,7 @@ const useOffersData = () => {
           }
         }
       }
-      console.log("filteredData", filteredData);
+      // console.log("filteredData", filteredData);
       setData(filteredData);
     }
   }, [location, category, offers, merchants]);

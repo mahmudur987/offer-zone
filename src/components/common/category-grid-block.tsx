@@ -50,11 +50,8 @@ const CategoryGridBlock: React.FC<CategoriesProps> = ({
   const { data, isLoading, error } = useCategoriesQuery({
     limit: LIMITS.CATEGORIES_LIMITS,
   });
-
-  // console.log("catagory");
   // console.log(data);
-  // console.log(isLoading);
-  // console.log(error);
+
   return (
     <div className={className}>
       <SectionHeader
@@ -79,13 +76,13 @@ const CategoryGridBlock: React.FC<CategoriesProps> = ({
                     </SwiperSlide>
                   );
                 })
-              : data?.categories?.data?.slice(0, 16)?.map((category) => (
+              : data?.slice(0, 16)?.map((category) => (
                   <SwiperSlide key={`category--key-${category.id}`}>
                     <CategoryCard
                       item={category}
                       href={{
                         pathname: ROUTES.OFFER,
-                        query: { category: category.slug },
+                        query: { category: category.name },
                       }}
                     />
                   </SwiperSlide>
@@ -103,13 +100,13 @@ const CategoryGridBlock: React.FC<CategoriesProps> = ({
             );
           })
         ) : (
-          data?.categories?.data?.slice(0, 16).map((category) => (
+          data?.slice(0, 16).map((category: any) => (
             <CategoryCard
               key={`category--key-${category.id}`}
               item={category}
               href={{
                 pathname: ROUTES.OFFER,
-                query: { category: category.slug },
+                query: { category: category.name },
               }}
               className="shrink-0 2xl:px-3.5 2xl:w-[12.5%] 3xl:w-1/9 mb-12"
             />
