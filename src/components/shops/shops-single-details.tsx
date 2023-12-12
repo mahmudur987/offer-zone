@@ -18,6 +18,7 @@ export default function ShopsSingleDetails() {
   const router = useRouter();
   const data = shops?.find((x) => x.id === router?.query?.slug);
   const { name, photo } = data || {};
+  console.log(data);
   const { openShop, displayShop, closeShop } = useUI();
   const { locale } = useRouter();
   const dir = getDirection(locale);
@@ -67,7 +68,7 @@ export default function ShopsSingleDetails() {
               </div>
 
               <div className="w-full lg:ltr:pl-7 lg:rtl:pr-7">
-                <AllProductFeed />
+                {/* <AllProductFeed /> */}
               </div>
             </Element>
           </Container>

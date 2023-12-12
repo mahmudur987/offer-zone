@@ -25,7 +25,7 @@ const ShopsPageContent: React.FC = () => {
         </Heading>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-5 xl:gap-6">
           {data?.map((item: Merchant) => (
-            <VendorCard key={item.MerchantID} shop={item} />
+            <VendorCard key={item.id} shop={item} />
           ))}
         </div>
       </div>

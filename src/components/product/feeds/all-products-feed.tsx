@@ -1,3 +1,4 @@
+import React from "react";
 import { Fragment, FC } from "react";
 import ProductCardAlpine from "@components/product/product-cards/product-card-alpine";
 
@@ -21,12 +22,12 @@ interface ProductFeedProps {
 const AllProductFeed: FC<ProductFeedProps> = ({ className = "", element }) => {
   const { t } = useTranslation("common");
   const { query } = useRouter();
-  const { data, isLoading, error } = useMarchantProductsQuery({
+  const { data, isLoading, error }: any = useMarchantProductsQuery({
     limit: LIMITS.PRODUCTS_LIMITS,
     ...query,
   });
 
-  console.log(data);
+  // console.log(data);
 
   const { openModal } = useModalAction();
 
@@ -54,6 +55,49 @@ const AllProductFeed: FC<ProductFeedProps> = ({ className = "", element }) => {
           {t("text-categories")}
         </div>
       </div>
+      <Alert message={"No Offers found!!"} />
+
+      {error && <Alert message={error?.message} />}
+
+      {/* {error ? (
+
+) : (
+  <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6 md:gap-4 2xl:gap-5">
+    {isLoading && !data?.pages?.length ? (
+      Array.from({ length: LIMITS.PRODUCTS_LIMITS }).map((_, idx) => (
+        <ProductCardLoader
+          key={`product--key-${idx}`}
+          uniqueKey={`product--key-${idx}`}
+        />
+      ))
+    ) : (
+      <>
+        {data?.pages?.map((page: any, index) => {
+          return (
+            <Fragment key={index}>
+              {page?.data?.slice(0, 18)?.map((product: Product) => (
+                <ProductCardAlpine
+                  key={`product--key${product.id}`}
+                  product={product}
+                />
+              ))}
+              {element && <div className="col-span-full">{element}</div>}
+              {page?.data?.length! > 18 &&
+                slice(page?.data, 18, page?.data?.length).map(
+                  (product: any) => (
+                    <ProductCardAlpine
+                      key={`product--key${product.id}`}
+                      product={product}
+                    />
+                  )
+                )}
+            </Fragment>
+          );
+        })}
+      </>
+    )}
+  </div>
+)} */}
     </div>
   );
 };
