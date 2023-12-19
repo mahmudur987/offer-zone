@@ -9,17 +9,19 @@ export interface SignUpInputType {
   remember_me: boolean;
 }
 async function signUp(input: SignUpInputType) {
+  console.log(input);
+
   return {
     token: `${input.email}.${input.name}`.split("").reverse().join(""),
   };
 }
 export const useSignUpMutation = () => {
-  const { authorize, closeModal } = useUI();
+  const { authorize } = useUI();
   return useMutation((input: SignUpInputType) => signUp(input), {
     onSuccess: (data) => {
       Cookies.set("auth_token", data.token);
       authorize();
-      closeModal();
+      // closeModal();
     },
     onError: (data) => {
       console.log(data, "login error response");

@@ -1,61 +1,61 @@
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import isEmpty from 'lodash/isEmpty';
-import { ROUTES } from '@utils/routes';
-import Button from '@components/ui/button';
-import Counter from '@components/ui/counter';
-import { useCart } from '@contexts/cart/cart.context';
-import ProductAttributes from '@components/product/product-attributes';
-import { generateCartItem } from '@utils/generate-cart-item';
-import usePrice from '@framework/product/use-price';
-import { getVariations } from '@framework/utils/get-variations';
-import { useTranslation } from 'next-i18next';
-import ThumbnailCarousel from '@components/ui/carousel/thumbnail-carousel';
-import Image from '@components/ui/image';
-import CartIcon from '@components/icons/cart-icon';
-import Heading from '@components/ui/heading';
-import Text from '@components/ui/text';
-import TagLabel from '@components/ui/tag-label';
-import LabelIcon from '@components/icons/label-icon';
-import { AiOutlineGift } from 'react-icons/ai';
-import RelatedProductFeed from '@components/product/feeds/related-product-feed';
-import SocialShareBox from '@components/ui/social-share-box';
-import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
-import { toast } from 'react-toastify';
-import useWindowSize from '@utils/use-window-size';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import isEmpty from "lodash/isEmpty";
+import { ROUTES } from "@utils/routes";
+import Button from "@components/ui/button";
+import Counter from "@components/ui/counter";
+import { useCart } from "@contexts/cart/cart.context";
+import ProductAttributes from "@components/product/product-attributes";
+import { generateCartItem } from "@utils/generate-cart-item";
+import usePrice from "@framework/product/use-price";
+import { getVariations } from "@framework/utils/get-variations";
+import { useTranslation } from "next-i18next";
+import ThumbnailCarousel from "@components/ui/carousel/thumbnail-carousel";
+import Image from "@components/ui/image";
+import CartIcon from "@components/icons/cart-icon";
+import Heading from "@components/ui/heading";
+import Text from "@components/ui/text";
+import TagLabel from "@components/ui/tag-label";
+import LabelIcon from "@components/icons/label-icon";
+import { AiOutlineGift } from "react-icons/ai";
+import RelatedProductFeed from "@components/product/feeds/related-product-feed";
+import SocialShareBox from "@components/ui/social-share-box";
+import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
+import { toast } from "react-toastify";
+import useWindowSize from "@utils/use-window-size";
 import {
   useModalAction,
   useModalState,
-} from '@components/common/modal/modal.context';
-import CloseButton from '@components/ui/close-button';
-import VariationPrice from './variation-price';
-import isEqual from 'lodash/isEqual';
-import { productGalleryPlaceholder } from '@assets/placeholders';
+} from "@components/common/modal/modal.context";
+import CloseButton from "@components/ui/close-button";
+import VariationPrice from "./variation-price";
+import isEqual from "lodash/isEqual";
+import { productGalleryPlaceholder } from "@assets/placeholders";
 
 const breakpoints = {
-  '1536': {
+  "1536": {
     slidesPerView: 6,
   },
-  '1280': {
+  "1280": {
     slidesPerView: 5,
   },
-  '1024': {
+  "1024": {
     slidesPerView: 4,
   },
-  '640': {
+  "640": {
     slidesPerView: 3,
   },
-  '360': {
+  "360": {
     slidesPerView: 2,
   },
-  '0': {
+  "0": {
     slidesPerView: 1,
   },
 };
 
 export default function ProductPopup() {
-  const { t } = useTranslation('common');
-  const { data } = useModalState();
+  const { t } = useTranslation("common");
+  const { data }: any = useModalState();
   const { width } = useWindowSize();
   const { closeModal } = useModalAction();
   const router = useRouter();
@@ -67,21 +67,33 @@ export default function ProductPopup() {
   const [addToWishlistLoader, setAddToWishlistLoader] =
     useState<boolean>(false);
   const [shareButtonStatus, setShareButtonStatus] = useState<boolean>(false);
+  const {
+    image,
+    id: slug,
+    name,
+    unit,
+    description,
+    product_slider,
+    tag,
+    quantity,
+    merchant_name,
+    stock_status,
+  } = data || {};
   const { price, basePrice, discount } = usePrice({
     amount: data.sale_price ? data.sale_price : data.price,
     baseAmount: data.price,
-    currencyCode: 'BDT',
+    currencyCode: "BDT",
   });
   const variations = getVariations(data.variations);
-  const { slug, image, name, unit, description, gallery, tag, quantity } = data;
-  const productUrl = `${process.env.NEXT_PUBLIC_WEBSITE_URL}${ROUTES.PRODUCT}/${slug}`;
+
+  const productUrl = `${process.env.NEXT_PUBLIC_WEBSITE_URL}${ROUTES.PRODUCT}/${name}`;
   const handleChange = () => {
     setShareButtonStatus(!shareButtonStatus);
   };
   const isSelected = !isEmpty(variations)
     ? !isEmpty(attributes) &&
       Object.keys(variations).every((variation) =>
-        attributes.hasOwnProperty(variation),
+        attributes.hasOwnProperty(variation)
       )
     : true;
   let selectedVariation: any = {};
@@ -89,23 +101,27 @@ export default function ProductPopup() {
     selectedVariation = data?.variation_options?.find((o: any) =>
       isEqual(
         o.options.map((v: any) => v.value).sort(),
-        Object.values(attributes).sort(),
-      ),
+        Object.values(attributes).sort()
+      )
     );
   }
-  const item = generateCartItem(data, selectedVariation);
+  const item: any = generateCartItem(data, selectedVariation);
   const outOfStock = isInCart(item.id) && !isInStock(item.id);
   function addToCart() {
     if (!isSelected) return;
     // to show btn feedback while product carting
+    console.log(item);
+    if (item.error) {
+      return toast.error("this is not a perfect item");
+    }
     setAddToCartLoader(true);
     setTimeout(() => {
       setAddToCartLoader(false);
     }, 1500);
     addItemToCart(item, selectedQuantity);
-    toast(t('text-added-bag'), {
-      progressClassName: 'fancy-progress-bar',
-      position: width! > 768 ? 'bottom-right' : 'top-right',
+    toast("add to bag", {
+      progressClassName: "fancy-progress-bar",
+      position: width! > 768 ? "bottom-right" : "top-right",
       autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
@@ -117,13 +133,13 @@ export default function ProductPopup() {
     setAddToWishlistLoader(true);
     setFavorite(!favorite);
     const toastStatus: string =
-      favorite === true ? t('text-remove-favorite') : t('text-added-favorite');
+      favorite === true ? t("text-remove-favorite") : t("text-added-favorite");
     setTimeout(() => {
       setAddToWishlistLoader(false);
     }, 1500);
     toast(toastStatus, {
-      progressClassName: 'fancy-progress-bar',
-      position: width! > 768 ? 'bottom-right' : 'top-right',
+      progressClassName: "fancy-progress-bar",
+      position: width! > 768 ? "bottom-right" : "top-right",
       autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
@@ -140,18 +156,18 @@ export default function ProductPopup() {
   useEffect(() => setSelectedQuantity(1), [data.id]);
 
   return (
-    <div className='md:w-[600px] lg:w-[940px] xl:w-[1180px] 2xl:w-[1360px] mx-auto p-1 lg:p-0 xl:p-3 bg-brand-light rounded-md'>
+    <div className="md:w-[600px] lg:w-[940px] xl:w-[1180px] 2xl:w-[1360px] mx-auto p-1 lg:p-0 xl:p-3 bg-brand-light rounded-md">
       <CloseButton onClick={closeModal} />
-      <div className='overflow-hidden'>
-        <div className='px-4 pt-4 md:px-6 lg:p-8 2xl:p-10 mb-9 lg:mb-2 md:pt-7 2xl:pt-10'>
-          <div className='items-start justify-between lg:flex'>
-            <div className='items-center justify-center mb-6 overflow-hidden xl:flex md:mb-8 lg:mb-0'>
-              {gallery?.length ? (
-                <ThumbnailCarousel gallery={gallery} />
+      <div className="overflow-hidden">
+        <div className="px-4 pt-4 md:px-6 lg:p-8 2xl:p-10 mb-9 lg:mb-2 md:pt-7 2xl:pt-10">
+          <div className="items-start justify-between lg:flex">
+            <div className="items-center justify-center mb-6 overflow-hidden xl:flex md:mb-8 lg:mb-0">
+              {product_slider?.length ? (
+                <ThumbnailCarousel gallery={product_slider} />
               ) : (
-                <div className='flex items-center justify-center w-auto'>
+                <div className="flex items-center justify-center w-auto">
                   <Image
-                    src={image?.original ?? productGalleryPlaceholder}
+                    src={image ?? productGalleryPlaceholder}
                     alt={name}
                     width={650}
                     height={590}
@@ -160,39 +176,39 @@ export default function ProductPopup() {
               )}
             </div>
 
-            <div className='shrink-0 flex flex-col lg:ltr:pl-5 lg:rtl:pr-5 xl:ltr:pl-8 xl:rtl:pr-8 2xl:ltr:pl-10 2xl:rtl:pr-10 lg:w-[430px] xl:w-[470px] 2xl:w-[480px]'>
-              <div className='pb-5'>
+            <div className="shrink-0 flex flex-col lg:ltr:pl-5 lg:rtl:pr-5 xl:ltr:pl-8 xl:rtl:pr-8 2xl:ltr:pl-10 2xl:rtl:pr-10 lg:w-[430px] xl:w-[470px] 2xl:w-[480px]">
+              <div className="pb-5">
                 <div
-                  className='mb-2 md:mb-2.5 block -mt-1.5'
+                  className="mb-2 md:mb-2.5 block -mt-1.5"
                   onClick={navigateToProductPage}
-                  role='button'
+                  role="button"
                 >
-                  <h2 className='text-lg font-medium transition-colors duration-300 text-brand-dark md:text-xl xl:text-2xl hover:text-brand'>
+                  <h2 className="text-lg font-medium transition-colors duration-300 text-brand-dark md:text-xl xl:text-2xl hover:text-brand">
                     {name}
                   </h2>
                 </div>
-                {unit && isEmpty(variations) ? (
-                  <div className='text-sm font-medium md:text-15px'>{unit}</div>
+                {/* {unit && isEmpty(variations) ? (
+                  <div className="text-sm font-medium md:text-15px">{unit}</div>
                 ) : (
                   <VariationPrice
                     selectedVariation={selectedVariation}
                     minPrice={data.min_price}
                     maxPrice={data.max_price}
                   />
-                )}
+                )} */}
 
-                {isEmpty(variations) && (
-                  <div className='flex items-center mt-5'>
-                    <div className='text-brand-dark font-bold text-base md:text-xl xl:text-[22px]'>
+                {price && (
+                  <div className="flex items-center mt-5">
+                    <div className="text-brand-dark font-bold text-base md:text-xl xl:text-[22px]">
                       {price}
                     </div>
                     {discount && (
                       <>
-                        <del className='text-sm text-opacity-50 md:text-15px ltr:pl-3 rtl:pr-3 text-brand-dark '>
+                        <del className="text-sm text-opacity-50 md:text-15px ltr:pl-3 rtl:pr-3 text-brand-dark ">
                           {basePrice}
                         </del>
-                        <span className='inline-block rounded font-bold text-xs md:text-sm bg-brand-tree bg-opacity-20 text-brand-tree uppercase px-2 py-1 ltr:ml-2.5 rtl:mr-2.5'>
-                          {discount} {t('text-off')}
+                        <span className="inline-block rounded font-bold text-xs md:text-sm bg-brand-tree bg-opacity-20 text-brand-tree uppercase px-2 py-1 ltr:ml-2.5 rtl:mr-2.5">
+                          {discount} {t("text-off")}
                         </span>
                       </>
                     )}
@@ -211,45 +227,47 @@ export default function ProductPopup() {
                 );
               })}
 
-              <div className='pb-2'>
+              <div className="pb-2">
                 {/* check that item isInCart and place the available quantity or the item quantity */}
-                {isEmpty(variations) && (
+                {stock_status && (
                   <>
-                    {Number(quantity) > 0 || !outOfStock ? (
-                      <span className='text-sm font-medium text-yellow'>
-                        {t('text-only') +
-                          ' ' +
-                          quantity +
-                          ' ' +
-                          t('text-left-item')}
+                    {stock_status === "1" && (
+                      <span className="text-sm font-medium text-yellow">
+                        {t("Available")}
                       </span>
-                    ) : (
-                      <div className='text-base text-brand-danger whitespace-nowrap'>
-                        {t('text-out-stock')}
+                    )}
+                    {stock_status === "2" && (
+                      <div className="text-base text-brand-danger whitespace-nowrap">
+                        {t("Out Of Stock")}
+                      </div>
+                    )}
+                    {stock_status === "3" && (
+                      <div className="text-base text-brand-danger whitespace-nowrap">
+                        {t("Coming Soon")}
                       </div>
                     )}
                   </>
                 )}
 
                 {!isEmpty(selectedVariation) && (
-                  <span className='text-sm font-medium text-yellow'>
+                  <span className="text-sm font-medium text-yellow">
                     {selectedVariation?.is_disable ||
-                    selectedVariation.quantity === 0
-                      ? t('text-out-stock')
+                    selectedVariation?.quantity === 0
+                      ? t("text-out-stock")
                       : `${
-                          t('text-only') +
-                          ' ' +
-                          selectedVariation.quantity +
-                          ' ' +
-                          t('text-left-item')
+                          t("text-only") +
+                          " " +
+                          selectedVariation?.quantity +
+                          " " +
+                          t("text-left-item")
                         }`}
                   </span>
                 )}
               </div>
 
-              <div className='pt-1.5 lg:pt-3 xl:pt-4 space-y-2.5 md:space-y-3.5'>
+              <div className="pt-1.5 lg:pt-3 xl:pt-4 space-y-2.5 md:space-y-3.5">
                 <Counter
-                  variant='single'
+                  variant="single"
                   value={selectedQuantity}
                   onIncrement={() => setSelectedQuantity((prev) => prev + 1)}
                   onDecrement={() =>
@@ -263,32 +281,32 @@ export default function ProductPopup() {
                   }
                 />
 
-                <div className='grid grid-cols-2 gap-2.5'>
+                <div className="grid grid-cols-2 gap-2.5">
                   <Button
                     onClick={addToCart}
-                    className='w-full px-1.5'
+                    className=" flex justify-center items-center gap-2  w-full"
                     disabled={!isSelected}
                     loading={addToCartLoader}
                   >
-                    <CartIcon color='#ffffff' className='ltr:mr-3 rtl:ml-3' />
-                    {t('text-add-to-cart')}
+                    <CartIcon color="#ffffff" className="ltr:mr-3 rtl:ml-3" />
+                    {t("Add To Cart")}
                   </Button>
-                  <div className='relative group'>
+                  <div className="relative group">
                     <Button
-                      variant='border'
+                      variant="border"
                       className={`w-full hover:text-brand ${
-                        shareButtonStatus === true && 'text-brand'
+                        shareButtonStatus === true && "text-brand"
                       }`}
                       onClick={handleChange}
                     >
-                      <AiOutlineGift className='text-2xl md:text-[26px] ltr:mr-2 rtl:ml-2 transition-all group-hover:text-brand' />
-                      {t('text-gift')}
+                      <AiOutlineGift className="text-2xl md:text-[26px] ltr:mr-2 rtl:ml-2 transition-all group-hover:text-brand" />
+                      {t("Gift")}
                     </Button>
                     <SocialShareBox
                       className={`absolute z-10 ltr:right-0 rtl:left-0 w-[300px] md:min-w-[400px] transition-all duration-300 ${
                         shareButtonStatus === true
-                          ? 'visible opacity-100 top-full'
-                          : 'opacity-0 invisible top-[130%]'
+                          ? "visible opacity-100 top-full"
+                          : "opacity-0 invisible top-[130%]"
                       }`}
                       shareUrl={productUrl}
                     />
@@ -296,32 +314,31 @@ export default function ProductPopup() {
                 </div>
               </div>
               {tag && (
-                <ul className='pt-5 xl:pt-6'>
-                  <li className='relative inline-flex items-center justify-center text-sm md:text-15px text-brand-dark text-opacity-80 ltr:mr-2 rtl:ml-2 top-1'>
-                    <LabelIcon className='ltr:mr-2 rtl:ml-2' /> {t('text-tags')}
-                    :
+                <ul className="pt-5 xl:pt-6">
+                  <li className="relative inline-flex items-center justify-center text-sm md:text-15px text-brand-dark text-opacity-80 ltr:mr-2 rtl:ml-2 top-1">
+                    <LabelIcon className="ltr:mr-2 rtl:ml-2" /> {t("Tags")}:
                   </li>
                   {tag?.map((item: any) => (
-                    <li className='inline-block p-[3px]' key={`tag-${item.id}`}>
+                    <li className="inline-block p-[3px]" key={`tag-${item.id}`}>
                       <TagLabel data={item} />
                     </li>
                   ))}
                 </ul>
               )}
 
-              <div className='pt-6 xl:pt-8'>
-                <Heading className='mb-3 lg:mb-3.5'>
-                  {t('text-product-details')}:
+              <div className="pt-6 xl:pt-8">
+                <Heading className="mb-3 lg:mb-3.5">
+                  {t("Product Details")}:
                 </Heading>
-                <Text variant='small'>
-                  {description.split(' ').slice(0, 40).join(' ')}
-                  {'...'}
+                <Text variant="small">
+                  {description.split(" ").slice(0, 40).join(" ")}
+                  {"..."}
                   <span
                     onClick={navigateToProductPage}
-                    role='button'
-                    className='text-brand ltr:ml-0.5 rtl:mr-0.5'
+                    role="button"
+                    className="text-brand ltr:ml-0.5 rtl:mr-0.5"
                   >
-                    {t('text-read-more')}
+                    {t("read more")}
                   </span>
                 </Text>
               </div>
@@ -330,7 +347,7 @@ export default function ProductPopup() {
         </div>
         <RelatedProductFeed
           carouselBreakpoint={breakpoints}
-          className='mb-0.5 md:mb-2 lg:mb-3.5 xl:mb-4 2xl:mb-6'
+          className="mb-0.5 md:mb-2 lg:mb-3.5 xl:mb-4 2xl:mb-6"
         />
       </div>
     </div>

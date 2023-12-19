@@ -4,7 +4,6 @@ import Counter from "@components/ui/counter";
 import { useRouter } from "next/router";
 import { ROUTES } from "@utils/routes";
 import useWindowSize from "@utils/use-window-size";
-
 import usePrice from "@framework/product/use-price";
 import { useCart } from "@contexts/cart/cart.context";
 import { generateCartItemCustom } from "@utils/generate-cart-item";
@@ -29,7 +28,7 @@ const OfferSingleDetails: React.FC = () => {
   const { width } = useWindowSize();
   const { data, isLoading } = useOfferData(id as string);
   // const { merchantData } = useMerchantData(data?.MerchantID ?? '');
-console.log(data)
+
   const { addItemToCart, isInCart, isInStock, merchantID } = useCart();
 
   const [gallery, setGallery] = useState<Object[]>([]);
@@ -68,6 +67,9 @@ console.log(data)
     setShareButtonStatus(!shareButtonStatus);
   };
   const item = data && generateCartItemCustom(data);
+
+  console.log(gallery);
+
   const outOfStock = item?.id && isInCart(item.id) && !isInStock(item.id);
   function addToCart() {
     if (data) {
@@ -78,8 +80,10 @@ console.log(data)
       }, 1500);
       // throw new Error('Hello')
       if (item) {
-        // Lock for one merchat per cart, move it to reducer 
-        const isValidAction = merchantID ? item.merchantID === merchantID : true;
+        // Lock for one merchat per cart, move it to reducer
+        const isValidAction = merchantID
+          ? item.merchantID === merchantID
+          : true;
         if (isValidAction) {
           addItemToCart(item, quantity);
           toast("Added to the bag", {

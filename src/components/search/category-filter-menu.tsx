@@ -51,10 +51,10 @@ function CategoryFilterMenuItem({
       toggleCollapse();
     } else {
       const { category, ...restQuery } = query;
+
       const currentFormState = selectedCategories.includes(name)
         ? selectedCategories.filter((i) => i !== name)
-        : [...selectedCategories, name];
-
+        : [name];
       const queryObj = {
         ...restQuery,
         ...(currentFormState.length

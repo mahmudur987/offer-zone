@@ -105,7 +105,7 @@ const CategoryGridBlock: React.FC<CategoriesProps> = ({
               key={`category--key-${category.id}`}
               item={category}
               href={{
-                pathname: ROUTES.OFFER,
+                pathname: ROUTES.PRODUCTS,
                 query: { category: category.name },
               }}
               className="shrink-0 2xl:px-3.5 2xl:w-[12.5%] 3xl:w-1/9 mb-12"

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Tab } from "@headlessui/react";
 import Heading from "@components/ui/heading";
 import ProductReviewRating from "./product-review-rating";
+import { useRouter } from "next/router";
+import { useProductQuery } from "@framework/product/get-product";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -12,6 +14,20 @@ export default function ProductDetailsTab() {
     Product_Details: "",
     Review_Rating: "",
   });
+  const router = useRouter();
+  const {
+    query: { slug },
+  } = router;
+
+  const { data, isLoading, error } = useProductQuery(slug as string);
+
+  if (isLoading) {
+    return <p>Loading</p>;
+  }
+  if (error) {
+    return <p>Error</p>;
+  }
+  const { description, merchant_name } = data || {};
 
   return (
     <div className="w-full xl:px-2 py-11 lg:py-14 xl:py-16 sm:px-0">
@@ -36,35 +52,11 @@ export default function ProductDetailsTab() {
         <Tab.Panels className="mt-6 lg:mt-9">
           <Tab.Panel className="lg:flex">
             <div className="text-sm sm:text-15px text-brand-muted leading-[2em] space-y-4 lg:space-y-5 xl:space-y-7">
-              <p>
-                Go sporty this summer with this vintage navy and white striped
-                v-neck t-shirt from the Abercrombie & Fitch. Perfect for pairing
-                with denim and white kicks for a stylish sporty vibe. Will fit a
-                UK 8-10, model shown is a UK 8 and 5’5. !!
-              </p>
-              <p>
-                Typography is the work of typesetters, compositors,
-                typographers, graphic designers, art directors, manga artists,
-                comic book artists, graffiti artists, and now—anyone who
-                arranges words, letters, numbers, and symbols for publication,
-                display, or distribution—from clerical workers and newsletter
-                writers to anyone self-publishing materials.
-              </p>
-              <p>
-                Hit your next boxing workout with a combination it’s never seen
-                before in the Combat Drop Arm Tank, including a
-                freedom-instilling regular fit and dropped armhole to allow you
-                to throw jabs and hooks at the punching bag with ease. A
-                lightweight material keeps you fighting fit, and fresh.
-              </p>
-              <p>
-                Go sporty this summer with this vintage navy and white striped
-                v-neck t-shirt from the Abercrombie & Fitch. Perfect for pairing
-                with denim and white kicks for a stylish sporty vibe. Will fit a
-                UK 8-10, model shown is a UK 8 and 5’5. !!
-              </p>
+              <p>{description?.slice(0, 200)}</p>
+              <p>{description?.slice(200, description.length)}</p>
+              <p>Merchant :{merchant_name}</p>
             </div>
-            <div className="shrink-0 lg:w-[400px] xl:w-[480px] 2xl:w-[550px] 3xl:w-[680px] lg:ltr:pl-10 lg:rtl:pr-10 xl:ltr:pl-14 xl:rtl:pr-14 2xl:ltr:pl-20 2xl:rtl:pr-20 pt-5 lg:pt-0">
+            {/* <div className="shrink-0 lg:w-[400px] xl:w-[480px] 2xl:w-[550px] 3xl:w-[680px] lg:ltr:pl-10 lg:rtl:pr-10 xl:ltr:pl-14 xl:rtl:pr-14 2xl:ltr:pl-20 2xl:rtl:pr-20 pt-5 lg:pt-0">
               <Heading
                 variant="mediumHeading"
                 className="xl:text-lg mb-4 pt-0.5"
@@ -126,7 +118,7 @@ export default function ProductDetailsTab() {
                   </tbody>
                 </table>
               </div>
-            </div>
+            </div> */}
           </Tab.Panel>
           <Tab.Panel>
             <ProductReviewRating />

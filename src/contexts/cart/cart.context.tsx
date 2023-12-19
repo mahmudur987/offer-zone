@@ -40,6 +40,7 @@ export function CartProvider(props: React.PropsWithChildren<any>) {
   }, [state, saveCart]);
 
   const addItemToCart = (item: Item, quantity: number) => {
+    // console.log(item);
     try {
       dispatch({ type: "ADD_ITEM_WITH_QUANTITY", item, quantity });
     } catch (e) {

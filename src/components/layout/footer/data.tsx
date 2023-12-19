@@ -2,7 +2,7 @@ export const footer = {
   widgets: [
     {
       id: 1,
-      widgetTitle: "widget-title-about",
+      widgetTitle: "About Us",
       lists: [
         {
           id: 1,
@@ -23,7 +23,7 @@ export const footer = {
     },
     {
       id: 2,
-      widgetTitle: "widget-title-our-information",
+      widgetTitle: "Our Information",
       lists: [
         {
           id: 1,
@@ -32,7 +32,7 @@ export const footer = {
         },
         {
           id: 2,
-          title: "Terms",
+          title: "Terms And Contdition",
           path: "/terms",
         },
         {
@@ -40,21 +40,11 @@ export const footer = {
           title: "Customer-support",
           path: "/contact-us",
         },
-        {
-          id: 3,
-          title: "Return-policy",
-          path: "/privacy",
-        },
-        {
-          id: 4,
-          title: "Site-map",
-          path: "/",
-        },
       ],
     },
     {
       id: 3,
-      widgetTitle: "widget-title-community",
+      widgetTitle: "Community",
       lists: [
         {
           id: 1,

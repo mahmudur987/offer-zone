@@ -20,6 +20,7 @@ export function addItemWithQuantity(
   const existingItemIndex = items.findIndex(
     (existingItem) => existingItem.id === item.id
   );
+
   if (existingItemIndex > -1) {
     const newItems = cloneDeep(items);
     const newQuantity = newItems[existingItemIndex].quantity + quantity;

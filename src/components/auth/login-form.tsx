@@ -1,21 +1,22 @@
-import { useState } from 'react';
-import Input from '@components/ui/form/input';
-import Button from '@components/ui/button';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useState } from "react";
+import Input from "@components/ui/form/input";
+import Button from "@components/ui/button";
+import { SubmitHandler, useForm } from "react-hook-form";
 import {
   useLoginMutation,
   LoginInputType,
   OtpInputType,
   useOtpMutation,
-} from '@framework/auth/use-login';
-import Logo from '@components/ui/logo';
-import { useTranslation } from 'next-i18next';
-import Image from '@components/ui/image';
-import Switch from '@components/ui/switch';
-import cn from 'classnames';
-import CloseButton from '@components/ui/close-button';
-import { useModalAction } from '@components/common/modal/modal.context';
-import Alert from '@components/ui/alert';
+} from "@framework/auth/use-login";
+import Logo from "@components/ui/logo";
+import { useTranslation } from "next-i18next";
+import Image from "@components/ui/image";
+import Switch from "@components/ui/switch";
+import cn from "classnames";
+import CloseButton from "@components/ui/close-button";
+import { useModalAction } from "@components/common/modal/modal.context";
+import Alert from "@components/ui/alert";
+import Link from "next/link";
 
 interface LoginFormProps {
   isPopup?: boolean;
@@ -61,61 +62,61 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
         setCookies({
           name,
           phone,
-          message: '',
+          message: "",
         });
       } else {
-        setOtpError('Invalid Otp!!! Try Again');
+        setOtpError("Invalid Otp!!! Try Again");
       }
     }
   };
   return (
     <div
       className={cn(
-        'w-full md:w-[720px] lg:w-[920px] xl:w-[1000px] 2xl:w-[1200px] relative',
-        className,
+        "w-full md:w-[720px] lg:w-[920px] xl:w-[1000px] 2xl:w-[1200px] relative",
+        className
       )}
     >
       {isPopup === true && <CloseButton onClick={closeModal} />}
-      <div className='flex mx-auto overflow-hidden rounded-lg bg-brand-light'>
-        <div className='md:w-1/2 lg:w-[55%] xl:w-[60%] registration hidden md:block relative'>
+      <div className="flex mx-auto overflow-hidden rounded-lg bg-brand-light">
+        <div className="md:w-1/2 lg:w-[55%] xl:w-[60%] registration hidden md:block relative">
           <Image
-            src='/assets/images/login.png'
-            alt='signin Image'
-            layout='fill'
+            src="/assets/images/login.png"
+            alt="signin Image"
+            layout="fill"
           />
         </div>
-        <div className='w-full md:w-1/2 lg:w-[45%] xl:w-[40%] py-6 sm:py-10 px-4 sm:px-8 md:px-6 lg:px-8 xl:px-12 rounded-md flex flex-col justify-center'>
-          <div className='mb-6 text-center'>
+        <div className="w-full md:w-1/2 lg:w-[45%] xl:w-[40%] py-6 sm:py-10 px-4 sm:px-8 md:px-6 lg:px-8 xl:px-12 rounded-md flex flex-col justify-center">
+          <div className="mb-6 text-center">
             <div>
               <Logo />
             </div>
           </div>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className='flex flex-col justify-center'
+            className="flex flex-col justify-center"
             noValidate
           >
-            <div className='flex flex-col space-y-3.5'>
+            <div className="flex flex-col space-y-3.5">
               {!otp ? (
                 <>
                   <Input
-                    label={t('forms:label-phone')}
-                    variant='solid'
-                    {...register('phone', {
-                      required: `${t('forms:phone-required')}`,
+                    label={t("forms:label-phone")}
+                    variant="solid"
+                    {...register("phone", {
+                      required: `${t("forms:phone-required")}`,
                       pattern: {
                         value: /^(?:\+?88)?01[13-9]\d{8}$/,
-                        message: t('forms:phone-error'),
+                        message: t("forms:phone-error"),
                       },
                     })}
                     error={errors.phone?.message}
                   />
                   <Input
-                    label={t('forms:label-name-star')}
-                    type='text'
-                    variant='solid'
-                    {...register('name', {
-                      required: `${t('forms:name-required')}`,
+                    label={t("forms:label-name-star")}
+                    type="text"
+                    variant="solid"
+                    {...register("name", {
+                      required: `${t("forms:name-required")}`,
                     })}
                     error={errors.name?.message}
                   />
@@ -124,37 +125,45 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
                 <>
                   {otpError && <Alert message={otpError} />}
                   <Input
-                    label={t('forms:label-otp')}
-                    type='number'
-                    variant='solid'
-                    {...register('otpInput', {
-                      validate: (v) => v <= 9999 || t('forms:otp-required'),
-                      required: `${t('forms:otp-required')}`,
+                    label={t("forms:label-otp")}
+                    type="number"
+                    variant="solid"
+                    {...register("otpInput", {
+                      validate: (v) => v <= 9999 || t("forms:otp-required"),
+                      required: `${t("forms:otp-required")}`,
                     })}
                     error={errors.otpInput?.message}
                   />
 
                   <Switch
-                    label='Remember me'
+                    label="Remember me"
                     checked={remember}
                     onChange={setRemember}
                   />
                 </>
               )}
 
-              <div className='relative'>
+              <div className="relative">
                 <Button
-                  type='submit'
+                  type="submit"
                   loading={isLoadingOne || isLoadingTwo}
                   disabled={isLoadingOne || isLoadingTwo}
-                  className='w-full mt-2 tracking-normal h-11 md:h-12 font-15px md:font-15px'
-                  variant='formButton'
+                  className="w-full mt-2 tracking-normal h-11 md:h-12 font-15px md:font-15px"
+                  variant="formButton"
                 >
-                  {t('common:text-sign-in')}
+                  {t("common:text-sign-in")}
                 </Button>
               </div>
             </div>
           </form>
+          <div className="my-1">
+            <p>
+              Dont Have Account{" "}
+              <Link href={"/signup"} className="text-red-400 font-bold">
+                Sign up
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

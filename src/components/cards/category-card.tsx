@@ -2,10 +2,9 @@ import Link from "@components/ui/link";
 import Image from "@components/ui/image";
 import { LinkProps } from "next/link";
 import { useTranslation } from "next-i18next";
-// import { useRouter } from 'next/router';
-// import { getDirection } from '@utils/get-direction';
 import cn from "classnames";
 import { categoryPlaceholder } from "@assets/placeholders";
+import { useCategoryProductsQuery } from "@framework/product/get-catagory-products";
 
 interface Props {
   item: any;
@@ -16,7 +15,8 @@ interface Props {
 const CategoryCard: React.FC<Props> = ({ item, href, className }) => {
   const { t } = useTranslation("common");
   const { name, image } = item ?? {};
-
+  const { data } = useCategoryProductsQuery(name);
+  // console.log(name, data?.length);
   return (
     <Link
       href={href}
@@ -27,11 +27,7 @@ const CategoryCard: React.FC<Props> = ({ item, href, className }) => {
           className={`flex shrink-0 transition-all duration-300 scale-50 group-hover:scale-75 w-full h-full transform items-center justify-center`}
         >
           <Image
-            src={
-              item?.image?.original
-                ? item.image.original
-                : image ?? categoryPlaceholder
-            }
+            src={image ?? categoryPlaceholder}
             alt={name || t("text-card-thumbnail")}
             width={178}
             height={178}
@@ -39,25 +35,9 @@ const CategoryCard: React.FC<Props> = ({ item, href, className }) => {
             className="rounded-full"
           />
         </div>
-        {/* <div
-          className={`flex shrink-0 transition-all duration-700  transform scale-50 group-hover:scale-100 items-center justify-center ${
-            dir === 'rtl'
-              ? 'translate-x-full group-hover:translate-x-0'
-              : '-translate-x-full group-hover:translate-x-0'
-          }`}
-        >
-          <Image
-            src={image?.original ?? categoryPlaceholder}
-            alt={name || t('text-card-thumbnail')}
-            width={50}
-            height={50}
-            quality={100}
-            className='object-cover rounded-full'
-          />
-        </div> */}
       </div>
       <h3 className="capitalize text-brand-dark text-sm sm:text-15px lg:text-base truncate">
-        {name}
+        {name} <span>({data?.length} )</span>
       </h3>
     </Link>
   );

@@ -49,6 +49,11 @@ export const siteSettings = {
         path: "/about-us",
         label: "about-us",
       },
+      {
+        id: 5,
+        path: "/products",
+        label: "Products",
+      },
     ],
     languageMenu: [
       {

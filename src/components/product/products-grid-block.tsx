@@ -10,6 +10,7 @@ import { SwiperSlide } from "swiper/react";
 import { useProductsQuery } from "@framework/product/get-all-products";
 import { LIMITS } from "@framework/utils/limits";
 import NewProductCard from "./product-cards/productCard";
+import ProductCardAlpine from "./product-cards/product-card-alpine";
 
 const breakpoints = {
   "1024": {
@@ -47,10 +48,13 @@ const ProductsGridBlock: React.FC<ProductsProps> = ({
 }) => {
   const { width } = useWindowSize();
 
-  const { data, isLoading, error } = useProductsQuery({
+  const {
+    data: products,
+    isLoading,
+    error,
+  } = useProductsQuery({
     limit: LIMITS.BEST_SELLER_GROCERY_PRODUCTS_LIMITS,
   });
-  let products = data?.data;
 
   return (
     <div className={`${className}`}>
@@ -73,7 +77,7 @@ const ProductsGridBlock: React.FC<ProductsProps> = ({
         )}
       >
         {error ? (
-          <Alert message={error} className="col-span-full" />
+          <Alert message={"Error"} className="col-span-full" />
         ) : isLoading ? (
           Array.from({ length: limit! }).map((_, idx) => (
             <ProductCardLoader
@@ -98,7 +102,7 @@ const ProductsGridBlock: React.FC<ProductsProps> = ({
                     key={`collection-key-${item.OfferID}`}
                     className="px-1.5 md:px-2 xl:px-2.5 py-4"
                   >
-                    <NewProductCard
+                    <ProductCardAlpine
                       key={`${uniqueKey}-${item.id}`}
                       product={item}
                     />
@@ -106,13 +110,15 @@ const ProductsGridBlock: React.FC<ProductsProps> = ({
                 ))}
               </Carousel>
             ) : (
-              <div className="gap-5 2xl:grid 2xl:grid-cols-4 3xl:gap-7 col-span-full">
-                {products?.map((product: any) => (
-                  <NewProductCard
-                    key={`${uniqueKey}-${product.id}`}
-                    product={product}
-                  />
-                ))}
+              <div className="col-span-full">
+                <div className="flex justify-around flex-wrap gap-5">
+                  {products?.map((product: any) => (
+                    <ProductCardAlpine
+                      key={`${uniqueKey}-${product.id}`}
+                      product={product}
+                    />
+                  ))}
+                </div>
               </div>
             )}
           </>

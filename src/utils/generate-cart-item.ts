@@ -1,18 +1,18 @@
-import { Offer } from '@framework/types';
-import isEmpty from 'lodash/isEmpty';
-interface Item {
-  id: string | number;
-  name: string;
-  slug: string;
-  image: {
-    thumbnail: string;
-    [key: string]: unknown;
-  };
-  price: number;
-  sale_price?: number;
-  quantity?: number;
-  [key: string]: unknown;
-}
+import { NewProduct, Offer } from "@framework/types";
+import isEmpty from "lodash/isEmpty";
+// interface Item {
+//   id: string | number;
+//   name: string;
+//   slug: string;
+//   image: {
+//     thumbnail: string;
+//     [key: string]: unknown;
+//   };
+//   price: number;
+//   sale_price?: number;
+//   quantity?: number;
+//   [key: string]: unknown;
+// }
 interface Variation {
   id: string | number;
   title: string;
@@ -21,36 +21,51 @@ interface Variation {
   quantity: number;
   [key: string]: unknown;
 }
-export function generateCartItem(item: Item, variation: Variation) {
-  const { id, name, slug, image, price, sale_price, quantity, unit } = item;
+export function generateCartItem(item: NewProduct, variation: Variation) {
+  const { id, name, image, price, stock_status } = item || {};
   if (!isEmpty(variation)) {
     return {
       id: `${id}.${variation.id}`,
       productId: id,
       name: `${name} - ${variation.title}`,
-      slug,
-      unit,
       stock: variation.quantity,
       price: variation.sale_price ? variation.sale_price : variation.price,
-      image: image?.thumbnail,
+      image: image,
       variationId: variation.id,
     };
   }
-  return {
-    id,
-    name,
-    slug,
-    unit,
-    image: image?.thumbnail,
-    stock: quantity,
-    price: sale_price ? sale_price : price,
-  };
+  if (id && name && price) {
+    return {
+      id,
+      name,
+      image: image,
+      stock: stock_status === "1",
+      price: price,
+    };
+  }
+  return { error: "select a perfect Item" };
 }
 
 export function generateCartItemCustom(item: Offer) {
-  const { OfferID, Name, Price, OfferzoneDiscount, SellEnabled, Status, MerchantID } = item;
+  const {
+    OfferID,
+    Name,
+    Price,
+    OfferzoneDiscount,
+    SellEnabled,
+    Status,
+    MerchantID,
+  } = item;
 
-  if (OfferID && Name && Price && OfferzoneDiscount && SellEnabled && Status && MerchantID)
+  if (
+    OfferID &&
+    Name &&
+    Price &&
+    OfferzoneDiscount &&
+    SellEnabled &&
+    Status &&
+    MerchantID
+  )
     return {
       id: OfferID,
       name: Name,
@@ -58,8 +73,8 @@ export function generateCartItemCustom(item: Offer) {
       price: OfferzoneDiscount
         ? Number(Price) - (Number(Price) * Number(OfferzoneDiscount)) / 100
         : Number(Price),
-      isInStock: SellEnabled === 'yes' && Status === 'active',
+      isInStock: SellEnabled === "yes" && Status === "active",
       quantity: 0,
-      merchantID: MerchantID
+      merchantID: MerchantID,
     };
 }

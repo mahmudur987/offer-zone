@@ -8,9 +8,7 @@ type PaginatedProduct = {
   paginatorInfo: any;
 };
 const fetchProducts = async (slug: any) => {
-  const { data } = await http.get(
-    `/products/merchant/?merchant=0a8fa007-4998-4b2b-b4e3-18e92cac16c0`
-  );
+  const { data } = await http.get(`/products/merchant/?merchant=${slug}`);
 
   // console.log(data);
 

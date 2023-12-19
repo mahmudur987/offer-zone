@@ -8,7 +8,7 @@ export const API_ENDPOINTS = {
   BRANDS: "/brands.json",
   PRODUCTS: "products",
   PRODUCT: "/product.json",
-  RELATED_PRODUCTS: "/related_products.json",
+  RELATED_PRODUCTS: "products/1/related-products",
   FLASH_SELL_PRODUCTS: "/products_flash_sell.json",
   BEST_SELLER_PRODUCTS: "/products_best_seller.json",
   BEST_SELLER_GROCERY_PRODUCTS: "/products_best_seller_grocery.json",
@@ -27,6 +27,6 @@ export const API_ENDPOINTS = {
   SHOP: "/shop.json",
   SHOPS: "/shops.json",
   WISHLIST: "/wishlist.json",
-  SLIDES: "https://offerzone-deploy.firebaseio.com/sliderInfo.json",
+  SLIDES: "slider-list",
   COMPANY_DATA: "company-data",
 };

@@ -1,354 +1,531 @@
 {
-  "client": "Thunder Client",
-  "collectionName": "E-Commerce API Testing",
-  "dateExported": "2023-12-07T18:57:47.994Z",
-  "version": "1.1",
-  "folders": [
-    {
-      "_id": "09678ee6-a1dc-4a85-94d4-339dacf7cf17",
-      "name": "Merchant",
-      "containerId": "",
-      "created": "2023-12-07T16:05:19.331Z",
-      "sortNum": 10000
-    },
-    {
-      "_id": "99d90ca8-7c6a-4b50-90d7-d1f6516f17c6",
-      "name": "Auth",
-      "containerId": "",
-      "created": "2023-12-07T16:05:19.332Z",
-      "sortNum": 20000
-    }
-  ],
-  "requests": [
-    {
-      "_id": "dc2a4b26-4572-4cbb-ada9-8bc50992b5fe",
-      "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
-      "containerId": "99d90ca8-7c6a-4b50-90d7-d1f6516f17c6",
-      "name": "Login",
-      "url": "{{domain}}/api/login/",
-      "method": "POST",
-      "sortNum": 10000,
-      "created": "2023-12-07T16:05:19.331Z",
-      "modified": "2023-12-07T16:05:19.331Z",
-      "headers": [],
-      "params": [],
-      "body": {
-        "type": "json",
-        "raw": "{\n  \"username\":\"admin\",\n  \"password\":\"admin123\"\n}",
-        "form": []
-      },
-      "tests": []
-    },
-    {
-      "_id": "4eb762c7-9ccd-44d5-964e-87231c301aec",
-      "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
-      "containerId": "",
-      "name": "Product List",
-      "url": "{{domain}}/api/products/",
-      "method": "GET",
-      "sortNum": 20000,
-      "created": "2023-12-07T16:05:19.333Z",
-      "modified": "2023-12-07T16:05:19.333Z",
-      "headers": [],
-      "params": [],
-      "auth": {
-        "type": "bearer",
-        "bearer": "{{TOKEN}}"
-      },
-      "tests": []
-    },
-    {
-      "_id": "57a43f2c-5717-4075-8e06-489a8cd9e544",
-      "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
-      "containerId": "99d90ca8-7c6a-4b50-90d7-d1f6516f17c6",
-      "name": "Merchant Login",
-      "url": "{{domain}}/api/merchant/login/",
-      "method": "POST",
-      "sortNum": 20000,
-      "created": "2023-12-07T16:05:19.337Z",
-      "modified": "2023-12-07T16:05:19.337Z",
-      "headers": [],
-      "params": [],
-      "body": {
-        "type": "json",
-        "raw": "{\n  \"username\":\"akfashin\",\n  \"password\":\"admin123\"\n}",
-        "form": []
-      },
-      "tests": []
-    },
-    {
-      "_id": "c3d32298-b19a-46a7-bbd0-608f9e8a8dbb",
-      "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
-      "containerId": "",
-      "name": "Company Info",
-      "url": "{{domain}}/api/company-data/",
-      "method": "GET",
-      "sortNum": 22500,
-      "created": "2023-12-07T16:05:19.342Z",
-      "modified": "2023-12-07T16:05:19.342Z",
-      "headers": [],
-      "params": [],
-      "auth": {
-        "type": "bearer",
-        "bearer": "{{TOKEN}}"
-      },
-      "tests": []
-    },
-    {
-      "_id": "c6989fb0-be33-4bd6-9321-3a6aa86aaa5b",
-      "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
-      "containerId": "",
-      "name": "Merchant Product List",
-      "url": "{{domain}}/api/products/merchant/?merchant=0eb527d3-4de9-4ac0-92e5-30284d791f66",
-      "method": "GET",
-      "sortNum": 25000,
-      "created": "2023-12-07T16:05:19.336Z",
-      "modified": "2023-12-07T16:05:19.336Z",
-      "headers": [],
-      "params": [
+    "client": "Thunder Client",
+    "collectionName": "E-Commerce API Testing",
+    "dateExported": "2023-12-18T06:09:45.391Z",
+    "version": "1.1",
+    "folders": [
         {
-          "name": "merchant",
-          "value": "0eb527d3-4de9-4ac0-92e5-30284d791f66",
-          "isPath": false
-        }
-      ],
-      "auth": {
-        "type": "bearer",
-        "bearer": "{{TOKEN}}"
-      },
-      "tests": []
-    },
-    {
-      "_id": "33442a79-65c7-4140-97c0-d9e3f3582305",
-      "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
-      "containerId": "",
-      "name": "Product List with Pagination",
-      "url": "{{domain}}/api/products/?page_size=5",
-      "method": "GET",
-      "sortNum": 30000,
-      "created": "2023-12-07T16:05:19.334Z",
-      "modified": "2023-12-07T16:05:19.334Z",
-      "headers": [],
-      "params": [
-        {
-          "name": "page_size",
-          "value": "5",
-          "isPath": false
-        }
-      ],
-      "auth": {
-        "type": "bearer",
-        "bearer": "{{TOKEN}}"
-      },
-      "tests": []
-    },
-    {
-      "_id": "f70515a0-53ce-4e51-a461-7f3e08e85b07",
-      "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
-      "containerId": "",
-      "name": "Product Details",
-      "url": "{{domain}}/api/products/1",
-      "method": "GET",
-      "sortNum": 40000,
-      "created": "2023-12-07T16:05:19.335Z",
-      "modified": "2023-12-07T16:05:19.335Z",
-      "headers": [],
-      "params": [],
-      "auth": {
-        "type": "bearer",
-        "bearer": "{{TOKEN}}"
-      },
-      "tests": []
-    },
-    {
-      "_id": "fd51b0a8-0e66-488e-b5b3-87a1b6b7b724",
-      "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
-      "containerId": "09678ee6-a1dc-4a85-94d4-339dacf7cf17",
-      "name": "My Products",
-      "url": "{{domain}}/api/merchant/my-products/",
-      "method": "GET",
-      "sortNum": 50000,
-      "created": "2023-12-07T16:05:19.338Z",
-      "modified": "2023-12-07T16:05:19.338Z",
-      "headers": [
-        {
-          "name": "Content-Type",
-          "value": "application/json"
-        }
-      ],
-      "params": [],
-      "auth": {
-        "type": "bearer",
-        "bearer": "{{TOKEN}}"
-      },
-      "tests": []
-    },
-    {
-      "_id": "06bfed52-b01d-49eb-9cee-e08f79cfca8a",
-      "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
-      "containerId": "",
-      "name": "Merchant List",
-      "url": "{{domain}}/api/merchant-list/?page_size=10",
-      "method": "GET",
-      "sortNum": 50000,
-      "created": "2023-12-07T18:25:13.201Z",
-      "modified": "2023-12-07T18:31:38.283Z",
-      "headers": [
-        {
-          "name": "Content-Type",
-          "value": "application/json"
-        }
-      ],
-      "params": [
-        {
-          "name": "page_size",
-          "value": "10",
-          "isPath": false
-        }
-      ],
-      "tests": []
-    },
-    {
-      "_id": "b07a9d04-1f27-48ce-aa76-cb99fa145383",
-      "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
-      "containerId": "09678ee6-a1dc-4a85-94d4-339dacf7cf17",
-      "name": "My Products with Pagination",
-      "url": "{{domain}}/api/merchant/my-products/?page_size=2",
-      "method": "GET",
-      "sortNum": 55000,
-      "created": "2023-12-07T16:05:19.340Z",
-      "modified": "2023-12-07T16:05:19.340Z",
-      "headers": [
-        {
-          "name": "Content-Type",
-          "value": "application/json"
-        }
-      ],
-      "params": [
-        {
-          "name": "page_size",
-          "value": "2",
-          "isPath": false
-        }
-      ],
-      "auth": {
-        "type": "bearer",
-        "bearer": "{{TOKEN}}"
-      },
-      "tests": []
-    },
-    {
-      "_id": "6bf3d530-b8ba-46a6-9f46-4598402136c6",
-      "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
-      "containerId": "09678ee6-a1dc-4a85-94d4-339dacf7cf17",
-      "name": "Create Product",
-      "url": "{{domain}}/api/merchant/my-products/",
-      "method": "POST",
-      "sortNum": 60000,
-      "created": "2023-12-07T16:05:19.339Z",
-      "modified": "2023-12-07T16:05:19.339Z",
-      "headers": [
-        {
-          "name": "Content-Type",
-          "value": "application/json"
-        }
-      ],
-      "params": [],
-      "body": {
-        "type": "json",
-        "raw": "{\n  \"category\":1,\n  \"sub_category\":1,\n  \"name\":\"My Test Product\",\n  \"code\":\"p-12304\",\n  \"price\":125,\n  \"quantity\":50,\n  \"stock_status\":\"1\"\n}",
-        "form": []
-      },
-      "auth": {
-        "type": "bearer",
-        "bearer": "{{TOKEN}}"
-      },
-      "tests": []
-    },
-    {
-      "_id": "8fb11619-815d-4a55-92ca-c03cc755b580",
-      "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
-      "containerId": "",
-      "name": "Category List ",
-      "url": "{{domain}}/api/category-list/",
-      "method": "GET",
-      "sortNum": 60000,
-      "created": "2023-12-07T18:40:43.897Z",
-      "modified": "2023-12-07T18:42:01.181Z",
-      "headers": [
-        {
-          "name": "Content-Type",
-          "value": "application/json"
-        }
-      ],
-      "params": [
-        {
-          "name": "page_size",
-          "value": "10",
-          "isDisabled": true,
-          "isPath": false
-        }
-      ],
-      "tests": []
-    },
-    {
-      "_id": "923b1630-8932-45db-9f0c-11fb40a489e5",
-      "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
-      "containerId": "09678ee6-a1dc-4a85-94d4-339dacf7cf17",
-      "name": "Update Product",
-      "url": "{{domain}}/api/merchant/my-products/5/",
-      "method": "PUT",
-      "sortNum": 70000,
-      "created": "2023-12-07T16:05:19.341Z",
-      "modified": "2023-12-07T16:05:19.341Z",
-      "headers": [
-        {
-          "name": "Content-Type",
-          "value": "application/json"
-        }
-      ],
-      "params": [],
-      "body": {
-        "type": "json",
-        "raw": "{\n  \"category\":1,\n  \"sub_category\":1,\n  \"name\":\"My Test Product\",\n  \"code\":\"p-12304\",\n  \"price\":125,\n  \"quantity\":55,\n  \"stock_status\":\"1\"\n}",
-        "form": []
-      },
-      "auth": {
-        "type": "bearer",
-        "bearer": "{{TOKEN}}"
-      },
-      "tests": []
-    },
-    {
-      "_id": "8da1d0ad-5a9c-4962-b632-eeb982d982d9",
-      "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
-      "containerId": "",
-      "name": "Sub Category List",
-      "url": "{{domain}}/api/sub-category-list/?category=1",
-      "method": "GET",
-      "sortNum": 70000,
-      "created": "2023-12-07T18:48:12.401Z",
-      "modified": "2023-12-07T18:49:38.462Z",
-      "headers": [
-        {
-          "name": "Content-Type",
-          "value": "application/json"
-        }
-      ],
-      "params": [
-        {
-          "name": "page_size",
-          "value": "10",
-          "isDisabled": true,
-          "isPath": false
+            "_id": "09678ee6-a1dc-4a85-94d4-339dacf7cf17",
+            "name": "Merchant",
+            "containerId": "",
+            "created": "2023-12-07T16:05:19.331Z",
+            "sortNum": 10000
         },
         {
-          "name": "category",
-          "value": "1",
-          "isPath": false
+            "_id": "99d90ca8-7c6a-4b50-90d7-d1f6516f17c6",
+            "name": "Auth",
+            "containerId": "",
+            "created": "2023-12-07T16:05:19.332Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "2fc8c4bc-e2b4-419b-ac33-7c96ad103447",
+            "name": "Offers",
+            "containerId": "",
+            "created": "2023-12-12T16:31:08.647Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "3312caeb-ba28-48e7-9903-ef637830f700",
+            "name": "Products",
+            "containerId": "",
+            "created": "2023-12-12T17:57:06.305Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "f606577b-7d0d-47eb-afda-577359848d37",
+            "name": "Customer",
+            "containerId": "",
+            "created": "2023-12-17T16:21:46.672Z",
+            "sortNum": 50000
         }
-      ],
-      "tests": []
-    }
-  ]
+    ],
+    "requests": [
+        {
+            "_id": "dc2a4b26-4572-4cbb-ada9-8bc50992b5fe",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "99d90ca8-7c6a-4b50-90d7-d1f6516f17c6",
+            "name": "Login",
+            "url": "{{domain}}/api/login/",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-12-07T16:05:19.331Z",
+            "modified": "2023-12-18T05:18:36.591Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\":\"01991953826\",\n  \"password\":\"1824\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "4eb762c7-9ccd-44d5-964e-87231c301aec",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "3312caeb-ba28-48e7-9903-ef637830f700",
+            "name": "Product List",
+            "url": "{{domain}}/api/products/",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-12-07T16:05:19.333Z",
+            "modified": "2023-12-12T17:41:38.031Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "08618a16-bdc8-4a7e-9b84-05e932212bda",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "2fc8c4bc-e2b4-419b-ac33-7c96ad103447",
+            "name": "Offer List",
+            "url": "{{domain}}/api/offer-list/",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-12-12T16:31:14.577Z",
+            "modified": "2023-12-12T16:56:07.309Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [
+                {
+                    "name": "page_size",
+                    "value": "10",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "3ba50a8f-3788-42ad-976a-b36c1c791852",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "f606577b-7d0d-47eb-afda-577359848d37",
+            "name": "Registration",
+            "url": "{{domain}}/api/customer/registration/",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-12-17T16:22:04.024Z",
+            "modified": "2023-12-18T04:37:22.339Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"phone_number\":\"01991953826\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "8f51e7a1-7abc-4dca-9210-bb802608899b",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "3312caeb-ba28-48e7-9903-ef637830f700",
+            "name": "Related 20 Products",
+            "url": "{{domain}}/api/products/1/related-products/",
+            "method": "GET",
+            "sortNum": 15000,
+            "created": "2023-12-18T05:27:57.734Z",
+            "modified": "2023-12-18T05:31:32.173Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "c6989fb0-be33-4bd6-9321-3a6aa86aaa5b",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "3312caeb-ba28-48e7-9903-ef637830f700",
+            "name": "Merchant Product List",
+            "url": "{{domain}}/api/products/merchant/?merchant=0eb527d3-4de9-4ac0-92e5-30284d791f66",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-12-07T16:05:19.336Z",
+            "modified": "2023-12-07T16:05:19.336Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "merchant",
+                    "value": "0eb527d3-4de9-4ac0-92e5-30284d791f66",
+                    "isPath": false
+                }
+            ],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{TOKEN}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "57a43f2c-5717-4075-8e06-489a8cd9e544",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "99d90ca8-7c6a-4b50-90d7-d1f6516f17c6",
+            "name": "Merchant Login",
+            "url": "{{domain}}/api/merchant/login/",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-12-07T16:05:19.337Z",
+            "modified": "2023-12-07T16:05:19.337Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\":\"akfashin\",\n  \"password\":\"admin123\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "a106c0a7-3fe6-452c-b6ef-93b40cabb7c9",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "f606577b-7d0d-47eb-afda-577359848d37",
+            "name": "OTP Verification",
+            "url": "{{domain}}/api/customer/otp-verification/",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-12-18T04:49:52.987Z",
+            "modified": "2023-12-18T05:18:27.809Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"phone_number\":\"01991953826\",\n  \"otp_code\":\"1824\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "c3d32298-b19a-46a7-bbd0-608f9e8a8dbb",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "",
+            "name": "Company Info",
+            "url": "{{domain}}/api/company-data/",
+            "method": "GET",
+            "sortNum": 22500,
+            "created": "2023-12-07T16:05:19.342Z",
+            "modified": "2023-12-07T16:05:19.342Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{TOKEN}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "33442a79-65c7-4140-97c0-d9e3f3582305",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "3312caeb-ba28-48e7-9903-ef637830f700",
+            "name": "Product List with Pagination",
+            "url": "{{domain}}/api/products/?page_size=5",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-12-07T16:05:19.334Z",
+            "modified": "2023-12-07T16:05:19.334Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "page_size",
+                    "value": "5",
+                    "isPath": false
+                }
+            ],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{TOKEN}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "f70515a0-53ce-4e51-a461-7f3e08e85b07",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "3312caeb-ba28-48e7-9903-ef637830f700",
+            "name": "Product Details",
+            "url": "{{domain}}/api/products/1",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-12-07T16:05:19.335Z",
+            "modified": "2023-12-18T05:32:56.870Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "fd51b0a8-0e66-488e-b5b3-87a1b6b7b724",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "09678ee6-a1dc-4a85-94d4-339dacf7cf17",
+            "name": "My Products",
+            "url": "{{domain}}/api/merchant/my-products/",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2023-12-07T16:05:19.338Z",
+            "modified": "2023-12-07T16:05:19.338Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{TOKEN}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "06bfed52-b01d-49eb-9cee-e08f79cfca8a",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "",
+            "name": "Merchant List",
+            "url": "{{domain}}/api/merchant-list/?page_size=10",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2023-12-07T18:25:13.201Z",
+            "modified": "2023-12-07T18:31:38.283Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [
+                {
+                    "name": "page_size",
+                    "value": "10",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "5b2a6125-515a-4030-8e2d-a38efba683da",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "3312caeb-ba28-48e7-9903-ef637830f700",
+            "name": "Product Filter",
+            "url": "{{domain}}/api/products/product-filter/?page_size=10&category=Dress&sub_category=men&min_price=200&max_price=1200&sorting= low",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2023-12-12T17:13:22.127Z",
+            "modified": "2023-12-18T05:57:14.172Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [
+                {
+                    "name": "page_size",
+                    "value": "10",
+                    "isPath": false
+                },
+                {
+                    "name": "category",
+                    "value": "Dress",
+                    "isPath": false
+                },
+                {
+                    "name": "sub_category",
+                    "value": "men",
+                    "isPath": false
+                },
+                {
+                    "name": "min_price",
+                    "value": "200",
+                    "isPath": false
+                },
+                {
+                    "name": "max_price",
+                    "value": "1200",
+                    "isPath": false
+                },
+                {
+                    "name": "sorting",
+                    "value": " low",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "b07a9d04-1f27-48ce-aa76-cb99fa145383",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "09678ee6-a1dc-4a85-94d4-339dacf7cf17",
+            "name": "My Products with Pagination",
+            "url": "{{domain}}/api/merchant/my-products/?page_size=2",
+            "method": "GET",
+            "sortNum": 55000,
+            "created": "2023-12-07T16:05:19.340Z",
+            "modified": "2023-12-07T16:05:19.340Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [
+                {
+                    "name": "page_size",
+                    "value": "2",
+                    "isPath": false
+                }
+            ],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{TOKEN}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "6bf3d530-b8ba-46a6-9f46-4598402136c6",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "09678ee6-a1dc-4a85-94d4-339dacf7cf17",
+            "name": "Create Product",
+            "url": "{{domain}}/api/merchant/my-products/",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2023-12-07T16:05:19.339Z",
+            "modified": "2023-12-07T16:05:19.339Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"category\":1,\n  \"sub_category\":1,\n  \"name\":\"My Test Product\",\n  \"code\":\"p-12304\",\n  \"price\":125,\n  \"quantity\":50,\n  \"stock_status\":\"1\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{TOKEN}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "8fb11619-815d-4a55-92ca-c03cc755b580",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "",
+            "name": "Category List ",
+            "url": "{{domain}}/api/category-list/",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2023-12-07T18:40:43.897Z",
+            "modified": "2023-12-07T18:42:01.181Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [
+                {
+                    "name": "page_size",
+                    "value": "10",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "923b1630-8932-45db-9f0c-11fb40a489e5",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "09678ee6-a1dc-4a85-94d4-339dacf7cf17",
+            "name": "Update Product",
+            "url": "{{domain}}/api/merchant/my-products/5/",
+            "method": "PUT",
+            "sortNum": 70000,
+            "created": "2023-12-07T16:05:19.341Z",
+            "modified": "2023-12-07T16:05:19.341Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"category\":1,\n  \"sub_category\":1,\n  \"name\":\"My Test Product\",\n  \"code\":\"p-12304\",\n  \"price\":125,\n  \"quantity\":55,\n  \"stock_status\":\"1\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{TOKEN}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "8da1d0ad-5a9c-4962-b632-eeb982d982d9",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "",
+            "name": "Sub Category List",
+            "url": "{{domain}}/api/sub-category-list/?category=Mobile",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2023-12-07T18:48:12.401Z",
+            "modified": "2023-12-12T17:13:10.449Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [
+                {
+                    "name": "page_size",
+                    "value": "10",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "category",
+                    "value": "Mobile",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "9d09d39a-2b6f-43d1-b386-64d072b4e487",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "",
+            "name": "Home Slider List",
+            "url": "{{domain}}/api/slider-list/",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2023-12-12T17:27:40.648Z",
+            "modified": "2023-12-12T17:28:05.250Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [
+                {
+                    "name": "page_size",
+                    "value": "10",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        }
+    ]
 }

@@ -40,15 +40,16 @@ export type CompanyData = {
 export type NewProduct = {
   id: number;
   merchant_name: string;
+  product_slider: []; // Assuming product_slider is an array of image URLs
   name: string;
   code: string;
-  image: string | null;
+  image: string;
   price: number;
   compare_price: number;
   quantity: number;
   description: string;
-  add_date: string; // Assuming the date is in string format
-  stock_status: "0" | "1"; // Assuming stock status is a string with values "0" or "1"
+  add_date: string;
+  stock_status: string;
   ordering: number;
   status: boolean;
   meta_description: string;
@@ -57,8 +58,28 @@ export type NewProduct = {
   category: number;
   sub_category: number;
   merchant: string;
+  uom: any; //
 };
 
+export type SuperOffer = {
+  id: number;
+  title: string;
+  link: string;
+  image: string;
+  ordering: number;
+  status: boolean;
+  // Additional properties for the first data structure
+  provider?: string;
+  partner_name?: string | null;
+  restaurant_name?: string | null;
+  location?: string | null;
+  description?: string;
+  add_date?: string;
+  expaired_at?: string | null;
+  meta_description?: string;
+  meta_keywords?: string;
+  meta_title?: string;
+};
 export type CollectionsQueryOptionsType = {
   text?: string;
   collection?: string;
@@ -201,12 +222,12 @@ export type Shop = {
 };
 
 export type Slide = {
-  Description: string;
-  Image: string;
-  Name: string;
-  SlideID: string;
-  Status: string;
-  Type: string;
+  id: number;
+  title: string;
+  link: string;
+  image: string;
+  ordering: number;
+  status: boolean;
 };
 
 export interface Offer {

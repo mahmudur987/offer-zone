@@ -15,6 +15,7 @@ import BannerCard from "@components/cards/banner-card";
 import CollectionGrid from "@components/common/collection-grid";
 
 import ProductsGridBlock from "@components/product/products-grid-block";
+import { SupperOfferGrid } from "@components/offers/super-offer-grid";
 
 const HeroBannerCard = dynamic(
   () => import("@components/hero/hero-banner-card"),
@@ -40,6 +41,9 @@ export default function Home() {
       <Container className="-mt-[60px] relative z-10">
         {/* under baner section */}
         <BundleGrid className="mb-12 lg:mb-14 xl:mb-16 2xl:mb-20" />
+
+        {/* super offer */}
+        <SupperOfferGrid />
 
         {/* home category section */}
 

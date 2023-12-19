@@ -47,63 +47,65 @@ const defaultValues = {
 export default function CheckoutPage() {
   const { width } = useWindowSize();
   const { isAuthorized } = useUI();
-  const router = useRouter()
+  const router = useRouter();
   const methods = useForm<CheckoutFormValues>({ defaultValues });
   const { merchantID, items, resetCart } = useCart();
   const { mutate } = useCheckoutMutation();
 
   function onSubmit(values: CheckoutFormValues) {
     if (merchantID) {
-      const offers = items.map(item => `${item.name} -- ${item.quantity} -- ${item.price}`).join(' | ')
-      mutate({
-        ...values,
-        merchantID: merchantID,
-        offers: offers,
-        createdAt: dayjs().format('YYYY-MM-DD hh:mm:ss A'),
-        type: 'purchase'
-      }, {
-        onSuccess() {
-          resetCart();
-          router.push('/');
-          toast('Thank you for the purchase. We are on our way', {
-            progressClassName: 'fancy-progress-bar',
-            position: width! > 768 ? 'bottom-right' : 'top-right',
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-          });
+      const offers = items
+        .map((item) => `${item.name} -- ${item.quantity} -- ${item.price}`)
+        .join(" | ");
+      mutate(
+        {
+          ...values,
+          merchantID: merchantID,
+          offers: offers,
+          createdAt: dayjs().format("YYYY-MM-DD hh:mm:ss A"),
+          type: "purchase",
         },
-        onError() {
-          toast.error('Something went wrong! Try again some other time', {
-            progressClassName: 'fancy-progress-bar',
-            position: width! > 768 ? 'bottom-right' : 'top-right',
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-          });
+        {
+          onSuccess() {
+            resetCart();
+            router.push("/");
+            toast("Thank you for the purchase. We are on our way", {
+              progressClassName: "fancy-progress-bar",
+              position: width! > 768 ? "bottom-right" : "top-right",
+              autoClose: 1500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+            });
+          },
+          onError() {
+            toast.error("Something went wrong! Try again some other time", {
+              progressClassName: "fancy-progress-bar",
+              position: width! > 768 ? "bottom-right" : "top-right",
+              autoClose: 1500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+            });
+          },
         }
-      })
+      );
     }
   }
 
-  useEffect(() => {
-    if (!isAuthorized) {
-      router.replace('/signin')
-    }
-  }, [isAuthorized])
-
+  // useEffect(() => {
+  //   if (!isAuthorized) {
+  //     router.replace('/signin')
+  //   }
+  // }, [isAuthorized])
 
   // if(!isAuthorized) {
   //   return <div className="w-100 min-h-screen flex justify-center"><p>Loading...</p></div>
   // }
 
   return (
-
-
     <>
       <Seo
         title="Checkout"
@@ -125,7 +127,9 @@ export default function CheckoutPage() {
             </form>
           </FormProvider>
         </div>
-        <div className="my-12 md:my-14 xl:my-16"><MerchantProducts merchantID={merchantID} headingPosition="left" /></div>
+        <div className="my-12 md:my-14 xl:my-16">
+          <MerchantProducts merchantID={merchantID} headingPosition="left" />
+        </div>
       </Container>
       <Divider />
     </>

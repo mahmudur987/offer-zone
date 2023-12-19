@@ -17,6 +17,7 @@ export default function Cart() {
   const { t } = useTranslation("common");
   const { closeDrawer } = useUI();
   const { items, total, isEmpty, resetCart } = useCart();
+
   const { price: cartTotal } = usePrice({
     amount: total,
     currencyCode: "BDT",

@@ -11,6 +11,8 @@ import AllProductFeed from "@components/product/feeds/all-products-feed";
 import { useTranslation } from "next-i18next";
 import useShopData from "./hooks/useShopData";
 import useShopsData from "./hooks/useShopsData";
+import { useMarchantProductsQuery } from "@framework/product/get-Marchant-Products";
+import { LIMITS } from "@framework/utils/limits";
 
 export default function ShopsSingleDetails() {
   const { t } = useTranslation("common");
@@ -18,7 +20,6 @@ export default function ShopsSingleDetails() {
   const router = useRouter();
   const data = shops?.find((x) => x.id === router?.query?.slug);
   const { name, photo } = data || {};
-  console.log(data);
   const { openShop, displayShop, closeShop } = useUI();
   const { locale } = useRouter();
   const dir = getDirection(locale);
@@ -68,7 +69,7 @@ export default function ShopsSingleDetails() {
               </div>
 
               <div className="w-full lg:ltr:pl-7 lg:rtl:pr-7">
-                {/* <AllProductFeed /> */}
+                <AllProductFeed />
               </div>
             </Element>
           </Container>
