@@ -80,9 +80,9 @@ const CollectionGrid: React.FC<Props> = ({
             prevActivateId="collection-carousel-button-prev"
             nextActivateId="collection-carousel-button-next"
           >
-            {data?.map((item) => (
+            {data?.map((item, i) => (
               <SwiperSlide
-                key={`collection-key-${item.id}`}
+                key={`collection-key-${i}`}
                 className="px-1.5 md:px-2 xl:px-2.5 py-4"
               >
                 <CollectionCard

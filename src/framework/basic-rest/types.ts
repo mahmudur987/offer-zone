@@ -321,10 +321,10 @@ export interface CheckoutFormValues {
   name: string;
   phone: string;
   email: string;
-  address1: string;
-  address2: string;
-  address3: string;
-  address4: string;
+  streetAddress: string;
+  area: string;
+  city: string;
+  postalCode: string;
   del_method: string;
   total: number;
   pay_method: string;

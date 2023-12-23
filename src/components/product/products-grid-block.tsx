@@ -97,9 +97,9 @@ const ProductsGridBlock: React.FC<ProductsProps> = ({
                 nextActivateId="collection-carousel-button-next"
                 prevActivateId="collection-carousel-button-prev"
               >
-                {products?.map((item: any) => (
+                {products?.map((item: any, i: any) => (
                   <SwiperSlide
-                    key={`collection-key-${item.OfferID}`}
+                    key={`collection-key-${i}`}
                     className="px-1.5 md:px-2 xl:px-2.5 py-4"
                   >
                     <ProductCardAlpine

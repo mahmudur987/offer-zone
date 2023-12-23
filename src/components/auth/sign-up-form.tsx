@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "@components/ui/form/input";
 import PasswordInput from "@components/ui/form/password-input";
 import Button from "@components/ui/button";
 import { useForm } from "react-hook-form";
 import Logo from "@components/ui/logo";
-import { useSignUpMutation, SignUpInputType } from "@framework/auth/use-signup";
+import {
+  useSignUpMutation,
+  SignUpInputType,
+  useOtpMutation,
+} from "@framework/auth/use-signup";
 import Link from "@components/ui/link";
 import { useTranslation } from "next-i18next";
 import Image from "@components/ui/image";
@@ -14,6 +18,7 @@ import CloseButton from "@components/ui/close-button";
 import cn from "classnames";
 import { ROUTES } from "@utils/routes";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 interface SignUpFormProps {
   isPopup?: boolean;
@@ -25,10 +30,12 @@ export default function SignUpForm({
   className,
 }: SignUpFormProps) {
   const { t } = useTranslation();
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const router = useRouter();
+  const [otp, setOtp] = useState(false);
 
-  const { mutate: signUp, isLoading } = useSignUpMutation();
+  const { mutate: signUp, isLoading, data, error }: any = useSignUpMutation();
+  const { mutate: otpVerify } = useOtpMutation();
   const { closeModal, openModal } = useModalAction();
   const [remember, setRemember] = useState(false);
   const {
@@ -37,16 +44,54 @@ export default function SignUpForm({
     formState: { errors },
   } = useForm<SignUpInputType>();
   function handleSignIn() {
-    return router.push("/signin");
+    openModal("LOGIN_VIEW");
   }
-  function onSubmit({ name, email, password, remember_me }: SignUpInputType) {
-    signUp({
-      name,
-      email,
-      password,
-      remember_me: remember,
-    });
+  function onSubmit({
+    name,
+    email,
+    password,
+    phone,
+    remember_me,
+    otpInput,
+  }: SignUpInputType) {
+    if (!otpInput && !otp) {
+      signUp({
+        name,
+        email,
+        password,
+        phone,
+        remember_me,
+      });
+    } else {
+      otpVerify({
+        phone: phone || data?.phone_number,
+        otpInput,
+      });
+    }
   }
+
+  useEffect(() => {
+    setOtp(false);
+    if (error?.message === "Request failed with status code 400") {
+      setErrorMessage(error?.response?.data?.username[0]);
+      toast.error(error?.response?.data?.username[0] || "Error", {
+        toastId: 1,
+      });
+    }
+    if (error?.message === "Request failed with status code 500") {
+      toast.error("Error 500", {
+        toastId: 2,
+      });
+    }
+
+    if (data) {
+      setOtp(true);
+    }
+    setTimeout(() => {
+      setErrorMessage("");
+    }, 3000);
+  }, [error, data]);
+  console.log(data, isLoading, error);
   return (
     <div
       className={cn(
@@ -69,16 +114,16 @@ export default function SignUpForm({
               <Logo />
             </div>
             <h4 className="text-xl font-semibold text-brand-dark sm:text-2xl sm:pt-3 ">
-              {t("common:text-sign-up-for-free")}
+              Sign up for free
             </h4>
             <div className="mt-3 mb-1 text-sm text-center sm:text-base text-body">
-              {t("common:text-already-registered")}
+              Already Registered please
               <button
                 type="button"
                 className="text-sm font-semibold ltr:ml-1 rtl:mr-1 sm:text-base text-brand hover:no-underline focus:outline-none"
                 onClick={handleSignIn}
               >
-                {t("common:text-sign-in-now")}
+                Sign in
               </button>
             </div>
           </div>
@@ -88,72 +133,105 @@ export default function SignUpForm({
             noValidate
           >
             <div className="flex flex-col space-y-4">
-              <Input
-                label={t("forms:label-name")}
-                type="text"
-                variant="solid"
-                {...register("name", {
-                  required: "forms:name-required",
-                })}
-                error={errors.name?.message}
-              />
-              <Input
-                label={t("forms:label-email")}
-                type="email"
-                variant="solid"
-                {...register("email", {
-                  required: `${t("forms:email-required")}`,
-                  pattern: {
-                    value:
-                      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                    message: t("forms:email-error"),
-                  },
-                })}
-                error={errors.email?.message}
-              />
-              <PasswordInput
-                label={t("forms:label-password")}
-                error={errors.password?.message}
-                {...register("password", {
-                  required: `${t("forms:password-required")}`,
-                })}
-              />
-              <div className="flex items-center justify-center">
-                <div className="flex items-center shrink-0">
-                  <label className="relative inline-block cursor-pointer switch">
-                    <Switch checked={remember} onChange={setRemember} />
-                  </label>
+              {otp ? (
+                <>
+                  <Input
+                    label={"OTP"}
+                    type="number"
+                    variant="solid"
+                    {...register("otpInput", {
+                      required: `otp is required`,
+                    })}
+                    error={errors.otpInput?.message}
+                  />
 
-                  <label
-                    htmlFor="remember"
-                    className="mt-1 text-sm cursor-pointer shrink-0 text-heading ltr:pl-2.5 rtl:pr-2.5"
-                  >
-                    {t("forms:label-remember-me")}
-                  </label>
-                </div>
-                <div
-                  className="flex ltr:ml-auto rtl:mr-auto mt-[2px]"
-                  onClick={closeModal}
-                >
-                  <Link
-                    href={ROUTES.PRIVACY}
-                    className="text-sm ltr:text-right rtl:text-left text-heading ltr:pl-3 lg:rtl:pr-3 hover:no-underline hover:text-brand-dark focus:outline-none focus:text-brand-dark"
-                  >
-                    {t("common:text-privacy-and-policy")}
-                  </Link>
-                </div>
-              </div>
-              <div className="relative">
-                <Button
-                  type="submit"
-                  loading={isLoading}
-                  disabled={isLoading}
-                  className="w-full mt-2 tracking-normal h-11 md:h-12 font-15px md:font-15px"
-                  variant="formButton"
-                >
-                  {t("common:text-register")}
-                </Button>
-              </div>
+                  <p className="text-xs">
+                    After complete of verification your otp is your Password
+                  </p>
+                </>
+              ) : (
+                <>
+                  {/* <Input
+                    label={"Name"}
+                    type="text"
+                    variant="solid"
+                    {...register("name", {
+                      required: "forms:name-required",
+                    })}
+                    error={errors.name?.message}
+                  /> */}
+                  {/* <Input
+                    label={"Email"}
+                    type="email"
+                    variant="solid"
+                    {...register("email", {
+                      required: `Email is required`,
+                      pattern: {
+                        value:
+                          /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                        message: t("forms:email-error"),
+                      },
+                    })}
+                    error={errors.email?.message}
+                  /> */}
+                  <Input
+                    label={t("Phone Number")}
+                    variant="solid"
+                    {...register("phone", {
+                      required: `${t("forms:phone-required")}`,
+                      pattern: {
+                        value: /^(?:\+?88)?01[13-9]\d{8}$/,
+                        message: "write a valid phone number ",
+                      },
+                    })}
+                    error={errors.phone?.message}
+                  />
+                  {/* <PasswordInput
+                    label={"Password"}
+                    error={errors.password?.message}
+                    {...register("password", {
+                      required: `password is required`,
+                    })}
+                  /> */}
+                  <div className="flex items-center justify-center">
+                    <div className="flex items-center shrink-0">
+                      <label className="relative inline-block cursor-pointer switch">
+                        <Switch checked={remember} onChange={setRemember} />
+                      </label>
+
+                      <label
+                        htmlFor="remember"
+                        className="mt-1 text-sm cursor-pointer shrink-0 text-heading ltr:pl-2.5 rtl:pr-2.5"
+                      >
+                        Rebember Me
+                      </label>
+                    </div>
+                    <div
+                      className="flex ltr:ml-auto rtl:mr-auto mt-[2px]"
+                      onClick={closeModal}
+                    >
+                      <Link
+                        href={ROUTES.PRIVACY}
+                        className="text-sm ltr:text-right rtl:text-left text-heading ltr:pl-3 lg:rtl:pr-3 hover:no-underline hover:text-brand-dark focus:outline-none focus:text-brand-dark"
+                      >
+                        privacy and policy
+                      </Link>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+            <div className="relative">
+              {errorMessage && <p className="text-red-400">{errorMessage}</p>}
+              <Button
+                type="submit"
+                loading={isLoading}
+                disabled={isLoading}
+                className="w-full mt-2 tracking-normal h-11 md:h-12 font-15px md:font-15px"
+                variant="formButton"
+              >
+                Register
+              </Button>
             </div>
           </form>
         </div>

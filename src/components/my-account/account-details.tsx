@@ -24,8 +24,10 @@ const AccountDetails: React.FC = () => {
   } = useForm<UpdateUserType>({
     defaultValues,
   });
-  function onSubmit(input: UpdateUserType) {
-    updateUser(input);
+  function onSubmit(data: UpdateUserType) {
+    // updateUser(data);
+
+    console.log(data);
   }
   return (
     <div className="flex flex-col w-full">

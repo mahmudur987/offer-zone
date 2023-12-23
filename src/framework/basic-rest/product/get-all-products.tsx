@@ -8,44 +8,31 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 
 const fetchProducts = async (filter: any) => {
-  console.log(filter);
+  // console.log(filter);
 
   const { data } = await http.get(filter);
-
   return data;
 };
-
 const useProductsQuery = (options: QueryOptionsType) => {
+  const [filtarparam, setfiltarparam] = useState(API_ENDPOINTS.PRODUCTS);
+
   const router = useRouter();
-  const { query, asPath }: any = router;
-
-  const { data, isLoading, error } = useQuery<NewProduct[], Error>(
-    [API_ENDPOINTS.PRODUCTS, options, asPath],
-    () => fetchProducts(asPath)
-  );
-  const [finalData, setFinalData] = useState(data);
-
+  const { query }: any = router;
+  // console.log(query);
   useEffect(() => {
-    const filterCategoryList: any = query?.category?.split(",");
-
-    // Filter the initial data
-    const filteredData = query?.category
-      ? data?.filter(
-          (item) => filterCategoryList?.includes(item.category) || item
-        )
-      : data;
-
-    // Sort the filtered data by the specified attribute
-    if (query.sort_by === "highest") {
-      filteredData?.sort((a, b) => b.price - a.price);
+    if (query.category) {
+      // filtarparam=`products/product-filter/?page_size=10&category=Dress`
+      let url = `products/product-filter/?category=${query?.category}`;
+      setfiltarparam(url);
     } else {
-      filteredData?.sort((a, b) => a.price - b.price);
+      setfiltarparam(API_ENDPOINTS.PRODUCTS);
     }
-
-    // Update the state with the filtered and sorted data
-    setFinalData(filteredData);
-  }, [query, data]);
-  // console.log(query, finalData);
+  }, [query]);
+  // console.log(filtarparam);
+  const { data, isLoading, error } = useQuery<NewProduct[], Error>(
+    [API_ENDPOINTS.PRODUCTS, options, filtarparam],
+    () => fetchProducts(filtarparam)
+  );
   return { data, isLoading, error };
 };
 

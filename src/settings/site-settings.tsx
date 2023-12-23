@@ -120,22 +120,22 @@ export const siteSettings = {
       {
         id: 1,
         path: "/",
-        label: "menu-join",
+        label: "Join",
         subMenu: [
           {
             id: 1,
             path: "/merchant-signup",
-            label: "menu-merchant",
+            label: "Merchant",
           },
           {
             id: 2,
             path: "/agent-signup",
-            label: "menu-agent",
+            label: "Agent",
           },
           {
             id: 3,
             path: "/member-signup",
-            label: "menu-member",
+            label: "Member",
           },
         ],
       },
@@ -145,22 +145,22 @@ export const siteSettings = {
       {
         id: 1,
         path: "/",
-        label: "menu-auth",
+        label: "Profile",
         subMenu: [
           {
             id: 1,
-            path: "/",
-            label: "menu-agent-dashboard",
-          },
-          {
-            id: 2,
-            path: "/",
-            label: "menu-merchant-dashboard",
+            path: "/my-account",
+            label: "Dashboard",
           },
           {
             id: 3,
-            path: "/",
-            label: "menu-member-dashboard",
+            path: "/agent-dashboard",
+            label: "Agent Dashboard",
+          },
+          {
+            id: 2,
+            path: "/marchant-dashboard",
+            label: "Marchant Dashboard",
           },
         ],
       },

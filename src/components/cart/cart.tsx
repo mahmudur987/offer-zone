@@ -83,7 +83,7 @@ export default function Cart() {
               }
             )}
           >
-            <span className="py-0.5">{t("text-proceed-to-checkout")}</span>
+            <span className="py-0.5">{t("Proceed to checkout")}</span>
           </Link>
         </div>
       </div>

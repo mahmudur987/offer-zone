@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { SwiperSlide } from "@components/ui/carousel/slider";
 import { useSlidesQuery } from "@framework/slider/get-slides";
 import { useCompanyData } from "@framework/companyData/getCompanydata";
+import LoadingSpinner from "@components/common/Loading/LoadingSpiner";
 const Carousel = dynamic(() => import("@components/ui/carousel/carousel"), {
   ssr: false,
 });
@@ -33,8 +34,15 @@ const breakpoints = {
 
 const BundleGrid: React.FC<Props> = ({ className = "mb-12 pb-0.5" }) => {
   const { width } = useWindowSize();
-  const { data } = useSlidesQuery({});
+  const { data, isLoading, error, isError }: any = useSlidesQuery();
+  // console.log(data);
 
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+  if (isError) {
+    <p>{error}</p>;
+  }
   return (
     <div className={cn("heightFull", className)}>
       {data ? (

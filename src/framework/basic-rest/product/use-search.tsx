@@ -5,9 +5,9 @@ import { useQuery } from "react-query";
 import axios from "axios";
 
 export const fetchSearchedCategory = async ({ queryKey }: any) => {
-  const [, _params] = queryKey;
+  const [_params] = queryKey;
 
-  const { data } = await await axios.get("/api/getData");
+  const { data } = await axios.get("/api/getData");
 
   function searchCategory(product: any) {
     return product.name.toLowerCase().indexOf(_params.text.toLowerCase()) > -1;

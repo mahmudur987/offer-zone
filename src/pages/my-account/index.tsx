@@ -4,8 +4,20 @@ import AccountDetails from "@components/my-account/account-details";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetStaticProps } from "next";
 import Seo from "@components/seo/seo";
+import { useEffect } from "react";
+import { useUI } from "@contexts/ui.context";
+import { useRouter } from "next/router";
 
 export default function AccountDetailsPage() {
+  const { isAuthorized } = useUI();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isAuthorized) {
+      router.replace("/");
+    }
+  }, [isAuthorized]);
+
   return (
     <>
       <Seo

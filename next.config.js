@@ -11,7 +11,7 @@ const nextConfig = {
   reactStrictMode: true,
   i18n,
   images: {
-    domains: ["api.offerzonebd.com", "www.offerzonebd.com"],
+    domains: ["api.pythonbdit.com", "api.offerzonebd.com"],
   },
   ...(process.env.NODE_ENV === "production" && {
     typescript: {

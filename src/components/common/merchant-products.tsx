@@ -114,13 +114,13 @@ export default function MerchantProducts({
               nextActivateId="collection-carousel-button-next"
               prevActivateId="collection-carousel-button-prev"
             >
-              {merchantProducts?.map((product) => (
+              {merchantProducts?.map((product, i) => (
                 <SwiperSlide
-                  key={`collection-key-${product.OfferID}`}
+                  key={`collection-key-${i}`}
                   className="px-1.5 md:px-2 xl:px-2.5 py-4"
                 >
                   <ProductCard
-                    key={`offer--key-${product.OfferID}`}
+                    key={`offer--key-${i}`}
                     product={product}
                     showCounter={true}
                   />

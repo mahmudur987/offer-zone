@@ -13,6 +13,7 @@ import LanguageSwitcher from "@components/ui/language-switcher";
 import { useModalAction } from "@components/common/modal/modal.context";
 import cn from "classnames";
 import Search from "@components/common/search";
+import { getToken } from "@framework/utils/get-token";
 const JoinMenu = dynamic(() => import("./join-menu"), { ssr: false });
 const AuthMenu = dynamic(() => import("./auth-menu"), { ssr: false });
 const CartButton = dynamic(() => import("@components/cart/cart-button"), {
@@ -34,7 +35,9 @@ const Header: React.FC = () => {
   function handleMobileMenu() {
     return openSidebar();
   }
-
+  const data = getToken();
+  // console.log(data);
+  // console.log(isAuthorized);
   return (
     <header
       id="siteHeader"

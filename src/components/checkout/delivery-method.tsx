@@ -88,17 +88,6 @@ export default function DeliveryMethodForm() {
               {errors.del_method.message}
             </p>
           )}
-          {/* {selectedMethod ? (
-            <Input
-              label={"Transaction ID"}
-              variant="solid"
-              name="tId"
-              value={transactionId}
-              onChange={(e) => setTransactionId(e.target.value)}
-              disabled={["cod", "pay online"].includes(selectedMethod)}
-              className="mt-10"
-            />
-          ) : null} */}
         </div>
       )}
     </ConnectCheckoutForm>

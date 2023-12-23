@@ -1,6 +1,6 @@
-import cn from 'classnames';
-import React, { InputHTMLAttributes } from 'react';
-import { useTranslation } from 'next-i18next';
+import cn from "classnames";
+import React, { InputHTMLAttributes } from "react";
+import { useTranslation } from "next-i18next";
 
 export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
@@ -12,45 +12,45 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
   type?: string;
   shadow?: boolean;
-  variant?: 'normal' | 'solid' | 'outline';
+  variant?: "normal" | "solid" | "outline";
 }
 const classes = {
-  root: 'py-2 px-4 w-full appearance-none transition duration-150 ease-in-out border text-input text-13px  lg:text-sm font-body rounded placeholder-[#B3B3B3] min-h-12 transition duration-200 ease-in-out text-brand-dark focus:ring-0 disabled:bg-gray-200 disabled:cursor-not-allowed',
+  root: "py-2 px-4 w-full appearance-none transition duration-150 ease-in-out border text-input text-13px  lg:text-sm font-body rounded placeholder-[#B3B3B3] min-h-12 transition duration-200 ease-in-out text-brand-dark focus:ring-0 disabled:bg-gray-200 disabled:cursor-not-allowed",
   normal:
-    'bg-gray-100 border-gray-300 focus:shadow focus:text-brand-light focus:border-brand',
+    "bg-gray-100 border-gray-300 focus:shadow focus:text-brand-light focus:border-brand",
   solid:
-    'text-brand-dark border-border-two focus:border-2 focus:outline-none focus:border-brand h-11 md:h-12',
-  outline: 'border-gray-300 focus:border-brand',
-  shadow: 'focus:shadow',
+    "text-brand-dark border-border-two focus:border-2 focus:outline-none focus:border-brand h-11 md:h-12",
+  outline: "border-gray-300 focus:border-brand",
+  shadow: "focus:shadow",
 };
 const Input = React.forwardRef<HTMLInputElement, Props>(
   (
     {
-      className = 'block',
+      className = "block",
       label,
       name,
       error,
       placeholder,
-      variant = 'normal',
+      variant = "normal",
       shadow = false,
-      type = 'text',
+      type = "text",
       inputClassName,
       labelClassName,
       ...rest
     },
-    ref,
+    ref
   ) => {
     const rootClassName = cn(
       classes.root,
       {
-        [classes.normal]: variant === 'normal',
-        [classes.solid]: variant === 'solid',
-        [classes.outline]: variant === 'outline',
+        [classes.normal]: variant === "normal",
+        [classes.solid]: variant === "solid",
+        [classes.outline]: variant === "outline",
       },
       {
         [classes.shadow]: shadow,
       },
-      inputClassName,
+      inputClassName
     );
     const { t } = useTranslation();
     return (
@@ -59,10 +59,10 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
           <label
             htmlFor={name}
             className={`block font-normal text-sm leading-none mb-3 cursor-pointer ${
-              labelClassName || 'text-brand-dark text-opacity-70'
+              labelClassName || "text-brand-dark text-opacity-70"
             }`}
           >
-            {t(label)}
+            {label}
           </label>
         )}
         <input
@@ -70,22 +70,22 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
           name={name}
           type={type}
           ref={ref}
-          placeholder={t(placeholder || '')}
+          placeholder={t(placeholder || "")}
           className={rootClassName}
-          autoComplete='off'
-          spellCheck='false'
-          aria-invalid={error ? 'true' : 'false'}
+          autoComplete="off"
+          spellCheck="false"
+          aria-invalid={error ? "true" : "false"}
           {...rest}
         />
         {error && (
-          <p className='my-2 text-13px text-brand-danger text-opacity-70'>
+          <p className="my-2 text-13px text-brand-danger text-opacity-70">
             {t(error)}
           </p>
         )}
       </div>
     );
-  },
+  }
 );
 
-Input.displayName = 'Input';
+Input.displayName = "Input";
 export default Input;

@@ -5,7 +5,6 @@ import { useQuery } from "react-query";
 
 export const fetchSlides = async () => {
   const { data } = await http.get(API_ENDPOINTS.SLIDES);
-  // console.log(data, API_ENDPOINTS.SLIDES);
   return data;
 };
 

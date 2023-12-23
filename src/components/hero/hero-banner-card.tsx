@@ -3,6 +3,7 @@ import Link from "@components/ui/link";
 import useWindowSize from "@utils/use-window-size";
 import { useTranslation } from "next-i18next";
 import Search from "@components/common/search";
+import { useCompanyData } from "@framework/companyData/getCompanydata";
 
 interface BannerProps {
   banner?: any;
@@ -22,7 +23,9 @@ export default function HeroBannerCard({
   const { t } = useTranslation("common");
   const { width } = useWindowSize();
   const { title, description, image } = banner;
+  const { data } = useCompanyData();
 
+  // console.log(data);
   const selectedImage = getImage(width!, image);
   return (
     <div
@@ -38,7 +41,7 @@ export default function HeroBannerCard({
         className
       )}
       style={{
-        backgroundImage: `url('${selectedImage.url}')`,
+        backgroundImage: `url('${data?.background_img}')`,
         backgroundPosition:
           variant === "antique" ? "left bottom -10px" : "initial",
       }}
@@ -82,14 +85,14 @@ export default function HeroBannerCard({
               }
             )}
           >
-            {t(description)}
+            {description}
           </p>
           {variant !== "antique" && banner.btnText && (
             <Link
               href={banner.btnUrl}
               className="h-[45px] mt-7 md:mt-8 text-sm inline-flex items-center justify-center transition duration-300 rounded px-6 py-2 font-semibold bg-brand-light text-brand-dark hover:text-brand-light hover:bg-brand"
             >
-              {t(banner.btnText)}
+              {banner.btnText}
             </Link>
           )}
           {banner.searchBox && (

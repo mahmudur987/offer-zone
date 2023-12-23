@@ -13,37 +13,37 @@ const AddressForm: React.FC<{}> = () => {
             label={"Apartment/Street address"}
             variant="solid"
             className="mt-10"
-            {...register("address1", {
+            {...register("streetAddress", {
               required: `${t("default-required")}`,
             })}
-            error={errors.address1?.message}
+            error={errors.streetAddress?.message}
           />
           <Input
             label={"Area"}
             variant="solid"
             className="mt-10"
-            {...register("address2", {
+            {...register("area", {
               required: `${t("default-required")}`,
             })}
-            error={errors.address2?.message}
+            error={errors.area?.message}
           />
           <Input
             label={"Post office/City"}
             variant="solid"
             className="mt-10"
-            {...register("address3", {
+            {...register("city", {
               required: `${t("default-required")}`,
             })}
-            error={errors.address3?.message}
+            error={errors.city?.message}
           />
           <Input
             label={"Postal code"}
             variant="solid"
             className="mt-10"
-            {...register("address4", {
-              required: `${t("default-required")}`,
+            {...register("postalCode", {
+              required: false,
             })}
-            error={errors.address4?.message}
+            error={errors.postalCode?.message}
           />
         </div>
       )}

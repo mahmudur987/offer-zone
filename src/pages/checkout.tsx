@@ -34,10 +34,10 @@ const defaultValues = {
   name: "",
   email: "",
   phone: "",
-  address1: "",
-  address2: "",
-  address3: "",
-  address4: "",
+  streetAddress: "",
+  area: "",
+  city: "",
+  postalCode: "",
   del_method: "",
   pay_method: "",
   trx_id: "",
@@ -49,61 +49,70 @@ export default function CheckoutPage() {
   const { isAuthorized } = useUI();
   const router = useRouter();
   const methods = useForm<CheckoutFormValues>({ defaultValues });
+
   const { merchantID, items, resetCart } = useCart();
   const { mutate } = useCheckoutMutation();
 
-  function onSubmit(values: CheckoutFormValues) {
-    if (merchantID) {
+  function orderSubmit(data: CheckoutFormValues) {
+    let values = data;
+    console.log(values, merchantID);
+    if (merchantID || !merchantID) {
       const offers = items
         .map((item) => `${item.name} -- ${item.quantity} -- ${item.price}`)
         .join(" | ");
-      mutate(
-        {
-          ...values,
-          merchantID: merchantID,
-          offers: offers,
-          createdAt: dayjs().format("YYYY-MM-DD hh:mm:ss A"),
-          type: "purchase",
-        },
-        {
-          onSuccess() {
-            resetCart();
-            router.push("/");
-            toast("Thank you for the purchase. We are on our way", {
-              progressClassName: "fancy-progress-bar",
-              position: width! > 768 ? "bottom-right" : "top-right",
-              autoClose: 1500,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-            });
-          },
-          onError() {
-            toast.error("Something went wrong! Try again some other time", {
-              progressClassName: "fancy-progress-bar",
-              position: width! > 768 ? "bottom-right" : "top-right",
-              autoClose: 1500,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-            });
-          },
-        }
-      );
+
+      const orderData = {
+        ...values,
+        merchantID: merchantID,
+        items: offers,
+        createdAt: dayjs().format("YYYY-MM-DD hh:mm:ss A"),
+        type: "purchase",
+      };
+
+      console.log(orderData);
+
+      // mutate(orderData, {
+      //   onSuccess() {
+      //     resetCart();
+      //     router.push("/");
+      //     toast("Thank you for the purchase. We are on our way", {
+      //       progressClassName: "fancy-progress-bar",
+      //       position: width! > 768 ? "bottom-right" : "top-right",
+      //       autoClose: 1500,
+      //       hideProgressBar: false,
+      //       closeOnClick: true,
+      //       pauseOnHover: true,
+      //       draggable: true,
+      //     });
+      //   },
+      //   onError() {
+      //     toast.error("Something went wrong! Try again some other time", {
+      //       progressClassName: "fancy-progress-bar",
+      //       position: width! > 768 ? "bottom-right" : "top-right",
+      //       autoClose: 1500,
+      //       hideProgressBar: false,
+      //       closeOnClick: true,
+      //       pauseOnHover: true,
+      //       draggable: true,
+      //     });
+      //   },
+      // });
     }
   }
 
-  // useEffect(() => {
-  //   if (!isAuthorized) {
-  //     router.replace('/signin')
-  //   }
-  // }, [isAuthorized])
+  useEffect(() => {
+    if (!isAuthorized) {
+      router.replace("/signin");
+    }
+  }, [isAuthorized]);
 
-  // if(!isAuthorized) {
-  //   return <div className="w-100 min-h-screen flex justify-center"><p>Loading...</p></div>
-  // }
+  if (!isAuthorized) {
+    return (
+      <div className="w-100 min-h-screen flex justify-center">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -115,13 +124,18 @@ export default function CheckoutPage() {
       <Container className="py-10 border-t 2xl:py-12 border-border-base checkout">
         <div className="flex flex-col mx-auto xl:max-w-screen-xl">
           <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <form onSubmit={methods.handleSubmit(orderSubmit)}>
               <div className="flex flex-col flex-wrap grid-cols-1 gap-x-7 xl:gap-x-8 lg:grid lg:grid-cols-12">
                 <div className="w-full col-start-1 col-end-9">
                   <CheckoutDetails />
                 </div>
                 <div className="w-full col-start-9 col-end-13 mt-7 lg:mt-0">
                   <CheckoutCard />
+                  {/* <input
+                    className={`w-full mt-8 mb-5 bg-brand text-brand-light rounded font-semibold px-4 py-3 transition-all`}
+                    type="submit"
+                    value="Submit"
+                  /> */}
                 </div>
               </div>
             </form>

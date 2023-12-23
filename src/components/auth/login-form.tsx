@@ -6,7 +6,6 @@ import {
   useLoginMutation,
   LoginInputType,
   OtpInputType,
-  useOtpMutation,
 } from "@framework/auth/use-login";
 import Logo from "@components/ui/logo";
 import { useTranslation } from "next-i18next";
@@ -16,7 +15,6 @@ import cn from "classnames";
 import CloseButton from "@components/ui/close-button";
 import { useModalAction } from "@components/common/modal/modal.context";
 import Alert from "@components/ui/alert";
-import Link from "next/link";
 
 interface LoginFormProps {
   isPopup?: boolean;
@@ -25,19 +23,10 @@ interface LoginFormProps {
 
 const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
   const { t } = useTranslation();
-  const { closeModal } = useModalAction();
-  const {
-    mutate: login,
-    isLoading: isLoadingOne,
-    // isSuccess: isSuccessOne,
-  } = useLoginMutation();
-
-  const { mutate: setCookies, isLoading: isLoadingTwo } = useOtpMutation();
-
-  const [otp, setOtp] = useState<number | null>(null);
+  const { closeModal, openModal } = useModalAction();
+  const { mutate: login, isLoading: isLoadingOne, data } = useLoginMutation();
   const [remember, setRemember] = useState(false);
-  const [otpError, setOtpError] = useState<string | null>(null);
-
+  console.log(data);
   const {
     register,
     handleSubmit,
@@ -45,30 +34,23 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
   } = useForm<LoginInputType & OtpInputType>();
 
   const onSubmit: SubmitHandler<LoginInputType & OtpInputType> = ({
-    name,
     phone,
-    otpInput,
+    password,
   }) => {
-    if (!otp) {
-      const randomOtp = Math.floor(1000 + Math.random() * 9000);
+    try {
       login({
-        name,
         phone,
-        message: `Your Offer Zone (offerzonebd.com) OTP Code is ${randomOtp}`,
+        password,
       });
-      setOtp(randomOtp);
-    } else {
-      if (otp === Number(otpInput)) {
-        setCookies({
-          name,
-          phone,
-          message: "",
-        });
-      } else {
-        setOtpError("Invalid Otp!!! Try Again");
-      }
+    } catch {
+      (err: any) => {
+        console.log(err);
+      };
     }
   };
+  function handlSignup() {
+    openModal("SIGN_UP_VIEW");
+  }
   return (
     <div
       className={cn(
@@ -97,61 +79,44 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
             noValidate
           >
             <div className="flex flex-col space-y-3.5">
-              {!otp ? (
-                <>
-                  <Input
-                    label={t("forms:label-phone")}
-                    variant="solid"
-                    {...register("phone", {
-                      required: `${t("forms:phone-required")}`,
-                      pattern: {
-                        value: /^(?:\+?88)?01[13-9]\d{8}$/,
-                        message: t("forms:phone-error"),
-                      },
-                    })}
-                    error={errors.phone?.message}
-                  />
-                  <Input
-                    label={t("forms:label-name-star")}
-                    type="text"
-                    variant="solid"
-                    {...register("name", {
-                      required: `${t("forms:name-required")}`,
-                    })}
-                    error={errors.name?.message}
-                  />
-                </>
-              ) : (
-                <>
-                  {otpError && <Alert message={otpError} />}
-                  <Input
-                    label={t("forms:label-otp")}
-                    type="number"
-                    variant="solid"
-                    {...register("otpInput", {
-                      validate: (v) => v <= 9999 || t("forms:otp-required"),
-                      required: `${t("forms:otp-required")}`,
-                    })}
-                    error={errors.otpInput?.message}
-                  />
-
-                  <Switch
-                    label="Remember me"
-                    checked={remember}
-                    onChange={setRemember}
-                  />
-                </>
-              )}
+              <>
+                <Input
+                  label={t("Phone Number")}
+                  variant="solid"
+                  {...register("phone", {
+                    required: `${t("forms:phone-required")}`,
+                    pattern: {
+                      value: /^(?:\+?88)?01[13-9]\d{8}$/,
+                      message: t("forms:phone-error"),
+                    },
+                  })}
+                  error={errors.phone?.message}
+                />
+                <Input
+                  label={"Password"}
+                  type="text"
+                  variant="solid"
+                  {...register("password", {
+                    required: `${"your  password is signup  otp"}`,
+                  })}
+                  error={errors.password?.message}
+                />
+                <Switch
+                  label="Remember me"
+                  checked={remember}
+                  onChange={setRemember}
+                />
+              </>
 
               <div className="relative">
                 <Button
                   type="submit"
-                  loading={isLoadingOne || isLoadingTwo}
-                  disabled={isLoadingOne || isLoadingTwo}
+                  loading={isLoadingOne}
+                  disabled={isLoadingOne}
                   className="w-full mt-2 tracking-normal h-11 md:h-12 font-15px md:font-15px"
                   variant="formButton"
                 >
-                  {t("common:text-sign-in")}
+                  Sign in
                 </Button>
               </div>
             </div>
@@ -159,9 +124,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
           <div className="my-1">
             <p>
               Dont Have Account{" "}
-              <Link href={"/signup"} className="text-red-400 font-bold">
+              <button onClick={handlSignup} className="text-red-400 font-bold">
                 Sign up
-              </Link>
+              </button>
             </p>
           </div>
         </div>

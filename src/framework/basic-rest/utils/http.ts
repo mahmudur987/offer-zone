@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken } from "./get-token";
 
 const http = axios.create({
-  baseURL: "http://api.offerzonebd.com/api/",
+  baseURL: "https://api.pythonbdit.com/api",
   // timeout: 30000,
   // headers: {
   //   Accept: "application/json",
