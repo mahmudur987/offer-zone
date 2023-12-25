@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "@components/ui/button";
 import Counter from "@components/ui/counter";
 import { useRouter } from "next/router";
@@ -9,23 +9,18 @@ import { getVariations } from "@framework/utils/get-variations";
 import usePrice from "@framework/product/use-price";
 import { useCart } from "@contexts/cart/cart.context";
 import { generateCartItem } from "@utils/generate-cart-item";
-import ProductAttributes from "@components/product/product-attributes";
-import isEmpty from "lodash/isEmpty";
 import { toast } from "react-toastify";
 import ThumbnailCarousel from "@components/ui/carousel/thumbnail-carousel";
 import { useTranslation } from "next-i18next";
 import Image from "@components/ui/image";
 import CartIcon from "@components/icons/cart-icon";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
-import TagLabel from "@components/ui/tag-label";
-import LabelIcon from "@components/icons/label-icon";
+
 import { IoArrowRedoOutline } from "react-icons/io5";
 import SocialShareBox from "@components/ui/social-share-box";
 import ProductDetailsTab from "@components/product/product-details/product-tab";
-import VariationPrice from "./variation-price";
-import isEqual from "lodash/isEqual";
-import { Item } from "@contexts/cart/cart.utils";
-
+import { useWishlist } from "@contexts/wishList/wishList.context";
+import { NewProduct } from "@framework/types";
 const ProductSingleDetails: React.FC = () => {
   const { t } = useTranslation("common");
   const router = useRouter();
@@ -33,10 +28,10 @@ const ProductSingleDetails: React.FC = () => {
     query: { slug },
   } = router;
   const { width } = useWindowSize();
-  const { data, isLoading } = useProductQuery(slug as string);
-  const { addItemToCart, isInCart, getItemFromCart, isInStock } = useCart();
-  const [selectedQuantity, setSelectedQuantity] = useState(1);
-  const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
+  const { data, isLoading }: any = useProductQuery(slug as string);
+  const { addItemToCart } = useCart();
+  const { addItemToWishList, isInWishList, removeItemFromWishList } =
+    useWishlist();
   const [favorite, setFavorite] = useState<boolean>(false);
   const [quantity, setQuantity] = useState(1);
   const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
@@ -54,41 +49,19 @@ const ProductSingleDetails: React.FC = () => {
   const handleChange = () => {
     setShareButtonStatus(!shareButtonStatus);
   };
-  if (isLoading) return <p>Loading...</p>;
-  const variations = getVariations(data?.variations);
 
-  const isSelected = !isEmpty(variations)
-    ? !isEmpty(attributes) &&
-      Object.keys(variations).every((variation) =>
-        attributes.hasOwnProperty(variation)
-      )
-    : true;
-  let selectedVariation: any = {};
-  // if (isSelected) {
-  //   const dataVaiOption: any = data?.variation_options;
-  //   selectedVariation = dataVaiOption?.find((o: any) =>
-  //     isEqual(
-  //       o.options.map((v: any) => v.value).sort(),
-  //       Object.values(attributes).sort()
-  //     )
-  //   );
-  // }
-  const item: any = generateCartItem(data!, selectedVariation);
-  const outOfStock = isInCart(item.id) && !isInStock(item.id);
+  const item: any = generateCartItem(data);
   function addToCart() {
-    // if (!isSelected) return;
-    // to show btn feedback while product carting
     setAddToCartLoader(true);
     setTimeout(() => {
       setAddToCartLoader(false);
     }, 1500);
 
-    const item: any = generateCartItem(data!, selectedVariation);
+    const item: any | NewProduct = generateCartItem(data!);
     if (item.error) {
       return toast.error("this is not a perfect item");
     }
-    console.log(item, quantity);
-    // addItemToCart(item, quantity);
+    addItemToCart(item, quantity);
     toast("Added to the bag", {
       progressClassName: "fancy-progress-bar",
       position: width! > 768 ? "bottom-right" : "top-right",
@@ -99,8 +72,13 @@ const ProductSingleDetails: React.FC = () => {
       draggable: true,
     });
   }
+
   function addToWishlist() {
-    // to show btn feedback while product wishlist
+    if (favorite) {
+      removeItemFromWishList(data);
+    } else {
+      addItemToWishList(data);
+    }
     setAddToWishlistLoader(true);
     setFavorite(!favorite);
     const toastStatus: string =
@@ -118,6 +96,19 @@ const ProductSingleDetails: React.FC = () => {
       draggable: true,
     });
   }
+  useEffect(() => {
+    const alreadyInWishList = isInWishList(data);
+
+    if (alreadyInWishList) {
+      setFavorite(true);
+    } else {
+      setFavorite(false);
+    }
+
+    // Additional logic here, for example:
+    // perform some action when the item is added or removed from the wishlist
+  }, [data, isInWishList]);
+  if (isLoading) return <p>Loading...</p>;
   return (
     <div className="pt-6 pb-2 md:pt-7 ">
       <div className="grid-cols-10 lg:grid gap-7 2xl:gap-8">
@@ -147,17 +138,6 @@ const ProductSingleDetails: React.FC = () => {
                 {data?.name}
               </h2>
             </div>
-            {/* {data?.unit && isEmpty(variations) ? (
-              <div className="text-sm font-medium md:text-15px">
-                {data?.unit}
-              </div>
-            ) : (
-              <VariationPrice
-                selectedVariation={selectedVariation}
-                minPrice={data?.min_price}
-                maxPrice={data?.max_price}
-              />
-            )} */}
 
             {data?.price && (
               <div className="flex items-center mt-5">
@@ -177,17 +157,6 @@ const ProductSingleDetails: React.FC = () => {
               </div>
             )}
           </div>
-
-          {/* {Object.keys(variations).map((variation) => {
-            return (
-              <ProductAttributes
-                key={`popup-attribute-key${variation}`}
-                variations={variations}
-                attributes={attributes}
-                setAttributes={setAttributes}
-              />
-            );
-          })} */}
 
           <div className="pb-2">
             {/* check that item isInCart and place the available quantity or the item quantity */}
@@ -210,21 +179,6 @@ const ProductSingleDetails: React.FC = () => {
                 )}
               </>
             )}
-
-            {/* {!isEmpty(selectedVariation) && (
-              <span className="text-sm font-medium text-yellow">
-                {selectedVariation?.is_disable ||
-                selectedVariation.quantity === 0
-                  ? t("text-out-stock")
-                  : `${
-                      t("text-only") +
-                      " " +
-                      selectedVariation.quantity +
-                      " " +
-                      t("text-left-item")
-                    }`}
-              </span>
-            )} */}
           </div>
 
           <div className="pt-1.5 lg:pt-3 xl:pt-4 space-y-2.5 md:space-y-3.5">
@@ -242,7 +196,7 @@ const ProductSingleDetails: React.FC = () => {
             <Button
               onClick={addToCart}
               className="w-full px-1.5"
-              disabled={!isSelected}
+              disabled={false}
               loading={addToCartLoader}
             >
               <CartIcon color="#ffffff" className="ltr:mr-3 rtl:ml-3" />

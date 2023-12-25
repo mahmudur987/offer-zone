@@ -50,7 +50,6 @@ export function cartReducer(state: State, action: Action): State {
         action.item,
         action.quantity
       );
-      // console.log(items);
       return generateFinalState(state, items);
     }
     case "REMOVE_ITEM_OR_QUANTITY": {

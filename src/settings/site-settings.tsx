@@ -140,7 +140,6 @@ export const siteSettings = {
         ],
       },
     ],
-
     authMenu: [
       {
         id: 1,

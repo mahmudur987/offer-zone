@@ -18,11 +18,12 @@ const useProductsQuery = (options: QueryOptionsType) => {
 
   const router = useRouter();
   const { query }: any = router;
-  // console.log(query);
   useEffect(() => {
-    if (query.category) {
-      // filtarparam=`products/product-filter/?page_size=10&category=Dress`
-      let url = `products/product-filter/?category=${query?.category}`;
+    if (query.category || query.sort_by) {
+      // /api/products/product-filter/?category=Dress&sorting= high
+      let url = `products/product-filter/?category=${
+        query?.category
+      }&sorting= ${query?.sort_by?.slice(0, 4) || "low"} `;
       setfiltarparam(url);
     } else {
       setfiltarparam(API_ENDPOINTS.PRODUCTS);

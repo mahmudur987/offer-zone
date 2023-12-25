@@ -21,19 +21,8 @@ interface Variation {
   quantity: number;
   [key: string]: unknown;
 }
-export function generateCartItem(item: NewProduct, variation: Variation) {
+export function generateCartItem(item: NewProduct) {
   const { id, name, image, price, stock_status } = item || {};
-  if (!isEmpty(variation)) {
-    return {
-      id: `${id}.${variation.id}`,
-      productId: id,
-      name: `${name} - ${variation.title}`,
-      stock: variation.quantity,
-      price: variation.sale_price ? variation.sale_price : variation.price,
-      image: image,
-      variationId: variation.id,
-    };
-  }
   if (id && name && price) {
     return {
       id,

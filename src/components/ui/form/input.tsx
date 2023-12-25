@@ -13,6 +13,7 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   type?: string;
   shadow?: boolean;
   variant?: "normal" | "solid" | "outline";
+  defaultValue?: string;
 }
 const classes = {
   root: "py-2 px-4 w-full appearance-none transition duration-150 ease-in-out border text-input text-13px  lg:text-sm font-body rounded placeholder-[#B3B3B3] min-h-12 transition duration-200 ease-in-out text-brand-dark focus:ring-0 disabled:bg-gray-200 disabled:cursor-not-allowed",
@@ -36,6 +37,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
       type = "text",
       inputClassName,
       labelClassName,
+      defaultValue,
       ...rest
     },
     ref
@@ -75,6 +77,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
           autoComplete="off"
           spellCheck="false"
           aria-invalid={error ? "true" : "false"}
+          defaultValue={defaultValue}
           {...rest}
         />
         {error && (

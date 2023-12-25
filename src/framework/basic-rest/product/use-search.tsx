@@ -9,10 +9,11 @@ export const fetchSearchedCategory = async ({ queryKey }: any) => {
 
   const { data } = await axios.get("/api/getData");
 
-  function searchCategory(product: any) {
-    return product.name.toLowerCase().indexOf(_params.text.toLowerCase()) > -1;
-  }
-  return data.data.filter(searchCategory);
+  return data.data;
+  // .filter(
+  //   (product: any) =>
+  //     product?.name?.toLowerCase().indexOf(_params.text.toLowerCase()) > -1
+  // );
 };
 export const useSearchQuery = (options: QueryOptionsType) => {
   return useQuery<Product[], Error>(

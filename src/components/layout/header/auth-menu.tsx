@@ -46,7 +46,7 @@ export default function AuthMenu({
     if (typeof window !== undefined) {
       if (isAuthorized) {
         const queryDb = async () => {
-          setIsLoading(true);
+          setIsLoading(false);
           const phone = Cookies.get("phone");
           const userDataPromise = get(query(ref(database, "userInfo")));
           const merchantDataPromise = get(query(ref(database, "merchantInfo")));
@@ -91,9 +91,8 @@ export default function AuthMenu({
       }
     }
   }, [isAuthorized]);
-  // console.log(isAuthorized);
   return isAuthorized ? (
-    <div className={cn("headerMenu flex items-center relative", className)}>
+    <div className={cn("headerMenu  flex items-center relative", className)}>
       {isLoading ? (
         <p>Loading....</p>
       ) : (
@@ -119,19 +118,19 @@ export default function AuthMenu({
                 <div className="absolute z-30 opacity-0 subMenu shadow-dropDown transition-all duration-300 invisible bg-brand-light ltr:right-0 rtl:right-0 w-[220px] xl:w-[240px] group-hover:opacity-100">
                   <ul className="py-5 text-sm text-brand-muted">
                     {item.subMenu
-                      // .filter((menu: any) => {
-                      //   if (isMember && menu.label === "menu-member-dashboard")
-                      //     return true;
-                      //   if (
-                      //     isMerchant &&
-                      //     menu.label === "menu-merchant-dashboard"
-                      //   )
-                      //     return true;
-                      //   if (isAgent && menu.label === "menu-agent-dashboard")
-                      //     return true;
-                      //   if (menu.label === "Logout") return true;
-                      //   return true;
-                      // })
+                      .filter((menu: any) => {
+                        if (isMember && menu.label === "menu-member-dashboard")
+                          return true;
+                        if (
+                          isMerchant &&
+                          menu.label === "menu-merchant-dashboard"
+                        )
+                          return true;
+                        if (isAgent && menu.label === "menu-agent-dashboard")
+                          return true;
+                        if (menu.label === "Logout") return true;
+                        return true;
+                      })
                       .map((menu: any, index: number) => {
                         const dept = 1;
                         const menuName = `sidebar-menu-${dept}-${index}`;

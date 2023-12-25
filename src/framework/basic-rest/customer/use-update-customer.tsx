@@ -1,3 +1,5 @@
+import http from "@framework/utils/http";
+import Cookies from "js-cookie";
 import { useMutation } from "react-query";
 
 export interface UpdateUserType {
@@ -12,11 +14,31 @@ export interface UpdateUserType {
   shareProfileData: boolean;
   setAdsPerformance: boolean;
 }
-async function updateUser(input: UpdateUserType) {
-  return input;
+export interface UpdateUser {
+  username: string;
+  gender: string;
+  first_name: string;
+  last_name: string;
+  phone_number: string;
+  email: string;
+  password?: string;
 }
+const updateUser = async (input: UpdateUser) => {
+  const token = Cookies.get("accessToken");
+
+  try {
+    const response = await http.post("customers/profile/", input, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw error.response?.data || error.message;
+  }
+};
 export const useUpdateUserMutation = () => {
-  return useMutation((input: UpdateUserType) => updateUser(input), {
+  return useMutation((input: UpdateUser) => updateUser(input), {
     onSuccess: (data) => {
       console.log(data, "UpdateUser success response");
     },

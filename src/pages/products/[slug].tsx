@@ -21,7 +21,7 @@ export default function ProductPage() {
       </div>
 
       <RelatedProductFeed uniqueKey="related-products" />
-      <PopcornJerkyProductFeed />
+      {/* <PopcornJerkyProductFeed /> */}
       <DownloadApps />
     </>
   );

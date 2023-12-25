@@ -229,6 +229,21 @@ export type Slide = {
   ordering: number;
   status: boolean;
 };
+export interface User {
+  id: string;
+  username: string;
+  gender: "male" | "female" | "other"; // Add other genders if needed
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string; // Consider using a more secure way to handle passwords
+  phone_number: string;
+  is_active: boolean;
+  email_verified: boolean;
+  otp_verified: boolean;
+  created_at: string; // Consider using Date type and validating the format
+  photo: string | null; // Assuming the photo can be a URL or null, adjust if needed
+}
 
 export interface Offer {
   Availed?: number;

@@ -55,11 +55,20 @@ export default function CheckoutPage() {
 
   function orderSubmit(data: CheckoutFormValues) {
     let values = data;
-    console.log(values, merchantID);
+    // console.log(values, merchantID);
     if (merchantID || !merchantID) {
-      const offers = items
-        .map((item) => `${item.name} -- ${item.quantity} -- ${item.price}`)
-        .join(" | ");
+      const offers = items.map((item) => {
+        const product = {
+          id: item.id,
+          name: item.name,
+          quantity: item.quantity,
+          price: item.price,
+        };
+
+        // `${item.name} -- ${item.quantity} -- ${item.price}`
+
+        return product;
+      });
 
       const orderData = {
         ...values,
