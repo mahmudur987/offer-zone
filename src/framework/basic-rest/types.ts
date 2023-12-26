@@ -1,5 +1,85 @@
-import { QueryKey } from 'react-query';
+import { QueryKey } from "react-query";
+export type CompanyData = {
+  id: number;
+  short_name: string;
+  company_name: string;
+  description: string;
+  com_logo: string;
+  favicon_icon: string;
+  welcome_message: string;
+  about_us: string;
+  background_img: string;
+  background_alt_tag: string;
+  image1: string;
+  image1_alt_tag: string;
+  image2: string;
+  image2_alt_tag: string;
+  image3: string;
+  image3_alt_tag: string;
+  email1: string | null;
+  email2: string | null;
+  website: string | null;
+  phone1: string | null;
+  phone2: string | null;
+  mobile1: string | null;
+  mobile2: string | null;
+  address: string;
+  facebook: string | null;
+  twitter: string | null;
+  instagram: string | null;
+  youtube: string | null;
+  glg_map: string;
+  created_at: string;
+  updated_at: string;
+  api_key: string | null;
+  status: boolean;
+  created_by: string | null;
+  updated_by: string | null;
+};
 
+export type NewProduct = {
+  id: number;
+  merchant_name: string;
+  product_slider: []; // Assuming product_slider is an array of image URLs
+  name: string;
+  code: string;
+  image: string;
+  price: number;
+  compare_price: number;
+  quantity: number;
+  description: string;
+  add_date: string;
+  stock_status: string;
+  ordering: number;
+  status: boolean;
+  meta_description: string;
+  meta_keywords: string;
+  meta_title: string;
+  category: number;
+  sub_category: number;
+  merchant: string;
+  uom: any; //
+};
+
+export type SuperOffer = {
+  id: number;
+  title: string;
+  link: string;
+  image: string;
+  ordering: number;
+  status: boolean;
+  // Additional properties for the first data structure
+  provider?: string;
+  partner_name?: string | null;
+  restaurant_name?: string | null;
+  location?: string | null;
+  description?: string;
+  add_date?: string;
+  expaired_at?: string | null;
+  meta_description?: string;
+  meta_keywords?: string;
+  meta_title?: string;
+};
 export type CollectionsQueryOptionsType = {
   text?: string;
   collection?: string;
@@ -37,16 +117,13 @@ export type Attachment = {
   original: string;
 };
 export type Category = {
-  id: number | string;
+  id: number;
+  total_products: number;
+  status: boolean;
   name: string;
-  slug: string;
-  details?: string;
-  image?: Attachment;
-  icon?: string;
-  children?: [Category];
-  products?: Product[];
-  productCount?: number;
-  [key: string]: unknown;
+  short_name: string | null;
+  image: string | null;
+  created_by: string | null;
 };
 export type Collection = {
   id: number | string;
@@ -145,13 +222,28 @@ export type Shop = {
 };
 
 export type Slide = {
-  Description: string;
-  Image: string;
-  Name: string;
-  SlideID: string;
-  Status: string;
-  Type: string;
+  id: number;
+  title: string;
+  link: string;
+  image: string;
+  ordering: number;
+  status: boolean;
 };
+export interface User {
+  id: string;
+  username: string;
+  gender: "male" | "female" | "other"; // Add other genders if needed
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string; // Consider using a more secure way to handle passwords
+  phone_number: string;
+  is_active: boolean;
+  email_verified: boolean;
+  otp_verified: boolean;
+  created_at: string; // Consider using Date type and validating the format
+  photo: string | null; // Assuming the photo can be a URL or null, adjust if needed
+}
 
 export interface Offer {
   Availed?: number;
@@ -176,28 +268,19 @@ export interface Offer {
 }
 
 export interface Merchant {
-  Address: string;
-  Balance: string;
-  BranchName: string;
-  Category: string;
-  ContactDesignation: string;
-  ContactPerson: string;
-  District: string;
-  Due: string;
-  Email: string;
-  FollowedStores: string;
-  GivenOffers: string;
-  MerchantID: string;
-  Mperson: string;
-  Name: string;
-  Paid: string;
-  Password: string;
-  Phone: string;
-  ProfileImage: string;
-  Reference: string;
-  ReqDate: string;
-  Status: string;
-  Upazila: string;
+  id: string;
+  name: string;
+  address: string;
+  website: string | null;
+  branch: string | null;
+  phone_number: string;
+  contact_designation: string | null;
+  contact_person: string | null;
+  division: string;
+  district: string;
+  upazila: string;
+  photo: string | any;
+  email: string | null;
 }
 
 export interface MemberFormValues {
@@ -253,10 +336,10 @@ export interface CheckoutFormValues {
   name: string;
   phone: string;
   email: string;
-  address1: string;
-  address2: string;
-  address3: string;
-  address4: string;
+  streetAddress: string;
+  area: string;
+  city: string;
+  postalCode: string;
   del_method: string;
   total: number;
   pay_method: string;

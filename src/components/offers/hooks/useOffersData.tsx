@@ -1,10 +1,10 @@
-import { useListVals } from 'react-firebase-hooks/database';
-import { ref, getDatabase } from 'firebase/database';
+import { useListVals } from "react-firebase-hooks/database";
+import { ref, getDatabase } from "firebase/database";
 
-import firebase from '@firebase/firebase';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { Merchant, Offer } from '@framework/types';
+import firebase from "@firebase/firebase";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { Merchant, Offer } from "@framework/types";
 
 const database = getDatabase(firebase.app());
 
@@ -15,11 +15,12 @@ const useOffersData = () => {
 
   const router = useRouter();
   const [offers, offersLoading, OffersError] = useListVals<Offer>(
-    ref(database, 'offerInfo'),
+    ref(database, "offerInfo")
   );
   const [merchants, merchantsLoading, merchantsError] = useListVals<Merchant>(
-    ref(database, 'merchantInfo'),
+    ref(database, "merchantInfo")
   );
+  // console.log("get hot offer", "my", merchants);
 
   useEffect(() => {
     const queryParams: { category?: string; location?: string } = router?.query;
@@ -37,9 +38,8 @@ const useOffersData = () => {
           date2.setDate(date2.getDate() - 1);
           if (
             (offer.Category === category || !category) &&
-            offer.Type !== 'deals' &&
-            offer.Status === 'active' &&
-            date1 > date2
+            offer.Type !== "deals" &&
+            offer.Status === "active"
           ) {
             for (let merchant of merchants) {
               if (
@@ -52,6 +52,7 @@ const useOffersData = () => {
           }
         }
       }
+      // console.log("filteredData", filteredData);
       setData(filteredData);
     }
   }, [location, category, offers, merchants]);

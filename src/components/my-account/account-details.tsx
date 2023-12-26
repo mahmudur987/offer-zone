@@ -10,28 +10,110 @@ import {
 import { useTranslation } from "next-i18next";
 import Switch from "@components/ui/switch";
 import Text from "@components/ui/text";
-
-const defaultValues = {};
-
+import { useEffect, useState } from "react";
+import { useUser } from "@utils/get-user";
+import LoadingSpinner from "@components/common/Loading/LoadingSpiner";
 const AccountDetails: React.FC = () => {
-  const { mutate: updateUser, isLoading } = useUpdateUserMutation();
+  const { mutate: updateUser } = useUpdateUserMutation();
+
+  const { data: user, isLoading, isError, error, refetch }: any = useUser();
+
   const { t } = useTranslation();
+  const [iseditable, setIsEditable] = useState(true);
+  const [isPasswordUpdate, setIsPasswordUpdate] = useState(true);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm<UpdateUserType>({
-    defaultValues,
-  });
-  function onSubmit(input: UpdateUserType) {
-    updateUser(input);
+    reset,
+    watch,
+  } = useForm<UpdateUserType>();
+  useEffect(() => {
+    if (user) {
+      const defaultValues: any = {
+        firstName: user.first_name,
+        lastName: user.last_name,
+        phoneNumber: user.phone_number,
+        email: user.email,
+        gender: user.gender,
+      };
+      reset(defaultValues);
+    }
+  }, [user, reset]);
+  function onSubmit(data: UpdateUserType) {
+    const {
+      firstName,
+      lastName,
+      phoneNumber,
+      email,
+      password,
+      confirmPassword,
+      shareProfileData,
+      setAdsPerformance,
+      gender,
+    } = data;
+    const newData = {
+      username: user?.username,
+      gender: gender,
+      first_name: firstName,
+      last_name: lastName,
+      phone_number: phoneNumber,
+      email: email,
+      password: password,
+    };
+    // console.log(data);
+
+    if (!isPasswordUpdate) {
+      const newData = {
+        username: user?.username,
+        gender: gender,
+        first_name: firstName,
+        last_name: lastName,
+        phone_number: phoneNumber,
+        email: email,
+        password: password,
+      };
+      updateUser(newData);
+      refetch();
+    } else {
+      const newData = {
+        username: user?.username,
+        gender: gender,
+        first_name: firstName,
+        last_name: lastName,
+        phone_number: phoneNumber,
+        email: email,
+      };
+      updateUser(newData);
+      refetch();
+    }
   }
+
+  if (isError) {
+    return <p>{error || error.message}</p>;
+  }
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <div className="flex flex-col w-full">
       <Heading variant="titleLarge" className="mb-5 md:mb-6 lg:mb-7 lg:-mt-1">
         {t("common:text-account-details-personal")}
       </Heading>
+      <div className="relative flex pb-2 mt-5 sm:ltr:ml-auto sm:rtl:mr-auto lg:pb-0">
+        <Button
+          type="submit"
+          variant="formButton"
+          className="w-full sm:w-auto"
+          onClick={() => setIsEditable(!iseditable)}
+        >
+          Update
+        </Button>
+      </div>
+
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col justify-center w-full mx-auto"
@@ -39,54 +121,50 @@ const AccountDetails: React.FC = () => {
       >
         <div className="border-b border-border-base pb-7 md:pb-8 lg:pb-10">
           <div className="flex flex-col space-y-4 sm:space-y-5">
+            {/* name fields */}
             <div className="flex flex-col sm:flex-row -mx-1.5 md:-mx-2.5 space-y-4 sm:space-y-0">
               <Input
                 label={t("forms:label-first-name")}
                 {...register("firstName", {
-                  required: "forms:first-name-required",
+                  required: user?.first_name ? false : true,
                 })}
                 variant="solid"
                 className="w-full sm:w-1/2 px-1.5 md:px-2.5"
                 error={errors.firstName?.message}
+                disabled={iseditable}
               />
               <Input
                 label={t("forms:label-last-name")}
                 {...register("lastName", {
-                  required: "forms:last-name-required",
+                  required: user?.last_name ? false : true,
                 })}
                 variant="solid"
                 className="w-full sm:w-1/2 px-1.5 md:px-2.5"
                 error={errors.lastName?.message}
+                disabled={iseditable}
               />
             </div>
+
+            {/* phone and email */}
+
             <div className="flex flex-col sm:flex-row -mx-1.5 md:-mx-2.5 space-y-4 sm:space-y-0">
               <Input
                 type="tel"
                 label={t("forms:label-phone")}
                 {...register("phoneNumber", {
-                  required: "forms:phone-required",
+                  required: user?.phone_number ? false : true,
                 })}
                 variant="solid"
                 className="w-full sm:w-1/2 px-1.5 md:px-2.5"
                 error={errors.phoneNumber?.message}
+                disabled={iseditable}
               />
-            </div>
-          </div>
-        </div>
-        <Heading
-          variant="titleLarge"
-          className="pt-6 mb-5 xl:mb-8 md:pt-7 lg:pt-8"
-        >
-          {t("common:text-account-details-account")}
-        </Heading>
-        <div className="border-b border-border-base pb-7 md:pb-9 lg:pb-10">
-          <div className="flex flex-col space-y-4 sm:space-y-5">
-            <div className="flex flex-col sm:flex-row -mx-1.5 md:-mx-2.5 space-y-4 sm:space-y-0">
               <Input
                 type="email"
                 label={t("forms:label-email-star")}
                 {...register("email", {
-                  required: "forms:email-required",
+                  required: user?.email ? false : true,
+
                   pattern: {
                     value:
                       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -96,25 +174,69 @@ const AccountDetails: React.FC = () => {
                 variant="solid"
                 className="w-full sm:w-1/2 px-1.5 md:px-2.5"
                 error={errors.email?.message}
+                disabled={iseditable}
               />
             </div>
+
+            <div className="flex flex-col sm:flex-row -mx-1.5 md:-mx-2.5 space-y-4 sm:space-y-0">
+              <p className="flex items-center gap-3">
+                <span>Gender</span>{" "}
+                <select
+                  {...register("gender", {
+                    required: false,
+                  })}
+                >
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </p>
+            </div>
+          </div>
+        </div>
+        <Heading
+          variant="titleLarge"
+          className="pt-6 mb-5 xl:mb-8 md:pt-7 lg:pt-8"
+        >
+          {t("common:text-account-details-account")}
+        </Heading>
+        <div className="relative flex pb-2 mt-5 sm:ltr:ml-auto sm:rtl:mr-auto lg:pb-0">
+          <Button
+            variant="formButton"
+            className="w-full sm:w-auto"
+            onClick={() => setIsPasswordUpdate(!isPasswordUpdate)}
+          >
+            Update
+          </Button>
+        </div>
+        <div className="border-b border-border-base pb-7 md:pb-9 lg:pb-10">
+          <div className="flex flex-col space-y-4 sm:space-y-5">
             <div className="flex flex-col sm:flex-row -mx-1.5 md:-mx-2.5 space-y-4 sm:space-y-0">
               <PasswordInput
-                type="tel"
                 label={t("forms:label-password")}
                 {...register("password", {
-                  required: "forms:password-required",
+                  minLength: {
+                    value: 8,
+                    message: "Password should be at least 8 characters",
+                  },
+                  validate: (value) => {
+                    return (
+                      value === watch("confirmPassword") ||
+                      "Passwords do not match"
+                    );
+                  },
                 })}
                 className="w-full sm:w-1/2 px-1.5 md:px-2.5"
                 error={errors.password?.message}
+                disabled={isPasswordUpdate}
               />
+
               <PasswordInput
                 label={t("forms:label-confirm-password")}
-                {...register("confirmPassword", {
-                  required: "forms:password-required",
-                })}
+                {...register("confirmPassword", {})}
                 error={errors.confirmPassword?.message}
                 className="w-full sm:w-1/2 px-1.5 md:px-2.5"
+                disabled={isPasswordUpdate}
               />
             </div>
           </div>
@@ -159,17 +281,19 @@ const AccountDetails: React.FC = () => {
             />
           </div>
         </div>
-        <div className="relative flex pb-2 mt-5 sm:ltr:ml-auto sm:rtl:mr-auto lg:pb-0">
-          <Button
-            type="submit"
-            loading={isLoading}
-            disabled={isLoading}
-            variant="formButton"
-            className="w-full sm:w-auto"
-          >
-            {t("common:button-save-changes")}
-          </Button>
-        </div>
+        {(!iseditable || !isPasswordUpdate) && (
+          <div className="relative flex pb-2 mt-5 sm:ltr:ml-auto sm:rtl:mr-auto lg:pb-0">
+            <Button
+              type="submit"
+              loading={isLoading}
+              disabled={isLoading}
+              variant="formButton"
+              className="w-full sm:w-auto"
+            >
+              {t("common:button-save-changes")}
+            </Button>
+          </div>
+        )}
       </form>
     </div>
   );

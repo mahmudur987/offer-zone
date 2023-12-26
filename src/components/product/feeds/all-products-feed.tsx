@@ -1,34 +1,31 @@
-// import { Fragment } from "react";
-// import ProductCardAlpine from "@components/product/product-cards/product-card-alpine";
-import type { FC } from "react";
-// import { useProductsQuery } from "@framework/product/get-all-products";
-// import ProductCardLoader from "@components/ui/loaders/product-card-loader";
+import React from "react";
+import { Fragment, FC } from "react";
+import ProductCardAlpine from "@components/product/product-cards/product-card-alpine";
+
+import { useProductsQuery } from "@framework/product/get-all-products";
+import ProductCardLoader from "@components/ui/loaders/product-card-loader";
 import SectionHeader from "@components/common/section-header";
 import { useModalAction } from "@components/common/modal/modal.context";
-// import slice from "lodash/slice";
-// import Alert from "@components/ui/alert";
+import slice from "lodash/slice";
+
 import cn from "classnames";
 import { useTranslation } from "next-i18next";
 import Alert from "@components/ui/alert";
-// import { useRouter } from "next/router";
-// import { LIMITS } from "@framework/utils/limits";
-// import { Product } from "@framework/types";
+import { useRouter } from "next/router";
+import { LIMITS } from "@framework/utils/limits";
+import { Product } from "@framework/types";
+import { useMarchantProductsQuery } from "@framework/product/get-Marchant-Products";
 interface ProductFeedProps {
   element?: any;
   className?: string;
 }
-const AllProductFeed: FC<ProductFeedProps> = ({ className = "" }) => {
+const AllProductFeed: FC<ProductFeedProps> = ({ className = "", element }) => {
   const { t } = useTranslation("common");
-
-  // const { query } = useRouter();
-  // const {
-  //   isFetching: isLoading,
-  //   isFetchingNextPage: loadingMore,
-  //   fetchNextPage,
-  //   hasNextPage,
-  //   data,
-  //   error,
-  // } = useProductsQuery({ limit: LIMITS.PRODUCTS_LIMITS, ...query });
+  const { query } = useRouter();
+  const { data, isLoading, error }: any = useMarchantProductsQuery({
+    limit: LIMITS.PRODUCTS_LIMITS,
+    ...query,
+  });
 
   const { openModal } = useModalAction();
 
@@ -48,14 +45,13 @@ const AllProductFeed: FC<ProductFeedProps> = ({ className = "" }) => {
           {t("text-categories")}
         </div>
       </div>
+      {/* <Alert message={"No Offers found!!"} /> */}
 
-      <Alert message={'No Offers found!!'} />
-
-      {/* {error ? (
+      {error ? (
         <Alert message={error?.message} />
       ) : (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6 md:gap-4 2xl:gap-5">
-          {isLoading && !data?.pages?.length ? (
+          {isLoading ? (
             Array.from({ length: LIMITS.PRODUCTS_LIMITS }).map((_, idx) => (
               <ProductCardLoader
                 key={`product--key-${idx}`}
@@ -64,32 +60,28 @@ const AllProductFeed: FC<ProductFeedProps> = ({ className = "" }) => {
             ))
           ) : (
             <>
-              {data?.pages?.map((page: any, index) => {
-                return (
-                  <Fragment key={index}>
-                    {page?.data?.slice(0, 18)?.map((product: Product) => (
+              <Fragment>
+                {data?.slice(0, 18)?.map((product: Product) => (
+                  <ProductCardAlpine
+                    key={`product--key${product.id}`}
+                    product={product}
+                  />
+                ))}
+                {element && <div className="col-span-full">{element}</div>}
+                {data?.length! > 18 &&
+                  data
+                    .slice(data, 18, data?.length)
+                    .map((product: any) => (
                       <ProductCardAlpine
                         key={`product--key${product.id}`}
                         product={product}
                       />
                     ))}
-                    {element && <div className="col-span-full">{element}</div>}
-                    {page?.data?.length! > 18 &&
-                      slice(page?.data, 18, page?.data?.length).map(
-                        (product: any) => (
-                          <ProductCardAlpine
-                            key={`product--key${product.id}`}
-                            product={product}
-                          />
-                        )
-                      )}
-                  </Fragment>
-                );
-              })}
+              </Fragment>
             </>
           )}
         </div>
-      )} */}
+      )}
     </div>
   );
 };

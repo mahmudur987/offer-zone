@@ -1,14 +1,14 @@
 import { ReactElement, useState } from "react";
-// import { useForm, FormProvider } from 'react-hook-form';
+import { useForm, FormProvider } from "react-hook-form";
 
 import Button from "@components/ui/button";
 import Heading from "@components/ui/heading";
 import Contact from "@components/contact/contact";
 import Address from "./address";
-// import DeliveryNotes from './delivery-instruction';
-// import DeliverySchedule from './schedule';
-// import DeliveryTips from './delivery-tips';
-// import StripeCheckoutInlineForm from './stripe-checkout-inline-form';
+import DeliveryNotes from "./delivery-instruction";
+import DeliverySchedule from "./schedule";
+import DeliveryTips from "./delivery-tips";
+import StripeCheckoutInlineForm from "./stripe-checkout-inline-form";
 import { useTranslation } from "next-i18next";
 import PaymentMethodForm from "./payment-method-form";
 import { CheckoutFormValues } from "@framework/types";
@@ -17,7 +17,7 @@ import DeliveryMethodForm from "./delivery-method";
 const data = [
   {
     id: 1,
-    title: "text-contact-number",
+    title: "Contact Details",
     component: <Contact />,
   },
   {
@@ -27,25 +27,24 @@ const data = [
   },
   {
     id: 3,
-    title: "text-delivery-schedule",
+    title: "Delivery Method",
     component: <DeliveryMethodForm />,
   },
   {
     id: 4,
     title: "text-payment-option",
-    // component: <DeliverySchedule />,
     component: <PaymentMethodForm />,
   },
-  // {
-  //   id: 5,
-  //   title: 'text-delivery-instructions',
-  //   component: <DeliveryNotes />,
-  // },
-  // {
-  //   id: 6,
-  //   title: 'text-delivery-tip',
-  //   component: <DeliveryTips />,
-  // },
+  {
+    id: 5,
+    title: "text-delivery-instructions",
+    component: <DeliveryNotes />,
+  },
+  {
+    id: 6,
+    title: "text-delivery-tip",
+    component: <DeliveryTips />,
+  },
 ];
 
 const CheckoutDetails: React.FC = () => {

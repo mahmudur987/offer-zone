@@ -2,12 +2,14 @@ import Image from "next/image";
 import Link from "@components/ui/link";
 import cn from "classnames";
 import { siteSettings } from "@settings/site-settings";
+import { useCompanyData } from "@framework/companyData/getCompanydata";
 
 const Logo: React.FC<React.AnchorHTMLAttributes<{}>> = ({
   className,
   href = siteSettings.logo.href,
   ...props
 }) => {
+  const { data } = useCompanyData();
   return (
     <Link
       href={href}
@@ -15,7 +17,7 @@ const Logo: React.FC<React.AnchorHTMLAttributes<{}>> = ({
       {...props}
     >
       <Image
-        src={siteSettings.logo.url}
+        src={data ? data.com_logo : siteSettings.logo.url}
         alt={siteSettings.logo.alt}
         height={siteSettings.logo.height}
         width={siteSettings.logo.width}

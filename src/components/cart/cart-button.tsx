@@ -25,7 +25,6 @@ const CartButton: React.FC<CartButtonProps> = ({
     isShowing;
     return openDrawer();
   }
-
   return (
     <button
       className={cn(
@@ -43,7 +42,8 @@ const CartButton: React.FC<CartButtonProps> = ({
       </div>
       {!hideLabel && (
         <span className="text-sm font-normal lg:text-15px text-brand-dark ltr:ml-2 rtl:mr-2">
-          {t("text-cart")}
+          {/* {t("text-cart")} */}
+          Cart
         </span>
       )}
     </button>

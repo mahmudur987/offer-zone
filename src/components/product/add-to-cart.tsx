@@ -4,6 +4,7 @@ import { generateCartItem } from "@utils/generate-cart-item";
 import PlusIcon from "@components/icons/plus-icon";
 import useWindowSize from "@utils/use-window-size";
 import { useTranslation } from "next-i18next";
+import { toast } from "react-toastify";
 
 interface Props {
   data: any;
@@ -26,19 +27,24 @@ const AddToCart = ({
     getItemFromCart,
     isInCart,
   } = useCart();
-  const item = generateCartItem(data, variation);
+  const outOfStock = data.stock_status === "2";
+  const iconSize = width! > 480 ? "19" : "17";
+  const item: any = generateCartItem(data, variation);
   const handleAddClick = (
     e: React.MouseEvent<HTMLButtonElement | MouseEvent>
   ) => {
     e.stopPropagation();
+    if (outOfStock) {
+      return toast.error("out of stock");
+    }
+
+    console.log(item);
     addItemToCart(item, 1);
   };
   const handleRemoveClick = (e: any) => {
     e.stopPropagation();
     removeItemFromCart(item.id);
   };
-  const outOfStock = isInCart(item?.id) && !isInStock(item.id);
-  const iconSize = width! > 480 ? "19" : "17";
 
   return !isInCart(item?.id) ? (
     variant === "venus" ? (
@@ -46,7 +52,6 @@ const AddToCart = ({
         className="w-full grid grid-cols-[1fr,max-content] items-center bg-[#F4F6F8] rounded-[4px] mt-[10px] no-underline transition-all text-gray-600 hover:text-black font-medium"
         aria-label="Count Button"
         onClick={handleAddClick}
-        disabled={disabled || outOfStock}
       >
         <span className="sm:flex text-[15px] sm:items-center sm:justify-center">
           {t("text-add-to-cart-btn")}
@@ -60,7 +65,6 @@ const AddToCart = ({
         className="flex items-center justify-center w-8 h-8 text-4xl rounded-full bg-brand lg:w-10 lg:h-10 text-brand-light focus:outline-none"
         aria-label="Count Button"
         onClick={handleAddClick}
-        disabled={disabled || outOfStock}
       >
         <PlusIcon width={iconSize} height={iconSize} opacity="1" />
       </button>
@@ -70,7 +74,6 @@ const AddToCart = ({
       value={getItemFromCart(item.id).quantity}
       onDecrement={handleRemoveClick}
       onIncrement={handleAddClick}
-      disabled={outOfStock}
       className="w-full"
       variant={variant}
     />

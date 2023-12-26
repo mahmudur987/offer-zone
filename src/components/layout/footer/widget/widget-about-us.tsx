@@ -4,6 +4,7 @@ import Logo from "@components/ui/logo";
 import Text from "@components/ui/text";
 import Image from "@components/ui/image";
 import { ROUTES } from "@utils/routes";
+import { useCompanyData } from "@framework/companyData/getCompanydata";
 
 interface AboutProps {
   className?: string;
@@ -18,7 +19,7 @@ interface AboutProps {
 }
 const WidgetAbout: React.FC<AboutProps> = ({ social, className }) => {
   const { t } = useTranslation("footer");
-
+  const { data } = useCompanyData();
   return (
     <div className={`pb-10 sm:pb-0 ${className}`}>
       <div className="flex flex-col text-center sm:ltr:text-left sm:rtl:text-right max-w-[300px] mx-auto sm:ltr:ml-0 sm:rtl:mr-0 pb-6 sm:pb-5">
@@ -26,10 +27,20 @@ const WidgetAbout: React.FC<AboutProps> = ({ social, className }) => {
           href={ROUTES.HOME}
           className="mx-auto mb-3 lg:mb-5 sm:ltr:ml-0 sm:rtl:mr-0"
         />
-        <Text>Offer Zone BD is a service marketplace that collaborates deals & discounts from online/offline, small to large, urban to rural merchants for customers. It’s a unique online discount aggregator brand in Bangladesh.</Text>
+
+        {data?.description ? (
+          <Text>{data.description}</Text>
+        ) : (
+          <Text>
+            Offer Zone BD is a service marketplace that collaborates deals &
+            discounts from online/offline, small to large, urban to rural
+            merchants for customers. It’s a unique online discount aggregator
+            brand in Bangladesh.
+          </Text>
+        )}
+
         <Text>E-TIN Number: 114544461170</Text>
       </div>
-
 
       {social && (
         <ul className="flex flex-wrap justify-center mx-auto sm:justify-start">
@@ -54,7 +65,6 @@ const WidgetAbout: React.FC<AboutProps> = ({ social, className }) => {
         </ul>
       )}
     </div>
-    
   );
 };
 

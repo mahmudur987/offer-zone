@@ -24,11 +24,8 @@ const WidgetLink: React.FC<Props> = ({ className, data }) => {
         {t(`${widgetTitle}`)}
       </Heading>
       <ul className="flex flex-col space-y-3 text-sm lg:text-15px">
-        {lists.map((list) => (
-          <li
-            key={`widget-list--key${list.id}`}
-            className="flex items-baseline"
-          >
+        {lists.map((list, i) => (
+          <li key={`widget-list--key${i}`} className="flex items-baseline">
             {list.icon && (
               <span className="ltr:mr-3 rtl:ml-3 relative top-0.5 lg:top-1 text-sm lg:text-base">
                 {list.icon}

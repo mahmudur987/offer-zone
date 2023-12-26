@@ -48,7 +48,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, SearchProps>(
                 "bg-fill-one": variant === "fill",
               }
             )}
-            placeholder={t("placeholder-search")}
+            placeholder={"Search"}
             aria-label={searchId}
             autoComplete="off"
             value={value}

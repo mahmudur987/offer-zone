@@ -17,7 +17,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
     amount: item?.itemTotal,
     currencyCode: "BDT",
   });
-  const outOfStock = !isInStock(item.id);
+  // const outOfStock = !isInStock(item.id);
   return (
     <div
       className={`group w-full h-auto flex justify-start items-center text-brand-light py-4 md:py-7 border-b border-border-one border-opacity-70 relative last:border-b-0`}
@@ -44,7 +44,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
       <div className="flex items-start justify-between w-full overflow-hidden">
         <div className="ltr:pl-3 rtl:pr-3 md:ltr:pl-4 md:rtl:pr-4">
           <Link
-            href={`${ROUTES.PRODUCT}/${item?.slug}`}
+            href={`${ROUTES.PRODUCT}/${item?.id}`}
             className="block leading-5 transition-all text-brand-dark text-13px sm:text-sm lg:text-15px hover:text-brand"
           >
             {item?.name}
@@ -57,7 +57,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
             onIncrement={() => addItemToCart(item, 1)}
             onDecrement={() => removeItemFromCart(item.id)}
             variant="cart"
-            disabled={outOfStock}
+            disabled={false}
           />
         </div>
 

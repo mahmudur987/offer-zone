@@ -17,6 +17,7 @@ export default function Cart() {
   const { t } = useTranslation("common");
   const { closeDrawer } = useUI();
   const { items, total, isEmpty, resetCart } = useCart();
+
   const { price: cartTotal } = usePrice({
     amount: total,
     currencyCode: "BDT",
@@ -82,7 +83,7 @@ export default function Cart() {
               }
             )}
           >
-            <span className="py-0.5">{t("text-proceed-to-checkout")}</span>
+            <span className="py-0.5">{t("Proceed to checkout")}</span>
           </Link>
         </div>
       </div>

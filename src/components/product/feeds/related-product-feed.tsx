@@ -16,6 +16,7 @@ const RelatedProductFeed: React.FC<RelatedProductsProps> = ({
   const { data, isLoading, error } = useRelatedProductsQuery({
     limit: LIMITS.RELATED_PRODUCTS_LIMITS,
   });
+
   return (
     <ProductsCarousel
       sectionHeading="text-related-products"

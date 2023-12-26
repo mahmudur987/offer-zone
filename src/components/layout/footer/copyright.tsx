@@ -29,14 +29,14 @@ const Copyright: React.FC<CopyrightProps> = ({
       >
         <div className="flex flex-col pt-6 text-center border-t md:flex-row md:justify-between border-border-three lg:pt-7">
           <p className="text-brand-dark text-sm leading-7 lg:leading-[27px] lg:text-15px">
-            &copy;&nbsp;{t("text-copyright")} {year}&nbsp;
+            &copy;&nbsp;{t("Copyright")} {year}&nbsp;
             <a
               className="transition-colors duration-200 ease-in-out text-brand-dark hover:text-brand"
               href={siteSettings.author.websiteUrl}
             >
               {siteSettings.author.name}
             </a>
-            &nbsp; {t("text-all-rights-reserved")}
+            &nbsp; {t(" All rights reserved")}
           </p>
 
           {payment && (
