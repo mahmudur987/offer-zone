@@ -7,6 +7,7 @@ interface wishListState {
   removeItemFromWishList: (item: NewProduct) => void;
   isInWishList: () => any | undefined;
   resetWishList: () => any | undefined;
+  getWishListItems: () => any | undefined;
 }
 export const wishListContext = React.createContext<wishListState | undefined>(
   undefined
@@ -53,6 +54,11 @@ export function WishListProvider(props: React.PropsWithChildren<any>) {
     } else return false;
   };
   const resetWishList = () => dispatch({ type: "RESET_WISHLIST" });
+
+  const getWishListItems = () => {
+    return state.items;
+  };
+
   const value = React.useMemo(
     () => ({
       ...state,
@@ -60,6 +66,7 @@ export function WishListProvider(props: React.PropsWithChildren<any>) {
       removeItemFromWishList,
       isInWishList,
       resetWishList,
+      getWishListItems,
     }),
     [addItemToWishList, removeItemFromWishList, resetWishList, state]
   );

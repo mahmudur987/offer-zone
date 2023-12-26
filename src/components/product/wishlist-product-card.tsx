@@ -2,33 +2,50 @@ import { useState } from "react";
 import type { FC } from "react";
 import Image from "@components/ui/image";
 import usePrice from "@framework/product/use-price";
-import { Product } from "@framework/types";
+import { NewProduct, Product } from "@framework/types";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 import { useTranslation } from "next-i18next";
+import { useWishlist } from "@contexts/wishList/wishList.context";
+import { toast } from "react-toastify";
 
 interface ProductProps {
-  product: Product;
+  product: NewProduct;
   className?: string;
 }
 
 const WishlistProductCard: FC<ProductProps> = ({ product, className }) => {
   const { t } = useTranslation("common");
-  const { name, image, unit } = product ?? {};
+  const { name, image } = product ?? {};
+  const { removeItemFromWishList, addItemToWishList } = useWishlist();
   const placeholderImage = `/assets/placeholder/product.svg`;
   const [favorite, setFavorite] = useState<boolean>(false);
   const { price, basePrice, discount } = usePrice({
-    amount: product.sale_price ? product.sale_price : product.price,
+    amount: product.price,
     baseAmount: product.price,
     currencyCode: "BDT",
   });
-
+  function removeToWishlist() {
+    removeItemFromWishList(product);
+    setFavorite(!favorite);
+    const toastStatus: string = "Remove From Favourite";
+    setTimeout(() => {}, 1500);
+    toast(toastStatus, {
+      progressClassName: "fancy-progress-bar",
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+  }
   return (
     <div className="flex flex-col py-4 border-b md:flex-row border-border-base 2xl:py-5 wishlist-card last:pb-0 first:-mt-8 lg:first:-mt-4 2xl:first:-mt-7">
       <div className="flex ">
         <div className="relative mt-1 shrink-0">
           <div className="flex overflow-hidden max-w-[80px]  transition duration-200 ease-in-out transform group-hover:scale-105">
             <Image
-              src={image?.thumbnail ?? placeholderImage}
+              src={image ?? placeholderImage}
               alt={name || "Product Image"}
               width={80}
               height={80}
@@ -42,7 +59,7 @@ const WishlistProductCard: FC<ProductProps> = ({ product, className }) => {
           <h2 className="text-brand-dark text-13px sm:text-sm lg:text-15px leading-5 sm:leading-6 mb-1.5">
             {name}
           </h2>
-          <div className="mb-1 text-13px sm:text-sm lg:mb-2">{unit}</div>
+          {/* <div className="mb-1 text-13px sm:text-sm lg:mb-2">{unit}</div> */}
           <div className="-mx-1">
             <span className="inline-block mx-1 text-sm font-semibold sm:text-15px lg:text-base text-brand-dark">
               {price}
@@ -58,7 +75,7 @@ const WishlistProductCard: FC<ProductProps> = ({ product, className }) => {
       <div
         className="flex cursor-pointer ltr:ml-auto rtl:mr-auto md:pt-7"
         onClick={() => {
-          setFavorite(!favorite);
+          return removeToWishlist();
         }}
       >
         {favorite ? (

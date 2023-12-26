@@ -3,6 +3,8 @@ import { useWishlistProductsQuery } from "@framework/product/get-wishlist-produc
 import ProductCardLoader from "@components/ui/loaders/product-card-loader";
 import Alert from "@components/ui/alert";
 import cn from "classnames";
+import { useWishlist } from "@contexts/wishList/wishList.context";
+import { useState } from "react";
 
 interface ProductWishlistProps {
   className?: string;
@@ -11,14 +13,15 @@ interface ProductWishlistProps {
 export default function ProductWishlistGrid({
   className = "",
 }: ProductWishlistProps) {
-  const limit = 35;
-  const { data, isLoading, error } = useWishlistProductsQuery({
-    limit: limit,
-  });
+  const [isLoading, setIsLoading] = useState(false);
+  const { getWishListItems } = useWishlist();
+  const data = getWishListItems();
+  // console.log(data);
+
   return (
     <div className={cn(className)}>
-      {error ? (
-        <Alert message={error?.message} />
+      {data.length <= 0 ? (
+        <Alert message={"No data found"} />
       ) : (
         <div className="flex flex-col">
           {isLoading
