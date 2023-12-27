@@ -20,13 +20,8 @@ interface ProductProps {
   showCounter?: boolean;
 }
 
-const SuperOfferCard: React.FC<ProductProps> = ({
-  product,
-  className,
-  showCounter,
-}) => {
+const SuperOfferCard: React.FC<ProductProps> = ({ product, className }) => {
   const { t } = useTranslation("common");
-  const router = useRouter();
 
   const {
     provider,

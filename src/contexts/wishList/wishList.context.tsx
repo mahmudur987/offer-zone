@@ -32,7 +32,7 @@ export function WishListProvider(props: React.PropsWithChildren<any>) {
   );
 
   React.useEffect(() => {
-    console.log(state);
+    // console.log(state);
     saveWishList(JSON.stringify(state));
   }, [state, saveWishList]);
 
