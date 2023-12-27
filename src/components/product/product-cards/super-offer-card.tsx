@@ -36,6 +36,9 @@ const SuperOfferCard: React.FC<ProductProps> = ({ product, className }) => {
     add_date,
     status,
   } = product ?? {};
+
+  // console.log();
+
   return (
     <a href={link} target="_blank">
       <article
@@ -106,26 +109,20 @@ const SuperOfferCard: React.FC<ProductProps> = ({ product, className }) => {
           </div>
           {/* counter */}
           <div>
-            {expaired_at ? (
-              <div className={`flex flex-col w-full `}>
-                <span>Expired:</span>
-                {
-                  <CountdownTimer
-                    targetDate={
-                      new Date(expaired_at ?? Date.now().toLocaleString())
-                    }
-                  />
-                }
-              </div>
-            ) : (
-              <div className={`flex flex-col w-full `}>
-                <span>Expired:</span>
-                {
-                  <CountdownTimer
-                    targetDate={new Date("2023-12-31T23:59:59")}
-                  />
-                }
-              </div>
+            {expaired_at && new Date(expaired_at) > new Date() && (
+              <>
+                {" "}
+                <div className={`flex flex-col w-full `}>
+                  <span>Expired:</span>
+                  {
+                    <CountdownTimer
+                      targetDate={
+                        new Date(expaired_at ?? Date.now().toLocaleString())
+                      }
+                    />
+                  }
+                </div>
+              </>
             )}
           </div>
 

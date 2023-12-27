@@ -12,7 +12,7 @@ interface ProductGridProps {
 
 export const SupperOfferGrid: FC<ProductGridProps> = ({ className = "" }) => {
   const { data, isLoading, error } = UseSuperOfferData();
-  // console.log(data);
+  console.log(data);
 
   return (
     <>

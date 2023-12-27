@@ -75,7 +75,7 @@ export type SuperOffer = {
   location?: string | null;
   description?: string;
   add_date?: string;
-  expaired_at?: string | null;
+  expaired_at?: string;
   meta_description?: string;
   meta_keywords?: string;
   meta_title?: string;
