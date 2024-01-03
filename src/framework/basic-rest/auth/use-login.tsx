@@ -2,7 +2,6 @@ import { useModalAction } from "@components/common/modal/modal.context";
 // import Alert from '@components/ui/alert';
 import { useUI } from "@contexts/ui.context";
 import http from "@framework/utils/http";
-import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";
@@ -30,8 +29,6 @@ export const useLoginMutation = () => {
   const router = useRouter();
   return useMutation((input: LoginInputType) => login(input), {
     onSuccess: (data: any) => {
-      console.log(data?.data.access);
-      console.log(data?.data.refresh);
       Cookies.set("accessToken", data?.data?.access, { expires: 365 });
       Cookies.set("refreshToken", data?.data?.refresh, { expires: 365 });
       authorize && authorize();
@@ -39,7 +36,6 @@ export const useLoginMutation = () => {
       router.push("/");
     },
     onError: (data: any) => {
-      console.log(data, "login error response");
       if (data?.response?.data?.detail) {
         toast.error(data?.response?.data?.detail, {
           toastId: 55,

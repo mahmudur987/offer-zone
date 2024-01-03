@@ -16,7 +16,6 @@ const placeholderImage = `/assets/images/product-placeholder.png`;
 const VendorCard: React.FC<VendorCardProps> = ({ shop }) => {
   const { t } = useTranslation();
   const { name: Name, id: MerchantID, district: District, photo } = shop;
-  // console.log("shop", shop);
 
   return (
     <Link href={`${ROUTES.SHOPS}/${MerchantID}`}>

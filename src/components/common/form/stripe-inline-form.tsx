@@ -32,9 +32,6 @@ const StripeForm: React.FC<Props> = ({ buttonText, getToken }) => {
     // e.g. createToken - https://stripe.com/docs/js/tokens_sources/create_token?type=cardElement
     const { token } = await stripe.createToken(cardElement);
     getToken(token);
-    if (token) {
-      console.log(token, "token");
-    }
   };
 
   return (

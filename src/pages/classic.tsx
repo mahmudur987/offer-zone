@@ -52,41 +52,8 @@ export default function Home() {
 Home.Layout = Layout;
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery(
-    [
-      API_ENDPOINTS.BEST_SELLER_PRODUCTS,
-      { limit: LIMITS.BEST_SELLER_PRODUCTS_LIMITS },
-    ],
-    fetchBestSellerProducts
-  );
-  await queryClient.prefetchQuery(
-    [
-      API_ENDPOINTS.FRESH_VEGETABLES_PRODUCTS,
-      { limit: LIMITS.FRESH_VEGETABLES_PRODUCTS_LIMITS },
-    ],
-    fetchFreshVegetablesProducts
-  );
-  await queryClient.prefetchQuery(
-    [API_ENDPOINTS.CHIPS_PRODUCTS, { limit: LIMITS.CHIPS_PRODUCTS_LIMITS }],
-    fetchChipsProducts
-  );
-  await queryClient.prefetchQuery(
-    [API_ENDPOINTS.COOKIES_PRODUCTS, { limit: LIMITS.COOKIES_PRODUCTS_LIMITS }],
-    fetchCookiesProducts
-  );
-  await queryClient.prefetchQuery(
-    [
-      API_ENDPOINTS.POPCORN_JERKY_PRODUCTS,
-      { limit: LIMITS.POPCORN_JERKY_PRODUCTS_LIMITS },
-    ],
-    fetchPopcornJerkyProducts
-  );
-
   return {
     props: {
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
       ...(await serverSideTranslations(locale!, [
         "common",
         "forms",

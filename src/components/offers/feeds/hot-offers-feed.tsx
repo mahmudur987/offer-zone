@@ -13,8 +13,7 @@ const HotOffersFeed: FC<ProductFeedProps> = ({ className, variant }) => {
   const { data, isLoading, error } = useHotOffersQuery({
     limit: LIMITS.BEST_SELLER_GROCERY_PRODUCTS_LIMITS,
   });
-  // const { data, isLoading, error } = useOffersData();
-  // console.log(data);
+
   return (
     <ProductsGridBlock
       sectionHeading="text-hot-offers"

@@ -38,7 +38,6 @@ const AddToCart = ({
       return toast.error("out of stock");
     }
 
-    console.log(item);
     addItemToCart(item, 1);
   };
   const handleRemoveClick = (e: any) => {

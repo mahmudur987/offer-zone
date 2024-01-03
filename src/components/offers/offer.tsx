@@ -68,8 +68,6 @@ const OfferSingleDetails: React.FC = () => {
   };
   const item = data && generateCartItemCustom(data);
 
-  console.log(gallery);
-
   const outOfStock = item?.id && isInCart(item.id) && !isInStock(item.id);
   function addToCart() {
     if (data) {

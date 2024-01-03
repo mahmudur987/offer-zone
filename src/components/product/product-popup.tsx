@@ -109,8 +109,7 @@ export default function ProductPopup() {
   const outOfStock = isInCart(item.id) && !isInStock(item.id);
   function addToCart() {
     if (!isSelected) return;
-    // to show btn feedback while product carting
-    console.log(item);
+
     if (item.error) {
       return toast.error("this is not a perfect item");
     }

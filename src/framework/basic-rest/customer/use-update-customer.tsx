@@ -39,11 +39,7 @@ const updateUser = async (input: UpdateUser) => {
 };
 export const useUpdateUserMutation = () => {
   return useMutation((input: UpdateUser) => updateUser(input), {
-    onSuccess: (data) => {
-      console.log(data, "UpdateUser success response");
-    },
-    onError: (data) => {
-      console.log(data, "UpdateUser error response");
-    },
+    onSuccess: (data) => {},
+    onError: (data) => {},
   });
 };

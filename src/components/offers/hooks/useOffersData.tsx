@@ -20,7 +20,6 @@ const useOffersData = () => {
   const [merchants, merchantsLoading, merchantsError] = useListVals<Merchant>(
     ref(database, "merchantInfo")
   );
-  // console.log("get hot offer", "my", merchants);
 
   useEffect(() => {
     const queryParams: { category?: string; location?: string } = router?.query;
@@ -41,18 +40,10 @@ const useOffersData = () => {
             offer.Type !== "deals" &&
             offer.Status === "active"
           ) {
-            for (let merchant of merchants) {
-              if (
-                String(merchant.MerchantID) === String(offer.MerchantID) &&
-                (merchant.District === location || !location)
-              ) {
-                filteredData.push(offer);
-              }
-            }
+            filteredData.push(offer);
           }
         }
       }
-      // console.log("filteredData", filteredData);
       setData(filteredData);
     }
   }, [location, category, offers, merchants]);

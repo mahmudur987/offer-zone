@@ -1,6 +1,5 @@
 import cn from "classnames";
 import Link from "@components/ui/link";
-import useWindowSize from "@utils/use-window-size";
 import { useTranslation } from "next-i18next";
 import Search from "@components/common/search";
 import { useCompanyData } from "@framework/companyData/getCompanydata";
@@ -11,22 +10,15 @@ interface BannerProps {
   variant?: "default" | "slider" | "medium" | "antique";
 }
 
-function getImage(deviceWidth: number, imgObj: any) {
-  return deviceWidth < 480 ? imgObj.mobile : imgObj.desktop;
-}
-
 export default function HeroBannerCard({
   banner,
   className = "py-20 xy:pt-24",
   variant = "default",
 }: BannerProps) {
   const { t } = useTranslation("common");
-  const { width } = useWindowSize();
-  const { title, description, image } = banner;
+  const { title, description } = banner;
   const { data } = useCompanyData();
 
-  // console.log(data);
-  const selectedImage = getImage(width!, image);
   return (
     <div
       className={cn(
@@ -98,10 +90,6 @@ export default function HeroBannerCard({
           {banner.searchBox && (
             <div className="hidden lg:block max-w-[700px] mx-auto md:pt-1 lg:pt-3">
               <div className="lg:flex">
-                {/* <HeroSearchBox
-                  style={variant}
-                  button={{ text: banner.btnText }}
-                /> */}
                 <Search searchId="global-search" />
               </div>
               {banner?.formTips ? (

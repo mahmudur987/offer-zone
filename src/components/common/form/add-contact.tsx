@@ -30,9 +30,7 @@ const AddContactForm: React.FC = () => {
     },
   });
 
-  function onSubmit(values: ContactFormValues) {
-    console.log(values, "Add Contact");
-  }
+  function onSubmit(values: ContactFormValues) {}
 
   return (
     <div className="w-full md:w-[510px] mx-auto p-5 sm:p-8 bg-brand-light rounded-md">

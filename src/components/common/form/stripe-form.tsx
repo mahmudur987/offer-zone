@@ -37,7 +37,6 @@ const StripeForm: React.FC<Props> = ({ buttonText, getToken, closeModal }) => {
       if (closeModal) {
         closeModal();
       }
-      console.log(token, "token");
     }
   };
 

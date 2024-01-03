@@ -52,7 +52,6 @@ const CheckoutDetails: React.FC = () => {
 
   const [bindIndex, setBindIndex] = useState(0);
 
-  // const onSubmit = (data: any) => console.log(data);
   const changeItem = (itemIndex: any) => {
     if (itemIndex !== bindIndex) {
       setBindIndex(itemIndex);
@@ -92,7 +91,7 @@ const CheckoutDetails: React.FC = () => {
                     type="button"
                     onClick={() => changeItem(index + 1)}
                     variant="formButton"
-                    className="bg-brand text-brand-light rounded font-semibold font-[14px] px-4 py-3"
+                    className="bg-brand text-brand-light rounded font-semibold px-4 py-3"
                   >
                     {t("button-next-steps")}
                   </Button>

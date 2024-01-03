@@ -28,20 +28,8 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ className = "" }) => {
     formState: { errors },
   } = useForm<ReviewFormValues>();
   const [rating_custom_icon, set_rating_custom_icon] = useState(1);
-  function onSubmit(values: ReviewFormValues) {
-    console.log(values, "review");
-  }
-  const onStarClickCustomIcon = (
-    nextValue: number,
-    prevValue: number,
-    name: string
-  ) => {
-    console.log(
-      "name: %s, nextValue: %s, prevValue: %s",
-      name,
-      nextValue,
-      prevValue
-    );
+  function onSubmit(values: ReviewFormValues) {}
+  const onStarClickCustomIcon = (nextValue: number) => {
     set_rating_custom_icon(nextValue);
   };
   return (

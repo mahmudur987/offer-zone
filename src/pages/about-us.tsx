@@ -8,13 +8,12 @@ import { aboutSetting } from "@settings/about-setting";
 import Image from "@components/ui/image";
 import Seo from "@components/seo/seo";
 import { useCompanyData } from "@framework/companyData/getCompanydata";
-const backgroundThumbnail = "/assets/images/about-us.png";
+
 const aboutUs1 = "/assets/images/about-us/1.png";
 const aboutUs2 = "/assets/images/about-us/2.png";
 const aboutUs3 = "/assets/images/about-us/3.png";
 const aboutUs4 = "/assets/images/about-us/4.png";
 const aboutUs5 = "/assets/images/about-us/5.png";
-const aboutUs6 = "/assets/images/about-us/6.png";
 
 export default function TermsPage() {
   const { t } = useTranslation("about");

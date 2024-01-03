@@ -27,7 +27,6 @@ function RenderPopupOrAddToCart({ props }: { props: Object }) {
   // const { isInCart, isInStock } = useCart();
   const iconSize = width! > 1024 ? "19" : "17";
   // const outOfStock = isInCart(id) && !isInStock(id);
-  // console.log(data);
 
   function handlePopupView() {
     openModal("PRODUCT_VIEW", data);

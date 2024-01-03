@@ -8,6 +8,7 @@ import Alert from "@components/ui/alert";
 import { SwiperSlide } from "swiper/react";
 import useWindowSize from "@utils/use-window-size";
 import { LIMITS } from "@framework/utils/limits";
+import LoadingSpinner from "./Loading/LoadingSpiner";
 const Carousel = dynamic(() => import("@components/ui/carousel/carousel"), {
   ssr: false,
 });
@@ -47,10 +48,15 @@ const CategoryGridBlock: React.FC<CategoriesProps> = ({
 }) => {
   const { width } = useWindowSize();
 
-  const { data, isLoading, error } = useCategoriesQuery({
+  const { data, isLoading, error, isError } = useCategoriesQuery({
     limit: LIMITS.CATEGORIES_LIMITS,
   });
-  // console.log(data);
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+  if (isError) {
+    <p>Error Happend {error.message}</p>;
+  }
 
   return (
     <div className={className}>

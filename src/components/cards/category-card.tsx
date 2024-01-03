@@ -5,7 +5,6 @@ import { useTranslation } from "next-i18next";
 import cn from "classnames";
 import { categoryPlaceholder } from "@assets/placeholders";
 import { useCategoryProductsQuery } from "@framework/product/get-catagory-products";
-
 interface Props {
   item: any;
   href: LinkProps["href"];
@@ -16,7 +15,6 @@ const CategoryCard: React.FC<Props> = ({ item, href, className }) => {
   const { t } = useTranslation("common");
   const { name, image } = item ?? {};
   const { data } = useCategoryProductsQuery(name);
-  // console.log(name, data?.length);
   return (
     <Link
       href={href}

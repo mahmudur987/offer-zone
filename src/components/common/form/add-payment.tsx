@@ -33,9 +33,7 @@ const AddPaymentForm: React.FC = () => {
     },
   });
 
-  function onSubmit(values: ContactFormValues) {
-    console.log(values, "Add Payment");
-  }
+  function onSubmit(values: ContactFormValues) {}
 
   return (
     <div className="w-full md:w-[508px] mx-auto p-5 sm:p-8 bg-white rounded-xl">

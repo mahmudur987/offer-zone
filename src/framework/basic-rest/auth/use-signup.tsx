@@ -34,9 +34,7 @@ export const useSignUpMutation = () => {
         toast.success(`A otp send to ${data?.data?.username}`);
         setData(data?.data);
       },
-      onError: (data: any) => {
-        console.log(data);
-      },
+      onError: (data: any) => {},
     }
   );
 
@@ -58,12 +56,9 @@ export const useOtpMutation = () => {
   const { openModal } = useModalAction();
   return useMutation((input: any) => otpCheak(input), {
     onSuccess: (data) => {
-      console.log(data);
       toast.success("your otp varification is complete please login");
       openModal("LOGIN_VIEW");
     },
-    onError: (data) => {
-      console.log(data, "otp error response");
-    },
+    onError: (data) => {},
   });
 };

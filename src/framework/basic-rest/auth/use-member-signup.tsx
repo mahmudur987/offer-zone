@@ -1,33 +1,28 @@
 /* eslint-disable no-console */
-import { DatabaseReference, getDatabase, ref, set } from 'firebase/database';
-import { useMutation } from 'react-query';
-import firebase from '@firebase/firebase';
-import Router from 'next/router';
-import { MemberSignUpInputType } from '@framework/types';
+import { DatabaseReference, getDatabase, ref, set } from "firebase/database";
+import { useMutation } from "react-query";
+import firebase from "@firebase/firebase";
+import Router from "next/router";
+import { MemberSignUpInputType } from "@framework/types";
 
 function SavePhoto(e: File, fileName: number) {
   let xhr = new XMLHttpRequest();
   let formData = new FormData();
   let photo = e;
 
-  formData.append('imageName', fileName.toString());
-  formData.append('sendImage', photo);
-  xhr.onreadystatechange = () => {
-    console.log(xhr.status);
-    console.log(xhr);
-  };
+  formData.append("imageName", fileName.toString());
+  formData.append("sendImage", photo);
+  xhr.onreadystatechange = () => {};
   xhr.timeout = 5000;
-  xhr.open('POST', 'https://offerzonebd.com/userimgapi/api.php');
+  xhr.open("POST", "https://offerzonebd.com/userimgapi/api.php");
   xhr.send(formData);
 
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
       // var response = JSON.parse(xhr.responseText);
       if (xhr.status === 200) {
-        alert('Application Successful to Become a Merchant');
-        console.log('successful');
+        alert("Application Successful to Become a Merchant");
       } else {
-        console.log('failed');
       }
     }
   };
@@ -54,7 +49,7 @@ function writeUserData(
   profileImage: string,
   followedStores: string,
   status: string,
-  membership: string,
+  membership: string
 ) {
   set(dbRef, {
     UserID: memberID,
@@ -77,7 +72,7 @@ function writeUserData(
     FollowedStores: followedStores,
     Status: status,
     Membership: membership,
-    Reward: 'not',
+    Reward: "not",
     ReqDate: new Date(),
   });
 }
@@ -85,8 +80,8 @@ function writeUserData(
 async function merchantSignup(input: MemberSignUpInputType) {
   const db = getDatabase(firebase.app());
   const memberID = new Date().getTime();
-  const dbRef = ref(db, 'userInfo/' + memberID);
-  console.log(input);
+  const dbRef = ref(db, "userInfo/" + memberID);
+
   writeUserData(
     dbRef,
     memberID,
@@ -105,10 +100,10 @@ async function merchantSignup(input: MemberSignUpInputType) {
     input.paymentmethod,
     input.trxid,
     input.memberpassword,
-    memberID + '.jpg',
+    memberID + ".jpg",
     input.followedStores,
     input.status,
-    input.membership,
+    input.membership
   );
 
   SavePhoto(input.memberimage[0], memberID);
@@ -116,11 +111,8 @@ async function merchantSignup(input: MemberSignUpInputType) {
 export const useMemberSignUpMutation = () => {
   return useMutation((input: MemberSignUpInputType) => merchantSignup(input), {
     onSuccess: (data) => {
-      Router.push('/');
-      console.log(data);
+      Router.push("/");
     },
-    onError: (data) => {
-      console.log(data, 'login error response');
-    },
+    onError: (data) => {},
   });
 };

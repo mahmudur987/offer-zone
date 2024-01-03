@@ -15,7 +15,7 @@ export function WishListReducer(state: State, action: Action) {
   switch (action.type) {
     case "ADD_ITEM": {
       const newItems: any = [...state.items, action.item];
-      console.log();
+
       return {
         ...state,
         items: newItems,

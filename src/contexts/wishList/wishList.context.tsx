@@ -31,16 +31,13 @@ export function WishListProvider(props: React.PropsWithChildren<any>) {
   );
 
   React.useEffect(() => {
-    console.log(state);
     saveWishList(JSON.stringify(state));
   }, [state, saveWishList]);
 
   const addItemToWishList = (item: NewProduct) => {
     try {
       dispatch({ type: "ADD_ITEM", item });
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
   const removeItemFromWishList = (item: NewProduct) => {
     return dispatch({ type: "REMOVE_ITEM", item });

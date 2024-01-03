@@ -1,32 +1,32 @@
-import type { AppProps } from 'next/app';
-import { useRouter } from 'next/router';
-import { ManagedUIContext } from '@contexts/ui.context';
-import ManagedModal from '@components/common/modal/managed-modal';
-import ManagedDrawer from '@components/common/drawer/managed-drawer';
-import React, { useEffect, useRef } from 'react';
-import { DehydratedState, QueryClient, QueryClientProvider } from 'react-query';
-import { Hydrate } from 'react-query/hydration';
-import { ToastContainer } from 'react-toastify';
+import type { AppProps } from "next/app";
+import { useRouter } from "next/router";
+import { ManagedUIContext } from "@contexts/ui.context";
+import ManagedModal from "@components/common/modal/managed-modal";
+import ManagedDrawer from "@components/common/drawer/managed-drawer";
+import React, { useEffect, useRef } from "react";
+import { DehydratedState, QueryClient, QueryClientProvider } from "react-query";
+import { Hydrate } from "react-query/hydration";
+import { ToastContainer } from "react-toastify";
 // import { ReactQueryDevtools } from 'react-query/devtools';
-import { appWithTranslation, SSRConfig } from 'next-i18next';
-import { DefaultSeo } from '@components/seo/default-seo';
+import { appWithTranslation, SSRConfig } from "next-i18next";
+import { DefaultSeo } from "@components/seo/default-seo";
 
 // external
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 // base css file
-import '@assets/css/scrollbar.css';
-import '@assets/css/swiper-carousel.css';
-import '@assets/css/custom-plugins.css';
-import '@assets/css/globals.css';
-import { getDirection } from '@utils/get-direction';
+import "@assets/css/scrollbar.css";
+import "@assets/css/swiper-carousel.css";
+import "@assets/css/custom-plugins.css";
+import "@assets/css/globals.css";
+import { getDirection } from "@utils/get-direction";
 
 type customAppProps = AppProps & {
-  Component: AppProps['Component'] & {
+  Component: AppProps["Component"] & {
     Layout?: React.FC<{ pageProps: any }>;
   };
 
-  pageProps: AppProps['pageProps'] &
+  pageProps: AppProps["pageProps"] &
     SSRConfig & {
       dehydratedState?: DehydratedState;
     };
@@ -63,7 +63,6 @@ const CustomApp = ({ Component, pageProps }: customAppProps) => {
           </>
         </ManagedUIContext>
       </Hydrate>
-      {/* <ReactQueryDevtools /> */}
     </QueryClientProvider>
   );
 };

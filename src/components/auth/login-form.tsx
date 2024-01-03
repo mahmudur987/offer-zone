@@ -26,7 +26,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
   const { closeModal, openModal } = useModalAction();
   const { mutate: login, isLoading: isLoadingOne, data } = useLoginMutation();
   const [remember, setRemember] = useState(false);
-  console.log(data);
+
   const {
     register,
     handleSubmit,
@@ -43,9 +43,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
         password,
       });
     } catch {
-      (err: any) => {
-        console.log(err);
-      };
+      (err: any) => {};
     }
   };
   function handlSignup() {

@@ -63,7 +63,6 @@ const AccountDetails: React.FC = () => {
       email: email,
       password: password,
     };
-    // console.log(data);
 
     if (!isPasswordUpdate) {
       const newData = {

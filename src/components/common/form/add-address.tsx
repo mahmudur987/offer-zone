@@ -23,9 +23,7 @@ const AddAddressForm: React.FC = () => {
 
   const { closeModal } = useModalAction();
 
-  function onSubmit(values: ContactFormValues, e: any) {
-    console.log(values, "Add Address");
-  }
+  function onSubmit(values: ContactFormValues, e: any) {}
 
   const {
     register,

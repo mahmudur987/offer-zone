@@ -1,26 +1,9 @@
 import Layout from "@components/layout/layout-seven";
 import Container from "@components/ui/container";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { homeAntiqueHeroBanner as heroBanner } from "@framework/static/banner";
 import { GetStaticProps } from "next";
-import CollectionGrid from "@components/common/collection-grid";
 import Seo from "@components/seo/seo";
-import { QueryClient } from "react-query";
-import { dehydrate } from "react-query/hydration";
-import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
-import { fetchProducts } from "@framework/product/get-all-products";
-import { fetchCategories } from "@framework/category/get-all-categories";
-import { LIMITS } from "@framework/utils/limits";
-import HeroBannerCard from "@components/hero/hero-banner-card";
-import CategoryGridListBlock from "@components/common/category-grid-list-block";
-import BestSellerGroceryProductFeed from "@components/product/feeds/best-seller-grocery-product-feed";
-import BannerGridTwo from "@components/common/banner-grid-two";
-import BestSellerWithFlashSale from "@components/product/feeds/best-seller-with-flash-sale";
-import CallToActionMoscow from "@components/common/call-to-action/cta-moscow";
-import CategoryDropdownSidebar from "@components/category/category-dropdown-sidebar";
-import { elegantBannerGrid as banners } from "@framework/static/banner";
-import AllProductFeed from "@components/product/feeds/all-products-feed";
-import { homeSixBanner as banner } from "@framework/static/banner";
+
 import {
   heroSevenBanner,
   homeTwoBannerMedium,
@@ -29,8 +12,6 @@ import {
 import BannerCard from "@components/cards/banner-card";
 import { bannerDiscount } from "@framework/static/banner";
 import BannerAllCarousel from "@components/common/banner-all-carousel";
-import { homeTwoBanner as bannerrr } from "@framework/static/banner";
-import Cart from "@components/cart/cart";
 import CartSidebar from "@components/cart/cart-sidebar";
 import DownloadAppsTwo from "@components/common/download-apps-two";
 import Footer from "@components/layout/footer/footer";
@@ -80,20 +61,8 @@ export default function Home() {
 Home.Layout = Layout;
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery(
-    [API_ENDPOINTS.CATEGORIES, { limit: LIMITS.CATEGORIES_LIMITS }],
-    fetchCategories
-  );
-  await queryClient.prefetchQuery(
-    [API_ENDPOINTS.PRODUCTS, { limit: LIMITS.PRODUCTS_LIMITS }],
-    fetchProducts
-  );
-
   return {
     props: {
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
       ...(await serverSideTranslations(locale!, [
         "common",
         "forms",

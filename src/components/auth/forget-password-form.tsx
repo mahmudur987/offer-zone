@@ -29,9 +29,7 @@ const ForgetPasswordForm = () => {
     return openModal("LOGIN_VIEW");
   }
 
-  const onSubmit = (values: FormValues) => {
-    console.log(values, "token");
-  };
+  const onSubmit = (values: FormValues) => {};
 
   return (
     <div className="w-full px-5 py-6 mx-auto rounded-lg sm:p-8 bg-brand-light sm:w-96 md:w-450px">

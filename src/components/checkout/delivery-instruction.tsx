@@ -21,9 +21,7 @@ const DeliveryInstructions: React.FC<{ data?: any }> = ({ data }) => {
     },
   });
 
-  function onSubmit(values: ContactFormValues) {
-    console.log(values, "Delivery Note");
-  }
+  function onSubmit(values: ContactFormValues) {}
 
   return (
     <div className="w-full">

@@ -14,7 +14,6 @@ export default function Layout1({ children }: React.PropsWithChildren<object>) {
     "borobazar-highlightedBar",
     "false"
   );
-  // console.log(highlightedBar);
 
   useEffect(() => {
     setHighlightedBar("false");

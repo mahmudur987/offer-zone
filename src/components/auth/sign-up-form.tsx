@@ -91,7 +91,7 @@ export default function SignUpForm({
       setErrorMessage("");
     }, 3000);
   }, [error, data]);
-  console.log(data, isLoading, error);
+
   return (
     <div
       className={cn(

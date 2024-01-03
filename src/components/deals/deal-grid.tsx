@@ -2,29 +2,20 @@ import type { FC } from "react";
 import Alert from "@components/ui/alert";
 import ProductCardLoader from "@components/ui/loaders/product-card-loader";
 import cn from "classnames";
-import { UseSuperOfferData } from "./hooks/useSuperOffersData";
-import SuperOfferCard from "@components/product/product-cards/super-offer-card";
-import SectionHeader from "@components/common/section-header";
-import LoadingSpinner from "@components/common/Loading/LoadingSpiner";
+
+import { Offer } from "@framework/types";
+import ProductCard from "@components/product/product-cards/product-card";
+import useDealsData from "./hooks/useDealsData";
 
 interface ProductGridProps {
   className?: string;
 }
 
-export const SupperOfferGrid: FC<ProductGridProps> = ({ className = "" }) => {
-  const { data, isLoading, error, isError } = UseSuperOfferData();
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-  if (isError) {
-    <p>Error Happend {error.message}</p>;
-  }
+export const DealGrid: FC<ProductGridProps> = ({ className = "" }) => {
+  const { data, isLoading, error } = useDealsData();
+
   return (
     <>
-      <SectionHeader
-        sectionHeading={"Super Offer"}
-        headingPosition={"center"}
-      />
       <div
         className={cn(
           "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6 gap-3 md:gap-4 2xl:gap-5",
@@ -33,19 +24,22 @@ export const SupperOfferGrid: FC<ProductGridProps> = ({ className = "" }) => {
       >
         {error ? (
           <div className="col-span-full">
-            <Alert message={"some error Happen"} />
+            <Alert message={error?.message} />
           </div>
-        ) : isLoading ? (
+        ) : isLoading && !data?.length ? (
           Array.from({ length: 30 }).map((_, idx) => (
             <ProductCardLoader
               key={`offer--key-${idx}`}
               uniqueKey={`offer--key-${idx}`}
             />
           ))
-        ) : data?.length ? (
-          data?.map((offer: any) => {
+        ) : data.length ? (
+          data?.map((offer: Offer) => {
             return (
-              <SuperOfferCard key={`offer--key-${offer.id}`} product={offer} />
+              <ProductCard
+                key={`offer--key-${offer.OfferID}`}
+                product={offer}
+              />
             );
           })
         ) : (

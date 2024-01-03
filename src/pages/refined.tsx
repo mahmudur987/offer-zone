@@ -43,20 +43,8 @@ export default function Home() {
 Home.Layout = Layout;
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery(
-    [API_ENDPOINTS.CATEGORIES, { limit: LIMITS.CATEGORIES_LIMITS }],
-    fetchCategories
-  );
-  await queryClient.prefetchQuery(
-    [API_ENDPOINTS.PRODUCTS, { limit: LIMITS.PRODUCTS_LIMITS }],
-    fetchProducts
-  );
-
   return {
     props: {
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
       ...(await serverSideTranslations(locale!, [
         "common",
         "forms",
