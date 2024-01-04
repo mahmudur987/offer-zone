@@ -13,9 +13,7 @@ export default function Notification() {
         description="Fastest E-commerce template built with React, NextJS, TypeScript, React-Query and Tailwind CSS."
         path="my-account/notification"
       />
-      <AccountLayout>
-        <Notifications />
-      </AccountLayout>
+      <AccountLayout>{/* <Notifications /> */}</AccountLayout>
     </>
   );
 }

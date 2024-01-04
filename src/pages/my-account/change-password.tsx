@@ -13,9 +13,7 @@ export default function ChangePasswordPage() {
         description="Fastest E-commerce template built with React, NextJS, TypeScript, React-Query and Tailwind CSS."
         path="my-account/change-password"
       />
-      <AccountLayout>
-        <ChangePassword />
-      </AccountLayout>
+      <AccountLayout>{/* <ChangePassword /> */}</AccountLayout>
     </>
   );
 }
