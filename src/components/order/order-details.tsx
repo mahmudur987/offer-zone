@@ -4,6 +4,8 @@ import { OrderItem } from "@framework/types";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import Heading from "@components/ui/heading";
+import LoadingSpinner from "@components/common/Loading/LoadingSpiner";
+import { toast } from "react-toastify";
 const OrderItemCard = ({ product }: { product: OrderItem }) => {
   const { price: itemTotal } = usePrice({
     amount: product.price * product.quantity,
@@ -28,7 +30,12 @@ const OrderDetails: React.FC<{ className?: string }> = ({
   const {
     query: { id },
   } = useRouter();
-  const { data: order, isLoading } = useOrderQuery(id?.toString()!);
+  const {
+    data: order,
+    isLoading,
+    isError,
+    error,
+  } = useOrderQuery(id?.toString()!);
   const { price: subtotal } = usePrice(
     order && {
       amount: order.total,
@@ -49,7 +56,14 @@ const OrderDetails: React.FC<{ className?: string }> = ({
       currencyCode: "BDT",
     }
   );
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  if (isError) {
+    console.log(error);
+    toast.error("some Erroer happen");
+  }
 
   return (
     <div className={className}>

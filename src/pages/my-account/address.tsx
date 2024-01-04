@@ -5,9 +5,21 @@ import AddressGrid from "@components/address/address-grid";
 import { useAddressQuery } from "@framework/address/address";
 import { GetStaticProps } from "next";
 import Seo from "@components/seo/seo";
+import LoadingSpinner from "@components/common/Loading/LoadingSpiner";
+import { toast } from "react-toastify";
 
 export default function AccountDetailsPage() {
-  const { data, isLoading } = useAddressQuery();
+  const { data, isLoading, isError, error } = useAddressQuery();
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  if (isError) {
+    console.log(error);
+    toast.error("some Erroer happen");
+  }
+
   return (
     <>
       <Seo

@@ -5,11 +5,23 @@ import OrderTable from "@components/order/order-table";
 import { useOrdersQuery } from "@framework/order/get-all-orders";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Seo from "@components/seo/seo";
+import LoadingSpinner from "@components/common/Loading/LoadingSpiner";
+import { toast } from "react-toastify";
 
 // props change to orders.
 
 export default function OrdersTablePage() {
-  const { data, isLoading } = useOrdersQuery({});
+  const { data, isLoading, isError, error } = useOrdersQuery({});
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  if (isError) {
+    console.log(error);
+    toast.error("some Erroer happen");
+  }
+
   return (
     <>
       <Seo
@@ -18,11 +30,13 @@ export default function OrdersTablePage() {
         path="my-account/orders"
       />
       <AccountLayout>
-        {!isLoading ? (
+        {/* {!isLoading ? (
           <OrderTable orders={data?.data} />
         ) : (
           <div>Loading...</div>
-        )}
+        )} */}
+
+        <p>Order page</p>
       </AccountLayout>
     </>
   );

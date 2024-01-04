@@ -16,7 +16,7 @@ import { useUI } from "@contexts/ui.context";
 const OrderDrawer: React.FC = () => {
   const { t } = useTranslation("common");
   const { data, closeDrawer } = useUI();
-  const { shipping_address } = data;
+  const { shipping_address } = data || {};
 
   return (
     <>

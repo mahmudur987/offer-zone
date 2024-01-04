@@ -8,7 +8,7 @@ export const getToken = () => {
   const access = Cookies.get("accessToken");
 
   if (refresh && access) {
-    return true;
+    return access;
   }
   return false;
 };

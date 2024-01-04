@@ -7,7 +7,9 @@ import { GetServerSideProps } from "next";
 export default function OrderPage() {
   return (
     <AccountLayout>
-      <OrderDetails className="p-0" />
+      {/* <OrderDetails className="p-0" /> */}
+
+      <p>Order details</p>
     </AccountLayout>
   );
 }

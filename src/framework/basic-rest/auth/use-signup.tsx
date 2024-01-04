@@ -1,9 +1,6 @@
 import { useModalAction } from "@components/common/modal/modal.context";
-import Input from "@components/ui/form/input";
-import { useUI } from "@contexts/ui.context";
 import http from "@framework/utils/http";
-import Cookies from "js-cookie";
-import { useRouter } from "next/router";
+
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
@@ -50,9 +47,6 @@ async function otpCheak(input: SignUpInputType) {
 }
 
 export const useOtpMutation = () => {
-  // const { authorize } = useUI();
-  // const { closeModal } = useModalAction();
-  // const router = useRouter();
   const { openModal } = useModalAction();
   return useMutation((input: any) => otpCheak(input), {
     onSuccess: (data) => {
