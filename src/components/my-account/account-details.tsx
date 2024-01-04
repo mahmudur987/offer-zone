@@ -103,14 +103,16 @@ const AccountDetails: React.FC = () => {
         {t("common:text-account-details-personal")}
       </Heading>
       <div className="relative flex pb-2 mt-5 sm:ltr:ml-auto sm:rtl:mr-auto lg:pb-0">
-        <Button
-          type="submit"
-          variant="formButton"
-          className="w-full sm:w-auto"
-          onClick={() => setIsEditable(!iseditable)}
-        >
-          Update
-        </Button>
+        {iseditable && (
+          <Button
+            type="submit"
+            variant="formButton"
+            className="w-full sm:w-auto"
+            onClick={() => setIsEditable(!iseditable)}
+          >
+            Update
+          </Button>
+        )}
       </div>
 
       <form
@@ -200,13 +202,15 @@ const AccountDetails: React.FC = () => {
           {t("common:text-account-details-account")}
         </Heading>
         <div className="relative flex pb-2 mt-5 sm:ltr:ml-auto sm:rtl:mr-auto lg:pb-0">
-          <Button
-            variant="formButton"
-            className="w-full sm:w-auto"
-            onClick={() => setIsPasswordUpdate(!isPasswordUpdate)}
-          >
-            Update
-          </Button>
+          {isPasswordUpdate && (
+            <Button
+              variant="formButton"
+              className="w-full sm:w-auto"
+              onClick={() => setIsPasswordUpdate(!isPasswordUpdate)}
+            >
+              Update
+            </Button>
+          )}
         </div>
         <div className="border-b border-border-base pb-7 md:pb-9 lg:pb-10">
           <div className="flex flex-col space-y-4 sm:space-y-5">

@@ -90,6 +90,8 @@ export default function ProductPopup() {
   const handleChange = () => {
     setShareButtonStatus(!shareButtonStatus);
   };
+
+  console.log(process.env.NEXT_PUBLIC_WEBSITE_URL);
   const isSelected = !isEmpty(variations)
     ? !isEmpty(attributes) &&
       Object.keys(variations).every((variation) =>
@@ -107,6 +109,7 @@ export default function ProductPopup() {
   }
   const item: any = generateCartItem(data, selectedVariation);
   const outOfStock = isInCart(item.id) && !isInStock(item.id);
+
   function addToCart() {
     if (!isSelected) return;
 
