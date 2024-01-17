@@ -30,13 +30,7 @@ export default function OrdersTablePage() {
         path="my-account/orders"
       />
       <AccountLayout>
-        {/* {!isLoading ? (
-          <OrderTable orders={data?.data} />
-        ) : (
-          <div>Loading...</div>
-        )} */}
-
-        <p>Order page</p>
+        {!isLoading ? <OrderTable orders={data} /> : <div>Loading...</div>}
       </AccountLayout>
     </>
   );

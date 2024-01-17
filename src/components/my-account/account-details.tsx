@@ -21,7 +21,6 @@ const AccountDetails: React.FC = () => {
   const { t } = useTranslation();
   const [iseditable, setIsEditable] = useState(true);
   const [isPasswordUpdate, setIsPasswordUpdate] = useState(true);
-
   const {
     register,
     handleSubmit,

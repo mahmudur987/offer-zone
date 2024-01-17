@@ -1,35 +1,12 @@
-// import { useState } from 'react';
-// import { TiPencil } from 'react-icons/ti';
-// import { AiOutlinePlus } from 'react-icons/ai';
-// import { RadioGroup } from '@headlessui/react';
-// import { useModalAction } from '@components/common/modal/modal.context';
 import { useTranslation } from "next-i18next";
 
 import Input from "@components/ui/form/input";
-import { useState } from "react";
+
 import { ConnectCheckoutForm } from "@components/checkout/connect-checkout-form";
-import { FieldValues, UseFormRegister } from "react-hook-form";
 
 const ContactBox: React.FC<{}> = () => {
-  const [transactionId, setTransactionId] = useState<string>("");
-
   const { t } = useTranslation("forms");
-  // const [contactData, setContactData] = useState(data);
-  // const { openModal } = useModalAction();
 
-  // function handlePopupView(item: any) {
-  //   openModal('PHONE_NUMBER', item);
-  // }
-
-  // const removeItem = (id: any, title: string) => {
-  //   const result = confirm(`Want to delete? ${title} Contact`);
-  //   if (result) {
-  //     const items = [...contactData];
-  //     const array = items.filter((item: any) => item.id !== id);
-  //     setContactData(array);
-  //   }
-  // };
-  // const [selected, setSelected] = useState(data[0]);
   return (
     <ConnectCheckoutForm>
       {({ register, formState: { errors } }) => (

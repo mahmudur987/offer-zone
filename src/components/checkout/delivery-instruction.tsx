@@ -1,7 +1,9 @@
 import TextArea from "@components/ui/form/text-area";
-import { useForm } from "react-hook-form";
+import { useForm, useFormContext } from "react-hook-form";
 import { useTranslation } from "next-i18next";
 import Text from "@components/ui/text";
+import { CheckoutFormValues } from "@framework/types";
+import { useEffect, useState } from "react";
 
 interface ContactFormValues {
   instructionNote: string;
@@ -10,29 +12,27 @@ interface ContactFormValues {
 
 const DeliveryInstructions: React.FC<{ data?: any }> = ({ data }) => {
   const { t } = useTranslation();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ContactFormValues>({
-    defaultValues: {
-      instructionNote: data || "",
-      default: data || false,
-    },
-  });
+  const [note, setNote] = useState("");
+  const [cheak, setCheak] = useState(false);
+  const { setValue } = useFormContext<CheckoutFormValues>();
 
-  function onSubmit(values: ContactFormValues) {}
+  useEffect(() => {
+    if (cheak)
+      setValue("instructionNote", t("common:text-selecting-this-option"));
+    else setValue("instructionNote", note);
+  }, [cheak, note]);
 
   return (
     <div className="w-full">
       <div className="w-full mx-auto">
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <form>
           <div className="mb-6">
-            <TextArea
-              variant="normal"
-              inputClassName="focus:border-2 focus:outline-none focus:border-brand"
-              label="forms:label-delivery-instructions-note"
-              {...register("instructionNote")}
+            <textarea
+              rows={4}
+              className="w-full text-xl text-brand-dark"
+              onChange={(e) => {
+                setNote(e.target.value);
+              }}
             />
           </div>
           <div className="mb-6">
@@ -40,7 +40,8 @@ const DeliveryInstructions: React.FC<{ data?: any }> = ({ data }) => {
               id="default-type"
               type="checkbox"
               className="w-5 h-5 transition duration-500 ease-in-out border border-gray-300 rounded cursor-pointer form-checkbox focus:ring-offset-0 hover:border-heading focus:outline-none focus:ring-0 focus-visible:outline-none focus:checked:bg-brand hover:checked:bg-brand checked:bg-brand"
-              {...register("default", { required: "Confirm the policy" })}
+              checked={cheak}
+              onClick={() => setCheak(!cheak)}
             />
             <label
               htmlFor="default-type"

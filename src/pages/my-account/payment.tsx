@@ -16,7 +16,7 @@ export default function AccountDetailsPage() {
         path="my-account/payment"
       />
       <AccountLayout>
-        {!isLoading ? <PaymentBox items={data?.data} /> : <div>Loading...</div>}
+        {/* {!isLoading ? <PaymentBox items={data?.data} /> : <div>Loading...</div>} */}
       </AccountLayout>
     </>
   );

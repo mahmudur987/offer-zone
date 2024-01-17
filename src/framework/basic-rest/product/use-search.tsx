@@ -7,7 +7,7 @@ import axios from "axios";
 export const fetchSearchedCategory = async ({ queryKey }: any) => {
   const [_params] = queryKey;
 
-  const { data } = await axios.get("/api/getData");
+  const { data }: any = null;
 
   return data.data;
   // .filter(

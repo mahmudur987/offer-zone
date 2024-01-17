@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 
 export default function AccountDetailsPage() {
   const { data, isLoading, isError, error } = useAddressQuery();
-
   if (isLoading) {
     return <LoadingSpinner />;
   }
@@ -28,11 +27,7 @@ export default function AccountDetailsPage() {
         path="my-account/address"
       />
       <AccountLayout>
-        {!isLoading ? (
-          <AddressGrid address={data?.data} />
-        ) : (
-          <div>Loading...</div>
-        )}
+        {!isLoading ? <AddressGrid address={data} /> : <div>Loading...</div>}
       </AccountLayout>
     </>
   );

@@ -344,6 +344,7 @@ export interface CheckoutFormValues {
   total: number;
   pay_method: string;
   trx_id: string;
+  instructionNote: string;
 }
 
 export type ShopDetails = {

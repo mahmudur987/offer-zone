@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "E-Commerce API Testing",
-    "dateExported": "2023-12-18T06:09:45.391Z",
+    "dateExported": "2024-01-04T10:38:48.778Z",
     "version": "1.1",
     "folders": [
         {
@@ -38,6 +38,13 @@
             "containerId": "",
             "created": "2023-12-17T16:21:46.672Z",
             "sortNum": 50000
+        },
+        {
+            "_id": "c8754d29-3fea-4dc7-9d6a-28c96442e4ec",
+            "name": "Order",
+            "containerId": "",
+            "created": "2024-01-03T06:42:31.000Z",
+            "sortNum": 60000
         }
     ],
     "requests": [
@@ -50,12 +57,12 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2023-12-07T16:05:19.331Z",
-            "modified": "2023-12-18T05:18:36.591Z",
+            "modified": "2023-12-24T06:11:24.162Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"username\":\"01991953826\",\n  \"password\":\"1824\"\n}",
+                "raw": "{\n  \"username\":\"01991953826\",\n  \"password\":\"123\"\n}",
                 "form": []
             },
             "tests": []
@@ -121,6 +128,34 @@
                 "type": "json",
                 "raw": "{\n  \"phone_number\":\"01991953826\"\n}",
                 "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "225c3ee3-e232-4325-bfda-07c3d1cd36a7",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "c8754d29-3fea-4dc7-9d6a-28c96442e4ec",
+            "name": "Payment Initial",
+            "url": "{{domain}}/api/orders/payment-initial/",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-01-03T06:42:43.008Z",
+            "modified": "2024-01-04T03:25:51.065Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"full_name\": \"Md Mahmudur Rahman\",\n  \"email\": \"mahmud@gmail.com\",\n  \"phone_number\": \"01671706882\",\n  \"street_address\": \"21/2\",\n  \"area\": \"Rampura\",\n  \"city\": \"khilgaon,dhaka\",\n  \"post_office\": \"Rampura\",\n  \"post_code\": \"1362\",\n  \"shipping_address\": \"Full Address here\",\n  \"delivery_method\": \"Home Delivery\",\n  \"payment_method\": \"online\",\n  \"total\": 25250,\n  \"items\": [\n      {\n          \"id\": 3,\n          \"name\": \"Ladies Dress\",\n          \"quantity\": 1,\n          \"price\": 200\n      },\n      {\n          \"id\": 4,\n          \"name\": \"Exclusive Tshirt\",\n          \"quantity\": 1,\n          \"price\": 25000\n      }\n  ],\n  \"ref_no\": \"\",\n  \"delivery_instructions_note\":\"\",\n  \"country\":\"BD\",\n  \"success_url\":\"\",\n  \"fail_url\":\"\",\n  \"cancel_url\":\"\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{TOKEN}}"
             },
             "tests": []
         },
@@ -206,6 +241,29 @@
             "tests": []
         },
         {
+            "_id": "480a1609-5e0e-43a3-a1ec-f81748837ca1",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "c8754d29-3fea-4dc7-9d6a-28c96442e4ec",
+            "name": "My Orders",
+            "url": "{{domain}}/api/orders/my-orders/",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-01-04T05:16:01.987Z",
+            "modified": "2024-01-04T05:16:27.036Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{TOKEN}}"
+            },
+            "tests": []
+        },
+        {
             "_id": "c3d32298-b19a-46a7-bbd0-608f9e8a8dbb",
             "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
             "containerId": "",
@@ -248,6 +306,110 @@
             "tests": []
         },
         {
+            "_id": "be3d210c-3a21-43db-8ac4-5b456be02a71",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "f606577b-7d0d-47eb-afda-577359848d37",
+            "name": "My Profile",
+            "url": "{{domain}}/api/customers/profile/",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-12-24T05:59:02.644Z",
+            "modified": "2023-12-24T06:01:40.398Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{TOKEN}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "23627107-9134-467d-9a0d-a47092d8e291",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "c8754d29-3fea-4dc7-9d6a-28c96442e4ec",
+            "name": "Payment Verify",
+            "url": "{{domain}}/api/orders/payment-verify/?invoice_no=INV/100017",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-01-04T05:41:22.240Z",
+            "modified": "2024-01-04T05:42:19.437Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [
+                {
+                    "name": "invoice_no",
+                    "value": "INV/100017",
+                    "isPath": false
+                }
+            ],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{TOKEN}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "5b81e64e-31eb-4920-ad95-963e5af63453",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "f606577b-7d0d-47eb-afda-577359848d37",
+            "name": "Shipping Address",
+            "url": "{{domain}}/api/customers/shipping-address/",
+            "method": "GET",
+            "sortNum": 35000,
+            "created": "2024-01-04T05:59:43.488Z",
+            "modified": "2024-01-04T06:08:38.152Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{TOKEN}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "24f8ceca-2685-4771-a678-2c3c360480bd",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "f606577b-7d0d-47eb-afda-577359848d37",
+            "name": "Shipping Address Details",
+            "url": "{{domain}}/api/customers/shipping-address/?id=1",
+            "method": "GET",
+            "sortNum": 37500,
+            "created": "2024-01-04T09:18:27.046Z",
+            "modified": "2024-01-04T09:18:44.135Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "1",
+                    "isPath": false
+                }
+            ],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{TOKEN}}"
+            },
+            "tests": []
+        },
+        {
             "_id": "f70515a0-53ce-4e51-a461-7f3e08e85b07",
             "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
             "containerId": "3312caeb-ba28-48e7-9903-ef637830f700",
@@ -259,6 +421,34 @@
             "modified": "2023-12-18T05:32:56.870Z",
             "headers": [],
             "params": [],
+            "tests": []
+        },
+        {
+            "_id": "562ca91e-ac73-45d0-a593-867f5d8cb613",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "f606577b-7d0d-47eb-afda-577359848d37",
+            "name": "Profile Update",
+            "url": "{{domain}}/api/customers/profile/",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-12-24T05:59:05.515Z",
+            "modified": "2023-12-24T06:11:01.546Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\":\"01991953826\",\n  \"gender\": \"male\",\n  \"first_name\": \"Abu\",\n  \"last_name\": \"Nayem\",\n  \"phone_number\":\"01991953826\",\n  \"email\": \"test@gmail.com\",\n  \"password\":\"123\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{TOKEN}}"
+            },
             "tests": []
         },
         {
@@ -360,6 +550,34 @@
             "tests": []
         },
         {
+            "_id": "bf37cb34-d184-4c6f-8a33-4116cc1fa2e9",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "f606577b-7d0d-47eb-afda-577359848d37",
+            "name": "Entry Shipping Address ",
+            "url": "{{domain}}/api/customers/shipping-address/",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-01-04T06:03:11.756Z",
+            "modified": "2024-01-04T06:07:03.859Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"phone_number\": \"01965855456\",\n  \"street_address\": \"21/2\",\n  \"area\": \"Rampura\",\n  \"city\": \"khilgaon,dhaka\",\n  \"post_office\": \"Rampura\",\n  \"post_code\": \"1362\",\n  \"shipping_address\": \"Full Address here\",\n  \"delivery_instructions_note\":\"\",\n  \"is_default\":true\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{TOKEN}}"
+            },
+            "tests": []
+        },
+        {
             "_id": "b07a9d04-1f27-48ce-aa76-cb99fa145383",
             "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
             "containerId": "09678ee6-a1dc-4a85-94d4-339dacf7cf17",
@@ -382,6 +600,34 @@
                     "isPath": false
                 }
             ],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{TOKEN}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "b629919f-1ffd-41e6-aa26-78c2964db10d",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "f606577b-7d0d-47eb-afda-577359848d37",
+            "name": "Update Shipping Address ",
+            "url": "{{domain}}/api/customers/shipping-address/",
+            "method": "POST",
+            "sortNum": 55000,
+            "created": "2024-01-04T09:22:20.128Z",
+            "modified": "2024-01-04T09:25:08.424Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\":1,\n  \"phone_number\": \"01965855456\",\n  \"street_address\": \"21/5\",\n  \"area\": \"Rampura\",\n  \"city\": \"khilgaon,dhaka\",\n  \"post_office\": \"Rampura\",\n  \"post_code\": \"1362\",\n  \"shipping_address\": \"Full Address here\",\n  \"delivery_instructions_note\":\"\",\n  \"is_default\":true\n}",
+                "form": []
+            },
             "auth": {
                 "type": "bearer",
                 "bearer": "{{TOKEN}}"
@@ -440,6 +686,34 @@
                     "isPath": false
                 }
             ],
+            "tests": []
+        },
+        {
+            "_id": "51e0b3f3-e4ec-48d5-b01c-30ba6088fb0b",
+            "colId": "74a9bc24-f26b-4054-a945-d77cbb990dda",
+            "containerId": "f606577b-7d0d-47eb-afda-577359848d37",
+            "name": "Update Shipping Address ",
+            "url": "{{domain}}/api/customers/profile/",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2024-01-04T06:04:22.353Z",
+            "modified": "2024-01-04T06:04:22.353Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\":\"01991953826\",\n  \"gender\": \"male\",\n  \"first_name\": \"Abu\",\n  \"last_name\": \"Nayem\",\n  \"phone_number\":\"01991953826\",\n  \"email\": \"test@gmail.com\",\n  \"password\":\"123\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{TOKEN}}"
+            },
             "tests": []
         },
         {

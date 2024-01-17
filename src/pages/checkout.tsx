@@ -12,7 +12,7 @@ import { useCheckoutMutation } from "@framework/checkout/use-checkout";
 import { useCart } from "@contexts/cart/cart.context";
 import dayjs from "dayjs";
 import { toast } from "react-toastify";
-import { useWindowSize } from "react-use";
+
 import { useUI } from "@contexts/ui.context";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
@@ -40,73 +40,78 @@ const defaultValues = {
   postalCode: "",
   del_method: "",
   pay_method: "",
-  trx_id: "",
   total: 0,
 };
 
 export default function CheckoutPage() {
-  const { width } = useWindowSize();
   const { isAuthorized } = useUI();
   const router = useRouter();
   const methods = useForm<CheckoutFormValues>({ defaultValues });
-
   const { merchantID, items, resetCart } = useCart();
   const { mutate } = useCheckoutMutation();
 
   function orderSubmit(data: CheckoutFormValues) {
-    let values = data;
-    // console.log(values, merchantID);
-    if (merchantID || !merchantID) {
-      const offers = items.map((item) => {
-        const product = {
-          id: item.id,
-          name: item.name,
-          quantity: item.quantity,
-          price: item.price,
-        };
-
-        // `${item.name} -- ${item.quantity} -- ${item.price}`
-
-        return product;
-      });
-
-      const orderData = {
-        ...values,
-        merchantID: merchantID,
-        items: offers,
-        createdAt: dayjs().format("YYYY-MM-DD hh:mm:ss A"),
-        type: "purchase",
+    const offers = items.map((item) => {
+      const product = {
+        id: item.id,
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price,
       };
 
-      console.log(orderData);
+      return product;
+    });
 
-      // mutate(orderData, {
-      //   onSuccess() {
-      //     resetCart();
-      //     router.push("/");
-      //     toast("Thank you for the purchase. We are on our way", {
-      //       progressClassName: "fancy-progress-bar",
-      //       position: width! > 768 ? "bottom-right" : "top-right",
-      //       autoClose: 1500,
-      //       hideProgressBar: false,
-      //       closeOnClick: true,
-      //       pauseOnHover: true,
-      //       draggable: true,
-      //     });
-      //   },
-      //   onError() {
-      //     toast.error("Something went wrong! Try again some other time", {
-      //       progressClassName: "fancy-progress-bar",
-      //       position: width! > 768 ? "bottom-right" : "top-right",
-      //       autoClose: 1500,
-      //       hideProgressBar: false,
-      //       closeOnClick: true,
-      //       pauseOnHover: true,
-      //       draggable: true,
-      //     });
-      //   },
-      // });
-    }
+    const orderData = {
+      full_name: data.name,
+      email: data.email,
+      phone_number: data.phone,
+      street_address: data.streetAddress,
+      area: data.area,
+      city: data.city,
+      post_office: data.area,
+      post_code: data.postalCode,
+      shipping_address: data.streetAddress + " " + data.area + " " + data.city,
+      delivery_method: data.del_method,
+      payment_method: data.pay_method,
+      total: data.total,
+      items: offers,
+      ref_no: "",
+      delivery_instructions_note: data.instructionNote,
+      country: "BD",
+      success_url: "http://localhost:3000/my-account/orders",
+      fail_url: "",
+      cancel_url: "",
+    };
+
+    mutate(orderData, {
+      onSuccess(data) {
+        console.log(data);
+        resetCart();
+
+        toast("Thank you for the purchase. We are on our way", {
+          progressClassName: "fancy-progress-bar",
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        router.push("/");
+      },
+      onError() {
+        toast.error("Something went wrong! Try again some other time", {
+          progressClassName: "fancy-progress-bar",
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      },
+    });
   }
 
   useEffect(() => {
@@ -114,14 +119,6 @@ export default function CheckoutPage() {
       router.replace("/signin");
     }
   }, [isAuthorized]);
-
-  if (!isAuthorized) {
-    return (
-      <div className="w-100 min-h-screen flex justify-center">
-        <p>Loading...</p>
-      </div>
-    );
-  }
 
   return (
     <>
@@ -140,11 +137,6 @@ export default function CheckoutPage() {
                 </div>
                 <div className="w-full col-start-9 col-end-13 mt-7 lg:mt-0">
                   <CheckoutCard />
-                  {/* <input
-                    className={`w-full mt-8 mb-5 bg-brand text-brand-light rounded font-semibold px-4 py-3 transition-all`}
-                    type="submit"
-                    value="Submit"
-                  /> */}
                 </div>
               </div>
             </form>

@@ -7,7 +7,7 @@ import Input from "@components/ui/form/input";
 import { Controller, useFormContext } from "react-hook-form";
 import { CheckoutFormValues } from "@framework/types";
 
-type paymentOpt = "bkash" | "rocket" | "pay online" | "cod";
+type paymentOpt = "bkash" | "rocket" | "online" | "cod";
 
 interface PaymentMethodsType {
   name: string;
@@ -17,20 +17,8 @@ interface PaymentMethodsType {
 
 const paymentMethods: PaymentMethodsType[] = [
   {
-    name: "Bkash",
-    value: "bkash",
-    tID: "",
-  },
-
-  {
-    name: "Rocket",
-    value: "rocket",
-    tID: "",
-  },
-
-  {
     name: "Pay online",
-    value: "pay online",
+    value: "online",
     tID: "Pay online",
   },
 
@@ -47,15 +35,14 @@ export default function PaymentMethodForm() {
     watch,
     control,
     setValue,
-    register,
     formState: { errors },
   } = useFormContext<CheckoutFormValues>();
   const paymentMethod = watch("pay_method");
 
-  useEffect(() => {
-    const a = paymentMethods.find((method) => method.value === paymentMethod);
-    if (a) setValue("trx_id", a.tID);
-  }, [paymentMethod]);
+  // useEffect(() => {
+  //   const a = paymentMethods.find((method) => method.value === paymentMethod);
+  //   if (a) setValue("trx_id", a.tID);
+  // }, [paymentMethod]);
 
   return (
     <div className="w-full">
@@ -103,18 +90,6 @@ export default function PaymentMethodForm() {
         />
         {/* End of date schedule */}
       </div>
-      {paymentMethod ? (
-        <Input
-          label={"Transaction ID"}
-          variant="solid"
-          disabled={["cod", "pay online"].includes(paymentMethod)}
-          className="mt-10"
-          {...register("trx_id", {
-            required: `${t("default-required")}`,
-          })}
-          error={errors.trx_id?.message}
-        />
-      ) : null}
     </div>
   );
 }

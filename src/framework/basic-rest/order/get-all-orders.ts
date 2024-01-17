@@ -5,14 +5,12 @@ import { useQuery } from "react-query";
 
 const fetchOrders = async ({ queryKey }: any) => {
   const [_key, _params] = queryKey;
-  const { data } = await http.get(API_ENDPOINTS.ORDERS);
-  return {
-    data: data,
-  };
+  const { data } = await http.get("orders/my-orders/");
+  return data;
 };
 
 const useOrdersQuery = (options: QueryOptionsType) => {
-  return useQuery([API_ENDPOINTS.ORDERS, options], fetchOrders);
+  return useQuery(["orders/my-orders/", options], fetchOrders);
 };
 
 export { useOrdersQuery, fetchOrders };

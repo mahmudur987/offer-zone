@@ -1,17 +1,13 @@
-import { ReactElement, useState } from "react";
-import { useForm, FormProvider } from "react-hook-form";
+import { useState } from "react";
 
 import Button from "@components/ui/button";
 import Heading from "@components/ui/heading";
 import Contact from "@components/contact/contact";
 import Address from "./address";
 import DeliveryNotes from "./delivery-instruction";
-import DeliverySchedule from "./schedule";
-import DeliveryTips from "./delivery-tips";
-import StripeCheckoutInlineForm from "./stripe-checkout-inline-form";
+
 import { useTranslation } from "next-i18next";
 import PaymentMethodForm from "./payment-method-form";
-import { CheckoutFormValues } from "@framework/types";
 import DeliveryMethodForm from "./delivery-method";
 
 const data = [
@@ -39,11 +35,6 @@ const data = [
     id: 5,
     title: "text-delivery-instructions",
     component: <DeliveryNotes />,
-  },
-  {
-    id: 6,
-    title: "text-delivery-tip",
-    component: <DeliveryTips />,
   },
 ];
 

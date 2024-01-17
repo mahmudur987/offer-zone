@@ -31,24 +31,34 @@ const AddressGrid: React.FC<{ address?: any }> = ({ address }) => {
           address?.map((item: any, index: any) => (
             <RadioGroup.Option
               key={index}
-              value={item}
-              className={({ checked }) =>
-                `${checked ? "border-brand" : "border-border-base"}
-                  border-2 relative focus:outline-none rounded-md p-5 block cursor-pointer min-h-[112px] h-full group address__box`
+              value={item?.area}
+              className={`${
+                item.is_default ? "border-brand" : "border-border-base"
               }
+                  border-2 relative focus:outline-none rounded-md p-5 block cursor-pointer min-h-[112px] h-full group address__box`}
             >
-              <RadioGroup.Label
-                as="h3"
-                className="mb-2 -mt-1 font-semibold text-brand-dark "
-              >
-                {item?.title}
-              </RadioGroup.Label>
-              <RadioGroup.Description
-                as="div"
-                className="leading-6 text-brand-muted"
-              >
-                {formatAddress(item?.address)}
-              </RadioGroup.Description>
+              <div className="flex flex-col gap-1 w-full h-full justify-between">
+                <p>
+                  {" "}
+                  Road no: {item.street_address} :{item.area}
+                </p>
+                <p> Area :{item.area}</p>
+                <p> City :{item.city ?? "N/A"}</p>
+                <p> Post Code : {item.post_code ?? "N/A"}</p>
+                <p>
+                  Phone Number :{" "}
+                  {item.phone_number ?? "no phone number is provided"}
+                </p>
+                <p>
+                  Note :{" "}
+                  {item.delivery_instructions_note ??
+                    "please add a not for delivery instraction"}
+                </p>
+                <p className="mb-2 -mt-1 font-semibold text-brand-dark ">
+                  Short Address : {item?.shipping_address}
+                </p>
+              </div>
+
               <div className="absolute z-10 flex transition-all ltr:right-3 rtl:left-3 top-3 lg:opacity-0 address__actions">
                 <button
                   onClick={() => handlePopupView(item)}
