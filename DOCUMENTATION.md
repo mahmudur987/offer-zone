@@ -143,3 +143,7 @@ vercel
 ### for other hosting provider please follow below url
 
 [NextJs Application Deployment](https://nextjs.org/docs/deployment)
+
+ru the web
+
+chrome.exe --user-data-dir="C://Chrome dev session" --disable-web-security
