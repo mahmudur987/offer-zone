@@ -80,10 +80,10 @@ export default function CheckoutPage() {
       delivery_instructions_note: data.instructionNote,
       country: "BD",
       success_url: "http://localhost:3000/my-account/orders",
-      fail_url: "",
-      cancel_url: "",
+      fail_url: "http://localhost:3000/my-account/orders",
+      cancel_url: "http://localhost:3000/my-account/orders",
     };
-
+    console.log(orderData);
     mutate(orderData, {
       onSuccess(data) {
         console.log(data);
@@ -98,7 +98,7 @@ export default function CheckoutPage() {
           pauseOnHover: true,
           draggable: true,
         });
-        router.push("/");
+        router.push(data.GatewayPageURL);
       },
       onError() {
         toast.error("Something went wrong! Try again some other time", {

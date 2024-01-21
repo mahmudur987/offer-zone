@@ -1,119 +1,101 @@
-import { useOrderQuery } from "@framework/order/get-order";
-import usePrice from "@framework/product/use-price";
-import { OrderItem } from "@framework/types";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-import Heading from "@components/ui/heading";
-import LoadingSpinner from "@components/common/Loading/LoadingSpiner";
-import { toast } from "react-toastify";
-const OrderItemCard = ({ product }: { product: OrderItem }) => {
-  const { price: itemTotal } = usePrice({
-    amount: product.price * product.quantity,
-    currencyCode: "BDT",
-  });
-  return (
-    <tr
-      className="font-normal border-b border-border-base last:border-b-0"
-      key={product.id}
-    >
-      <td className="p-4">
-        {product.name} * {product.quantity}
-      </td>
-      <td className="p-4">{itemTotal}</td>
-    </tr>
-  );
-};
-const OrderDetails: React.FC<{ className?: string }> = ({
-  className = "pt-10 lg:pt-12",
-}) => {
+
+import { useEffect } from "react";
+import http from "@framework/utils/http";
+
+const OrderDetails: React.FC<{ order?: any }> = ({ order }) => {
   const { t } = useTranslation("common");
   const {
     query: { id },
   } = useRouter();
-  const {
-    data: order,
-    isLoading,
-    isError,
-    error,
-  } = useOrderQuery(id?.toString()!);
-  const { price: subtotal } = usePrice(
-    order && {
-      amount: order.total,
-      currencyCode: "BDT",
-    }
-  );
-  const { price: total } = usePrice(
-    order && {
-      amount: order.shipping_fee
-        ? order.total + order.shipping_fee
-        : order.total,
-      currencyCode: "BDT",
-    }
-  );
-  const { price: shipping } = usePrice(
-    order && {
-      amount: order.shipping_fee,
-      currencyCode: "BDT",
-    }
-  );
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
+  console.log(order);
 
-  if (isError) {
-    console.log(error);
-    toast.error("some Erroer happen");
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await http.get(
+          `/api/orders/payment-verify/?invoice_no=${order.invoice_no}`
+        );
+
+        if (res?.data?.error) {
+          console.log(res.data.error);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [order.invoice_no]);
 
   return (
-    <div className={className}>
-      <Heading variant="heading" className="mb-6 xl:mb-7">
-        {t("text-order-details")}:
-      </Heading>
-      <table className="w-full text-sm font-semibold text-brand-dark lg:text-base">
-        <thead>
-          <tr>
-            <th className="w-1/2 p-4 bg-fill-secondary ltr:text-left rtl:text-right ltr:first:rounded-tl-md rtl:first:rounded-tr-md">
-              {t("text-product")}
-            </th>
-            <th className="w-1/2 p-4 bg-fill-secondary ltr:text-left rtl:text-right ltr:last:rounded-tr-md rtl:last:rounded-tl-md">
-              {t("text-total")}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {order?.products.map((product, index) => (
-            <OrderItemCard key={index} product={product} />
-          ))}
-        </tbody>
-        <tfoot>
-          <tr className="odd:bg-fill-secondary">
-            <td className="p-4 italic">{t("text-sub-total")}:</td>
-            <td className="p-4">{subtotal}</td>
-          </tr>
-          <tr className="odd:bg-fill-secondary">
-            <td className="p-4 italic">{t("text-shipping")}:</td>
-            <td className="p-4">
-              {shipping}
-              <span className="text-[13px] font-normal ltr:pl-1.5 rtl:pr-1.5 inline-block">
-                via Flat rate
-              </span>
-            </td>
-          </tr>
-          <tr className="odd:bg-fill-secondary">
-            <td className="p-4 italic">{t("text-payment-method")}:</td>
-            <td className="p-4">{order?.payment_gateway}</td>
-          </tr>
-          <tr className="odd:bg-fill-secondary">
-            <td className="p-4 italic">{t("text-total")}:</td>
-            <td className="p-4">{total}</td>
-          </tr>
-          <tr className="odd:bg-fill-secondary">
-            <td className="p-4 italic">{t("text-note")}:</td>
-            <td className="p-4">{t("text-new-order")}</td>
-          </tr>
-        </tfoot>
-      </table>
+    <div className="container mx-auto my-8 p-8 bg-gray-100 shadow-md rounded-md">
+      <h1 className="text-3xl font-bold mb-6">Order Details</h1>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Left Column */}
+        <div>
+          <h2 className="text-xl font-semibold mb-4">Order Information</h2>
+          <p>
+            <strong>Order ID:</strong> {order.id}
+          </p>
+          <p>
+            <strong>Invoice No:</strong> {order.invoice_no}
+          </p>
+          <p>
+            <strong>Order Date:</strong>{" "}
+            {new Date(order.order_date).toLocaleString()}
+          </p>
+          {/* Render other order details */}
+          {/* ... */}
+        </div>
+
+        {/* Middle Column */}
+        <div>
+          <h2 className="text-xl font-semibold mb-4">Product Details</h2>
+          <ul>
+            {order.order_breakdown.map((item: any) => (
+              <li key={item.id} className="mb-2">
+                <strong>{item.product_name}</strong> - Quantity: {item.quantity}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Right Column */}
+        <div>
+          <h2 className="text-xl font-semibold mb-4">Customer Information</h2>
+          <p>
+            <strong>Full Name:</strong> {order.full_name}
+          </p>
+          <p>
+            <strong>Email:</strong> {order.email}
+          </p>
+          <p>
+            <strong>Phone Number:</strong> {order.phone_number}
+          </p>
+          <p>
+            <strong>Shipping Address:</strong> {order.shipping_address}
+          </p>
+          {/* Render other customer details */}
+          {/* ... */}
+        </div>
+      </div>
+
+      {/* Additional Information Section */}
+      <div className="mt-8">
+        <h2 className="text-xl font-semibold mb-4">Additional Information</h2>
+        <p>
+          <strong>Delivery Method:</strong> {order.delivery_method}
+        </p>
+        <p>
+          <strong>Payment Method:</strong> {order.payment_method}
+          <span className="border text-red-500 p-1">
+            {order.payment_completed ? "paid" : "not paid"}
+          </span>
+        </p>
+      </div>
     </div>
   );
 };
