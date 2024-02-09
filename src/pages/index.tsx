@@ -20,6 +20,7 @@ const HeroBannerCard = dynamic(
 );
 
 export default function Home() {
+  console.log(55);
   return (
     <>
       <Seo
