@@ -9,9 +9,9 @@ const ShopsPageContent: React.FC = () => {
   const { t } = useTranslation("common");
   const { data, error, isLoading } = useShopsData();
 
-  // console.log("shop", data, isLoading);
+  console.log("shop", data, isLoading, error);
 
-  if (error) return <Alert message={error} />;
+  if (error) return <Alert message={error?.message} />;
 
   if (isLoading) {
     return <p>Loading....</p>;
@@ -24,9 +24,13 @@ const ShopsPageContent: React.FC = () => {
           {t("text-all-shops")}
         </Heading>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-5 xl:gap-6">
-          {data?.map((item: Merchant) => (
-            <VendorCard key={item.id} shop={item} />
-          ))}
+          {data?.length > 0 ? (
+            data?.map((item: Merchant) => (
+              <VendorCard key={item.id} shop={item} />
+            ))
+          ) : (
+            <Alert message={error?.message} />
+          )}
         </div>
       </div>
     </div>
